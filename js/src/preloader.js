@@ -20,7 +20,10 @@ var preloader = {
         game.load.image('controlDisplay', 'assets/control-display.png');
         game.load.image('tierDisplay', 'assets/tier-display.png');
         game.load.image('stageShadow', 'assets/wholegrid.png');
-        game.load.image('mainMenu', 'assets/welcome-screen.png');
+        game.load.image('menuBackground', 'assets/welcome-bg.jpg');
+        game.load.image('menuNova', 'assets/welcome-nova.png');
+        game.load.image('menuLogo', 'assets/welcome-logo.png');
+        game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
         progressCube = 0;
         game.load.start();
 
@@ -37,7 +40,7 @@ var preloader = {
     },
 
     startGame : function(){
-        game.state.start("gameState");
+        game.state.start("menuState");
     }
 
 
