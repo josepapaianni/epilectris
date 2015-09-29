@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BlackTetris.iml" filepath="$PROJECT_DIR$/BlackTetris.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Epilectris.iml" filepath="$PROJECT_DIR$/Epilectris.iml" />
     </modules>
   </component>
 </project>
