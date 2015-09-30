@@ -138,22 +138,23 @@ function Tetris(x,y,angle){
     };
 
     this.checkTetris = function(){
-        var linesRemoved = 0;
+        var linesRemoved = [];
         for (var j=0;j<this.grid.limits.j;j++){
             if (this.checkTetrisLine(j,true)){
                 //if (j == (this.grid.pivot.j-1) && this.checkTetrisLine(j+1,true)){
                 //    this.clearAll(true);
                 //    gameState.setScore(10);
                 //} else {
-                    this.removeLine(j,true);
-                    linesRemoved++;
+                    linesRemoved.push(j);
                 //}
             }
         }
-        this.placeGrid();
-        if (linesRemoved>0){
+
+        if (linesRemoved.length>0){
+            this.removeLine(linesRemoved,true);
             gameState.setScore(linesRemoved*linesRemoved);
         }
+        //this.placeGrid();
     };
 
     this.checkTetrisLine = function(line,checkOthers){
@@ -181,29 +182,38 @@ function Tetris(x,y,angle){
         //return false;
     };
 
-    this.removeLine = function(line,checkOthers){
+    this.removeLine = function(lines,checkOthers){
+        var blocksToRemove = [];
+        var remainingBlocks = [];
+        var _self = this;
         var round = false;
-        for (var j=0;j<=line;j++){
-            for (var i=0;i<this.grid.matrix[j].length;i++){
-                if (j == line && this.grid.matrix[j][i] == -1){
-                    round = true;
-                }
-                if (this.grid.matrix[j][i] instanceof Phaser.Sprite){
-                    if (j == line){
-                        this.grid.blocks.remove(this.grid.matrix[line][i],true);
+        console.log(this.grid.matrix);
+        for (var h=0; h<lines.length; h++){
+            for (var j=0;j<=lines[h];j++){
+                for (var i=0;i<this.grid.matrix[j].length;i++){
+                    if (this.grid.matrix[j][i] instanceof Phaser.Sprite){
+                        if (j == lines[h]){
+                            //this.grid.blocks.remove(this.grid.matrix[line][i],true);
+                            blocksToRemove.push(this.grid.matrix[j][i]);
+                        } else if (this.grid.matrix[j+1][i]==-1){
+                            blocksToRemove.push(this.grid.matrix[j][i]);
+                            //this.grid.blocks.remove(this.grid.matrix[j][i],true);
+                            this.grid.matrix[j][i] = -1;
+                        } else {
+                            remainingBlocks.push(this.grid.matrix[j][i]);
+                            //this.grid.matrix[j][i].finalPosition.j++;
+
+                        }
                     } else if (this.grid.matrix[j+1][i]==-1){
-                        this.grid.blocks.remove(this.grid.matrix[j][i],true);
-                        this.grid.matrix[j][i] = -1;
-                    } else {
-                        this.grid.matrix[j][i].finalPosition.j++;
+                        this.grid.matrix[j][i]= -1;
                     }
-                } else if (this.grid.matrix[j+1][i]==-1){
-                    this.grid.matrix[j][i]= -1;
                 }
             }
         }
-        this.grid.matrix.splice(line,1);
-        this.grid.matrix.unshift(getEmptyRow(this.grid.limits.i));
+
+        this.explodeLine(lines, blocksToRemove, remainingBlocks).then(function(){
+                _self.moveRemainingBlocks(null)
+            });
 
         //if (round && checkOthers){
         //    gameState.setScore(5);
@@ -217,6 +227,38 @@ function Tetris(x,y,angle){
         //}
 
         //this.placeGrid();
+    };
+
+    this.moveRemainingBlocks = function (remainingBlocks){
+        console.log('then')
+        for (var i=0; i <remainingBlocks; i++){
+            TweenMax.to (remainingBlocks[i].sprite, 0.2, {
+                y: -50
+            });
+        }
+        //this.grid.matrix[j][i].finalPosition.j++;
+    };
+
+    this.explodeLine = function (line, blocks, remainingBlocks) {
+        var deferred = Q.defer();
+        var _self = this;
+        TweenMax.staggerTo(blocks, 0.2, {
+            alpha: 0,
+            ease:Elastic.easeOut,
+            onComplete: function(tween){
+                _self.grid.blocks.remove(tween.target,true);
+            },
+            onCompleteParams: ["{self}"]
+        }, 0.05, removeLine, [line]);
+
+        function removeLine (line) {
+            for (var i = 0; i < line.length; i++) {
+                _self.grid.matrix.splice(line[i], 1);
+                _self.grid.matrix.unshift(getEmptyRow(_self.grid.limits.i));
+            }
+            deferred.resolve()
+        }
+        return deferred.promise;
     };
 
     this.clearAll = function(checkOthers){

@@ -40,7 +40,7 @@ var preloader = {
     },
 
     startGame : function(){
-        game.state.start("menuState");
+        game.state.start("gameState");
     }
 
 
