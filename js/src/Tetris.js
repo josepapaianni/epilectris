@@ -183,6 +183,7 @@ function Tetris(x,y,angle){
     };
 
     this.removeLine = function(lines,checkOthers){
+        var deferred = Q.defer();
         var blocksToRemove = [];
         var remainingBlocks = [];
         var _self = this;
@@ -200,9 +201,7 @@ function Tetris(x,y,angle){
                             //this.grid.blocks.remove(this.grid.matrix[j][i],true);
                             this.grid.matrix[j][i] = -1;
                         } else {
-                            remainingBlocks.push(this.grid.matrix[j][i]);
-                            //this.grid.matrix[j][i].finalPosition.j++;
-
+                            remainingBlocks.push({sprite: this.grid.matrix[j][i],position:this.grid.matrix[j][i].finalPosition.j++});
                         }
                     } else if (this.grid.matrix[j+1][i]==-1){
                         this.grid.matrix[j][i]= -1;
@@ -210,9 +209,11 @@ function Tetris(x,y,angle){
                 }
             }
         }
-
+        remainingBlocks = _.uniq(remainingBlocks, function (item, key, sprite) {
+            return item.sprite;
+        });
         this.explodeLine(lines, blocksToRemove, remainingBlocks).then(function(){
-                _self.moveRemainingBlocks(null)
+                _self.moveRemainingBlocks(remainingBlocks);
             });
 
         //if (round && checkOthers){
@@ -230,10 +231,18 @@ function Tetris(x,y,angle){
     };
 
     this.moveRemainingBlocks = function (remainingBlocks){
-        console.log('then')
-        for (var i=0; i <remainingBlocks; i++){
-            TweenMax.to (remainingBlocks[i].sprite, 0.2, {
-                y: -50
+        console.log(remainingBlocks)
+        for (var i=0;i<remainingBlocks.length;i++){
+            var advance = (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * 20;
+            console.log(advance);
+            TweenMax.to(remainingBlocks[i].sprite,0.2,{
+                y: remainingBlocks[i].sprite.y + advance,
+                delay: 0.015 * [i],
+                ease: Power3.easeIn
+                //onComplete: function (obj) {
+                //    obj.target.finalPosition.j++;
+                //},
+                //onCompleteParams: ["{self}"]
             });
         }
         //this.grid.matrix[j][i].finalPosition.j++;
@@ -242,7 +251,7 @@ function Tetris(x,y,angle){
     this.explodeLine = function (line, blocks, remainingBlocks) {
         var deferred = Q.defer();
         var _self = this;
-        TweenMax.staggerTo(blocks, 0.2, {
+        TweenMax.staggerTo(blocks, 0.15, {
             alpha: 0,
             ease:Elastic.easeOut,
             onComplete: function(tween){
