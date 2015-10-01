@@ -232,14 +232,19 @@ function Tetris(x,y,angle){
         //this.placeGrid();
     };
 
+
     this.moveRemainingBlocks = function (remainingBlocks){
-        console.log(remainingBlocks)
+        var angle = this.angle*(Math.PI/180);
         for (var i=0;i<remainingBlocks.length;i++){
-            var advance = (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * 20;
+            var advance = {
+                y: (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * 20,
+                x: 0
+            }
             console.log(advance);
             TweenMax.to(remainingBlocks[i].sprite,0.2,{
                 //finalPosition: remainingBlocks[i].position,
-                y: remainingBlocks[i].sprite.y + advance,
+                x: remainingBlocks[i].sprite.x + Math.cos(angle)*advance.x - Math.sin(angle)*advance.y,
+                y: remainingBlocks[i].sprite.y + Math.cos(angle)*advance.y - Math.sin(angle)*advance.x,
                 delay: 0.015 * [i],
                 ease: Power3.easeIn
                 //onComplete: function (obj) {
