@@ -7,7 +7,7 @@ var gameState = {
     create: function() {
 
         setupInput();
-        filter = new Filter();
+        //filter = new Filter();
         pauseWindow = game.add.sprite(0,0,"stageShadow");
         pauseWindow.alpha = 0.8;
         pauseWindow.visible = false;
@@ -64,7 +64,7 @@ var gameState = {
     },
 
     update: function() {
-        filter.update();
+        //filter.update();
         var tetris = tetrises[currentTetris];
         _.each(keys, function(direction){
 

@@ -213,7 +213,9 @@ function Tetris(x,y,angle){
             return item.sprite;
         });
         this.explodeLine(lines, blocksToRemove, remainingBlocks).then(function(){
-                _self.moveRemainingBlocks(remainingBlocks);
+                _self.moveRemainingBlocks(remainingBlocks).then(function(){
+
+                })
             });
 
         //if (round && checkOthers){
@@ -236,6 +238,7 @@ function Tetris(x,y,angle){
             var advance = (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * 20;
             console.log(advance);
             TweenMax.to(remainingBlocks[i].sprite,0.2,{
+                //finalPosition: remainingBlocks[i].position,
                 y: remainingBlocks[i].sprite.y + advance,
                 delay: 0.015 * [i],
                 ease: Power3.easeIn
@@ -253,7 +256,13 @@ function Tetris(x,y,angle){
         var _self = this;
         TweenMax.staggerTo(blocks, 0.15, {
             alpha: 0,
-            ease:Elastic.easeOut,
+            onStart: function (tween) {
+                TweenMax.to(tween.target.scale, 0.15,{
+                    x: 2,
+                    y: 2
+                })
+            },
+            onStartParams: ["{self}"],
             onComplete: function(tween){
                 _self.grid.blocks.remove(tween.target,true);
             },
