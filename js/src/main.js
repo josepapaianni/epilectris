@@ -1,11 +1,16 @@
+var games = [];
+var gamesManager = new GamesManager();
+var viewPortManager = new ViewPortManager();
+viewPortManager.createFaces();
 
+for (var i = 0; i < 4; i++){
 
-var game = new Phaser.Game(960,640, Phaser.AUTO, "game");
+    games.push(new Phaser.Game(300,500, Phaser.CANVAS, "cube-viewport-"+i));
 
-game.state.add("gameState", gameState);
-game.state.add("menuState", menuState);
-game.state.add("preloader", preloader);
+    games[i].state.add("gameState", gameState);
+    //games[i].state.add("menuState", menuState);
+    games[i].state.add("preloader", preloader);
+    games[i].state.start("preloader");
+}
 
-
-game.state.start("preloader");
 

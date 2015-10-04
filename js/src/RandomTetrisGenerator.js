@@ -64,10 +64,9 @@ var pieces = [
     }
 ];
 
-function RandomTetrisGenerator(x,y){
-
+function RandomTetrisGenerator(x,y,game){
     this.bag = _.range(7);
-    this.pieceDisplay = new PieceDisplay(x,y);
+    //this.pieceDisplay = new PieceDisplay(x,y,game);
 
     this.shuffle = function(){
         this.bag = _.shuffle(this.bag);
@@ -80,7 +79,7 @@ function RandomTetrisGenerator(x,y){
         }
         this.bagIndex++;
         this.nextPiece = pieces[this.bag[this.bagIndex]];
-        this.pieceDisplay.showPiece(this.nextPiece);
+        //this.pieceDisplay.showPiece(this.nextPiece);
     };
 
     this.getNextPiece = function(){

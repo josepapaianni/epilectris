@@ -32,7 +32,7 @@ function getDirectionWithAngle(direction,angle){
     }
 }
 
-function setupInput(wasd){
+function setupInput(wasd, game){
     if (!wasd){
         cursors = game.input.keyboard.createCursorKeys();
         cursors.rotateRight = game.input.keyboard.addKey(Phaser.Keyboard.X);

@@ -2,10 +2,10 @@
  * Created by luna on 10/09/15.
  */
 
-function PieceHold(x,y){
+function PieceHold(x,y,game){
     this.pieceHeld = null;
     this.lastPiece = null;
-    this.pieceDisplay = new PieceDisplay(x,y);
+    this.pieceDisplay = new PieceDisplay(x,y,game);
     this.locked = false;
 
     this.hold = function(piece){

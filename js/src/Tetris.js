@@ -2,7 +2,8 @@
  * Created by luna on 04/09/15.
  */
 
-function Tetris(x,y,angle){
+function Tetris(x,y,angle,game){
+    console.log(game);
 
     this.movePiece = function(direction){
         //this.stopTimeOut();
@@ -132,7 +133,7 @@ function Tetris(x,y,angle){
             }
         }
         this.current.sprites.moveAll(this.grid.blocks);
-        hold.unlock();
+        //hold.unlock();
         this.placeGrid();
         this.checkTetris();
     };
@@ -213,6 +214,7 @@ function Tetris(x,y,angle){
             return item.sprite;
         });
         this.explodeLine(lines, blocksToRemove, remainingBlocks).then(function(){
+                gamesManager.randomGame();
                 _self.moveRemainingBlocks(remainingBlocks).then(function(){
 
                 })
@@ -304,7 +306,7 @@ function Tetris(x,y,angle){
     };
 
     this.changePiece = function(piece){
-        var newPiece = piece ? piece : randomGenerator.getNextPiece();
+        var newPiece = piece ? piece : game.randomGenerator.getNextPiece();
         this.current = {
             piece: newPiece,
             matrix: copyMatrix(newPiece.rotations[0]),
@@ -388,7 +390,7 @@ function Tetris(x,y,angle){
     this.grid = {
         limits : {i:9,j:14},
         matrix: getPlainMatrix(9,14,0),
-        sprite: grids.create(this.x,this.y,"grid"),
+        sprite: game.grids.create(this.x,this.y,"grid"),
         blocks: game.add.group()
     };
     this.startOffset = {i:Math.floor(this.grid.limits.i/2),j:0};
@@ -409,7 +411,8 @@ function Tetris(x,y,angle){
             this.grid.blocks.setAll("alpha",0.2);
             this.current.sprites.setAll("alpha",0.2);
             this.current.shadow.removeAll();
-            gameState.changeTetris();
+            gameState.changeTetris(game);
+            //console.log(game);
         }, this);
     };
 

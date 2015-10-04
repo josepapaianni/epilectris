@@ -2,7 +2,7 @@
  * Created by luna on 10/09/15.
  */
 
-function ScoreDisplay(x,y){
+function ScoreDisplay(x,y,game){
     this.display = game.add.sprite(x,y,"pieceDisplay");
     this.display.anchor.set(0.5,0.5);
     this.display.alpha = 0.7;

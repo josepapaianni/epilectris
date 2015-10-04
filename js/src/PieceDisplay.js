@@ -2,7 +2,8 @@
  * Created by luna on 10/09/15.
  */
 
-function PieceDisplay(x,y){
+function PieceDisplay(x,y,game){
+    var game = game;
     this.display = game.add.sprite(x,y,"pieceDisplay");
     this.display.anchor.set(0.5,0.5);
     this.display.alpha = 0.7;
