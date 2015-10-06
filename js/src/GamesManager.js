@@ -5,13 +5,13 @@ var GamesManager = function () {
     this.activeGame = 0;
 
     this.randomGame = function () {
-        var randomizer = -90 + 90 * Math.floor(Math.random()*1);
-        viewPortManager.rotateView(randomizer);
+        var randomizer = Math.floor(Math.random()*4);
+        viewPortManager.cubeToActiveGame(randomizer);
 
-        this.activateGame = viewPortManager.activeFace;
+        this.activeGame = viewPortManager.activeFace;
 
         for (var i = 0; i < games.length; i++){
-            if (i != this.activateGame){
+            if (i != this.activeGame){
                 games[i].paused = true;
             } else {
                 games[i].paused = false;

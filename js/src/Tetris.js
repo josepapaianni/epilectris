@@ -242,7 +242,6 @@ function Tetris(x,y,angle,game){
                 y: (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * 20,
                 x: 0
             }
-            console.log(advance);
             TweenMax.to(remainingBlocks[i].sprite,0.2,{
                 //finalPosition: remainingBlocks[i].position,
                 x: remainingBlocks[i].sprite.x + Math.cos(angle)*advance.x - Math.sin(angle)*advance.y,

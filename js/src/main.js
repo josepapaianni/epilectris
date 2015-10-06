@@ -5,7 +5,7 @@ viewPortManager.createFaces();
 
 for (var i = 0; i < 4; i++){
 
-    games.push(new Phaser.Game(300,500, Phaser.CANVAS, "cube-viewport-"+i));
+    games.push(new Phaser.Game(300,500, Phaser.AUTO, "cube-viewport-"+i));
 
     games[i].state.add("gameState", gameState);
     //games[i].state.add("menuState", menuState);
