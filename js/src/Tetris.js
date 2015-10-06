@@ -97,7 +97,7 @@ function Tetris(x,y,angle,game){
         if (j<=this.grid.limits.j){
             this.current.sprites.forEach(function(piece){
                 var shadow = this.current.shadow.create(0,0,"shadow");
-                shadow.anchor.set(0.5,0.5);
+                shadow.anchor.set(0,0.5);
                 shadow.offset = piece.offset;
             },this);
             this.placePiece(this.current.shadow,{i:this.current.position.i,j:j-1});
@@ -216,7 +216,9 @@ function Tetris(x,y,angle,game){
         this.explodeLine(lines, blocksToRemove, remainingBlocks).then(function(){
                 gamesManager.randomGame();
                 _self.moveRemainingBlocks(remainingBlocks).then(function(){
-
+                    console.log("End moving remaining blocks");
+                    _self.grid.alphaTween.resume();
+                    _self.paused = false;
                 })
             });
 
@@ -236,28 +238,31 @@ function Tetris(x,y,angle,game){
 
 
     this.moveRemainingBlocks = function (remainingBlocks){
+        var deferred = Q.defer();
         var angle = this.angle*(Math.PI/180);
         for (var i=0;i<remainingBlocks.length;i++){
             var advance = {
                 y: (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * gridSize,
                 x: 0
-            }
+            };
             TweenMax.to(remainingBlocks[i].sprite,0.2,{
                 //finalPosition: remainingBlocks[i].position,
                 x: remainingBlocks[i].sprite.x + Math.cos(angle)*advance.x - Math.sin(angle)*advance.y,
                 y: remainingBlocks[i].sprite.y + Math.cos(angle)*advance.y - Math.sin(angle)*advance.x,
                 delay: 0.015 * [i],
-                ease: Power3.easeIn
-                //onComplete: function (obj) {
-                //    obj.target.finalPosition.j++;
-                //},
-                //onCompleteParams: ["{self}"]
+                ease: Power3.easeIn,
+                onComplete: function(){
+                    deferred.resolve()
+                }
             });
         }
+        return deferred.promise;
         //this.grid.matrix[j][i].finalPosition.j++;
     };
 
     this.explodeLine = function (line, blocks, remainingBlocks) {
+        this.grid.alphaTween.pause();
+        this.paused = true;
         var deferred = Q.defer();
         var _self = this;
         TweenMax.staggerTo(blocks, 0.15, {
@@ -319,7 +324,7 @@ function Tetris(x,y,angle,game){
             for (var i=0;i<this.current.matrix[j].length;i++){
                 if (this.current.matrix[j][i]>0){
                     var sprite = this.current.sprites.create(0,0,"pieces",newPiece.colour);
-                    sprite.anchor.set(0.5,0.5);
+                    sprite.anchor.set(0,0.5);
                     sprite.offset = {i:i-this.current.pivot.i,j:j-this.current.pivot.j};
                 }
             }
@@ -387,8 +392,8 @@ function Tetris(x,y,angle,game){
 
 
     this.grid = {
-        limits : {i:9,j:14},
-        matrix: getPlainMatrix(9,14,0),
+        limits : {i:10,j:20},
+        matrix: getPlainMatrix(10,20,0),
         sprite: game.grids.create(this.x,this.y-25,"grid"),
         blocks: game.add.group()
     };
@@ -398,6 +403,7 @@ function Tetris(x,y,angle,game){
     this.grid.sprite.pivot.set(this.grid.sprite.width/2,this.grid.sprite.height-40);
     this.grid.sprite.offset = {x:0,y:0};
     //this.grid.sprite.visible = false;
+    this.paused = false;
     this.grid.sprite.alpha = 0.2;
     this.startTimeOut = function(){
         this.placeShadow();

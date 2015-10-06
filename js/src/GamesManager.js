@@ -5,8 +5,8 @@ var GamesManager = function () {
     this.activeGame = 0;
 
     this.randomGame = function () {
-        var randomizer = Math.floor(Math.random()*4);
-        viewPortManager.cubeToActiveGame(randomizer);
+        //var randomizer = Math.floor(Math.random()*4);
+        viewPortManager.cubeToActiveGame((this.activeGame+1)%4);
 
         this.activeGame = viewPortManager.activeFace;
 

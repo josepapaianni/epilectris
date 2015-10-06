@@ -47,7 +47,7 @@ var ViewPortManager = function () {
     this.cubeToActiveGame = function (activeGame){
         this.activeFace = activeGame;
         gamesManager.activeGame = this.activeFace;
-        this.actualCubeRotation.y = 360 - activeGame * 90;
+        this.actualCubeRotation.y -= 90;
         TweenMax.to(this.cube[0], 1,{
             rotationY: this.actualCubeRotation.y,
             ease: Back.easeOut.config(1.3)

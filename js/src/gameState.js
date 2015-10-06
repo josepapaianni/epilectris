@@ -29,7 +29,7 @@ var gameState = {
         game.currentTetris = 0;
 
         game.randomGenerator = new RandomTetrisGenerator(this.game.width-80,80,game);
-        game.tetrises = [new Tetris(this.game.world.centerX,this.game.world.centerY+225,0,game)];
+        game.tetrises = [new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game)];
         game.tetrises[game.currentTetris].startTimeOut();
 
         if (this.game.id != gamesManager.activeGame) {
@@ -76,7 +76,7 @@ var gameState = {
         //filter.update();
         var tetris = game.tetrises[game.currentTetris];
 
-        if (gamesManager.activeGame === game.id){
+        if (gamesManager.activeGame === game.id && !tetris.paused){
             _.each(keys, function(direction){
 
                 var actualDirection = direction == "up" ? "rotateRight" : direction;
