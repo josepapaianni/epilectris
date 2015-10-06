@@ -2,8 +2,9 @@
  * Created by luna on 9/29/15.
  */
 
-var preloader = {
-    preload : function(){
+var Preloader = function (game) {
+    this.game = game;
+    this.preload = function(){
         this.game.load.image('shadow', 'assets/glow-white-30.png');
 
         this.game.load.image('grid','assets/background-green-glow.png');
@@ -17,9 +18,9 @@ var preloader = {
         this.game.load.image('menuLogo', 'assets/welcome-logo.png');
         this.game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
         this.game.load.image('backgroundImage', 'assets/background-face.jpg');
-    },
+    };
 
-    create : function(){
+    this.create = function() {
         this.game.scale.pageAlignHorizontally = true;
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
@@ -29,25 +30,17 @@ var preloader = {
         progressCube = 0;
         this.game.load.start();
 
-    },
+    };
 
-    showProgress : function(progress, cacheKey, success, totalLoaded, totalFiles){
-        //if (progress > progressCube*10){
-        //    var cube = this.game.add.sprite(this.game.world.centerX-130+progressCube*26,this.game.world.centerY,"shadow");
-        //    cube.anchor.set(0.5,0.5);
-        //    cube.alpha = 0;
-        //    this.game.add.tween(cube).to({alpha:1},1000,Phaser.Easing.Default,true);
-        //    progressCube++;
-        //}
-    },
+    this.showProgress = function(progress, cacheKey, success, totalLoaded, totalFiles){
+        console.log(progress)
+    };
 
-    startGame : function(){
+    this.startGame = function(){
         //if (this.game.id === 0) {
         this.game.state.start("gameState");
         //}
     }
 
-
-
-}
+};
 
