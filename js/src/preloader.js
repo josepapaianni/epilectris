@@ -4,7 +4,19 @@
 
 var preloader = {
     preload : function(){
-        this.game.load.image('shadow', 'assets/glow-white.png');
+        this.game.load.image('shadow', 'assets/glow-white-30.png');
+
+        this.game.load.image('grid','assets/background-green-glow.png');
+        this.game.load.spritesheet('pieces', 'assets/glow-30.png',30,30);
+        this.game.load.image('pieceDisplay', 'assets/pieceDisplay-red.png');
+        this.game.load.image('controlDisplay', 'assets/control-display.png');
+        this.game.load.image('tierDisplay', 'assets/tier-display.png');
+        this.game.load.image('stageShadow', 'assets/wholegrid.png');
+        this.game.load.image('menuBackground', 'assets/welcome-bg.jpg');
+        this.game.load.image('menuNova', 'assets/welcome-nova.png');
+        this.game.load.image('menuLogo', 'assets/welcome-logo.png');
+        this.game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
+        this.game.load.image('backgroundImage', 'assets/background-face.jpg');
     },
 
     create : function(){
@@ -14,16 +26,6 @@ var preloader = {
         this.game.load.onFileComplete.add(this.showProgress, this);
         this.game.load.onLoadComplete.add(this.startGame, this);
 
-        this.game.load.image('grid', 'assets/light-grid.png');
-        this.game.load.spritesheet('pieces', 'assets/glow.png',26,26);
-        this.game.load.image('pieceDisplay', 'assets/pieceDisplay-red.png');
-        this.game.load.image('controlDisplay', 'assets/control-display.png');
-        this.game.load.image('tierDisplay', 'assets/tier-display.png');
-        this.game.load.image('stageShadow', 'assets/wholegrid.png');
-        this.game.load.image('menuBackground', 'assets/welcome-bg.jpg');
-        this.game.load.image('menuNova', 'assets/welcome-nova.png');
-        this.game.load.image('menuLogo', 'assets/welcome-logo.png');
-        this.game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
         progressCube = 0;
         this.game.load.start();
 

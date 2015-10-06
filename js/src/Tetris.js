@@ -239,7 +239,7 @@ function Tetris(x,y,angle,game){
         var angle = this.angle*(Math.PI/180);
         for (var i=0;i<remainingBlocks.length;i++){
             var advance = {
-                y: (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * 20,
+                y: (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * gridSize,
                 x: 0
             }
             TweenMax.to(remainingBlocks[i].sprite,0.2,{
@@ -338,8 +338,8 @@ function Tetris(x,y,angle,game){
                 i: (piece.finalPosition ? piece.finalPosition.i : position.i+piece.offset.i)-this.grid.pivot.i,
                 j: (piece.finalPosition ? piece.finalPosition.j : position.j+piece.offset.j)-this.grid.pivot.j
             };
-            piece.x = this.x + Math.cos(angle)*place.i*20 - Math.sin(angle)*place.j*20;
-            piece.y = this.y + Math.cos(angle)*place.j*20 + Math.sin(angle)*place.i*20;
+            piece.x = this.x + Math.cos(angle)*place.i*gridSize - Math.sin(angle)*place.j*gridSize;
+            piece.y = this.y + Math.cos(angle)*place.j*gridSize + Math.sin(angle)*place.i*gridSize;
         },this);
         spritesGroup.setAll("angle",this.angle);
     };
@@ -352,8 +352,8 @@ function Tetris(x,y,angle,game){
                 j: block.finalPosition.j-this.grid.pivot.j
             };
             block.angle = this.angle;
-            block.x = this.x + Math.cos(angle)*place.i*20 - Math.sin(angle)*place.j*20;
-            block.y = this.y + Math.cos(angle)*place.j*20 + Math.sin(angle)*place.i*20;
+            block.x = this.x + Math.cos(angle)*place.i*gridSize - Math.sin(angle)*place.j*gridSize;
+            block.y = this.y + Math.cos(angle)*place.j*gridSize + Math.sin(angle)*place.i*gridSize;
         },this);
     };
 
@@ -376,8 +376,8 @@ function Tetris(x,y,angle,game){
     };
     this.setPositionWithAngle = function(){
         var angle = this.angle*(Math.PI/180);
-        this.x = this.originalPosition.x + Math.sin(angle)*20;
-        this.y = this.originalPosition.y - Math.cos(angle)*20;
+        this.x = this.originalPosition.x + Math.sin(angle)*gridSize;
+        this.y = this.originalPosition.y - Math.cos(angle)*gridSize;
     };
 
     this.angle = angle;
@@ -389,7 +389,7 @@ function Tetris(x,y,angle,game){
     this.grid = {
         limits : {i:9,j:14},
         matrix: getPlainMatrix(9,14,0),
-        sprite: game.grids.create(this.x,this.y,"grid"),
+        sprite: game.grids.create(this.x,this.y-25,"grid"),
         blocks: game.add.group()
     };
     this.startOffset = {i:Math.floor(this.grid.limits.i/2),j:0};

@@ -62,4 +62,6 @@ var levels = [
     }
 ];
 
-var grid = {x:20,y:20};
+var grid = {x:30,y:30};
+
+var gridSize = 30;

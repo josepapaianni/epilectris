@@ -6,6 +6,7 @@ var gameState = {
     create: function() {
         setupInput(null, this.game);
         var game = this.game;
+        var backgroundImage = this.game.add.sprite(0,0,'backgroundImage');
         game.stage.backgroundColor = '#000000'
         //filter = new Filter();
         pauseWindow = game.add.sprite(0,0,"stageShadow");
@@ -28,7 +29,7 @@ var gameState = {
         game.currentTetris = 0;
 
         game.randomGenerator = new RandomTetrisGenerator(this.game.width-80,80,game);
-        game.tetrises = [new Tetris(this.game.world.centerX,this.game.world.centerY+100,0,game)];
+        game.tetrises = [new Tetris(this.game.world.centerX,this.game.world.centerY+225,0,game)];
         game.tetrises[game.currentTetris].startTimeOut();
 
         if (this.game.id != gamesManager.activeGame) {
@@ -45,13 +46,15 @@ var gameState = {
         //    controlDisplay.anchor.set(0.5,0.5);
         //}
 
-        var style = { font: "Orbitron",fontSize:20, fill: "#991b1e", align: "center" };
-        var credits = this.game.add.text(this.game.world.centerX,this.game.height-15,"developed by: LunaFromTheMoon",style);
-        credits.anchor.set(0.5,0.5);
 
-        var credits = this.game.add.text(this.game.world.centerX,this.game.height*2/3,"CONTROLS \n ⇦⇩⇨ move \n Z rotate left - ⇧ X rotate right \n C hold - SPACEBAR drop \n P pause - L cheat",style);
-        credits.anchor.set(0.5,0.5);
-        this.game.add.tween(credits).to({alpha:0},3000,Phaser.Easing.Default,true,2500);
+        //
+        //var style = { font: "Orbitron",fontSize:20, fill: "#991b1e", align: "center" };
+        //var credits = this.game.add.text(this.game.world.centerX,this.game.height-15,"developed by: LunaFromTheMoon",style);
+        //credits.anchor.set(0.5,0.5);
+        //
+        //var credits = this.game.add.text(this.game.world.centerX,this.game.height*2/3,"CONTROLS \n ⇦⇩⇨ move \n Z rotate left - ⇧ X rotate right \n C hold - SPACEBAR drop \n P pause - L cheat",style);
+        //credits.anchor.set(0.5,0.5);
+        //this.game.add.tween(credits).to({alpha:0},3000,Phaser.Easing.Default,true,2500);
 
         //this.game.input.onDown.add(this.unPauseGame,this);
     },

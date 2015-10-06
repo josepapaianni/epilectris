@@ -52,6 +52,14 @@ var ViewPortManager = function () {
             rotationY: this.actualCubeRotation.y,
             ease: Back.easeOut.config(1.3)
         });
+
+        var domGlow = document.getElementById('glow-explosion');
+        TweenMax.to (domGlow, 0.5, {
+            autoAlpha: 1,
+            repeat: 1,
+            yoyo: true
+        })
+
     };
 
     this.getActiveFace = function(){
