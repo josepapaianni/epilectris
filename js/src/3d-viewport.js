@@ -3,16 +3,25 @@ var ViewPortManager = function () {
     this.actualCubeRotation = {x: 0, y: 0, z: 0};
     this.activeFace = 0;
     this.cube = document.getElementsByClassName('cube');
+    this.bCube = document.getElementsByClassName('b-cube');
     this.createFaces = function () {
         //var container = document.getElementById('container');
         //TweenMax.set(container, {
         //    z: -400
         //});
         var face = document.getElementsByClassName('cube-viewport');
+        var faceb = document.getElementsByClassName('b-cube-viewport');
+        console.log(face);
+        console.log(faceb);
 
         for (var i = 0; i < 4; i++){
             face[i].id = 'cube-viewport-'+i;
             this.faces.push({face: i, rotation: -i*90, originalRotationAngle: -i*90, zindex: 360-i});
+            //container.appendChild(face);
+        }
+        for (var j = 0; j < 4; j++){
+            faceb[j].id = 'b-cube-viewport-'+(j+4);
+            this.faces.push({face: j, rotation: -j*90, originalRotationAngle: -j*90, zindex: 360-j});
             //container.appendChild(face);
         }
     };
@@ -48,7 +57,7 @@ var ViewPortManager = function () {
         gamesManager.activeGame = this.activeFace;
         this.actualCubeRotation.y -= 90;
         this.actualCubeRotation.z -= 15;
-        TweenMax.to(this.cube[0], 1,{
+        TweenMax.to([this.cube[0], this.bCube[0]] , 1,{
             rotationY: this.actualCubeRotation.y,
             rotationZ: this.actualCubeRotation.z,
             ease: Back.easeOut.config(1.3)

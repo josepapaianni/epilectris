@@ -16,7 +16,7 @@ canvas{
     margin: auto;
     background-image: url(./assets/welcome-bg.jpg);
     background-size: 100% 100%;
-    z-index: -100;
+    z-index: -1000;
 
 }
 #glow-explosion{
@@ -32,7 +32,18 @@ canvas{
 
 
 .cube {
-     left: 315px;
+     left: 150px;
+     width: 360px;
+     top: 10px;
+     height: 660px;
+     position: absolute;
+     perspective: -600px;
+     transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+    backface-visibility: hidden;
+}
+.b-cube {
+     left: 550px;
      width: 360px;
      top: 10px;
      height: 660px;
@@ -46,7 +57,6 @@ canvas{
     width: inherit;
     height: inherit;
     position: absolute;
-    background: red;
     margin: 0!important
 }
 .cube-face-front {
@@ -71,6 +81,38 @@ canvas{
     transform: rotateX(90deg) translate3d(0, 0,150px);
 }
 .cube-face-bottom {
+    height: 300px;
+    background: red;
+    transform: rotateX(-90deg) translate3d(0, 0,350px);
+}
+.b-cube-face {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    margin: 0!important
+}
+.b-cube-face-front {
+    background: yellow;
+    transform: translate3d(0, 0,150px);
+}
+.b-cube-face-back {
+    background: orange;
+    transform: rotateY(180deg) translate3d(0, 0,150px);
+}
+.b-cube-face-left {
+    background: green;
+    transform: rotateY(-90deg) translate3d(0, 0,150px);
+}
+.b-cube-face-right {
+    background: magenta;
+    transform: rotateY(90deg) translate3d(0, 0,150px);
+}
+.b-cube-face-top {
+    height: 300px;
+    background: blue;
+    transform: rotateX(90deg) translate3d(0, 0,150px);
+}
+.b-cube-face-bottom {
     height: 300px;
     background: red;
     transform: rotateX(-90deg) translate3d(0, 0,350px);

@@ -1,9 +1,10 @@
 /**
  * Created by luna on 9/29/15.
  */
-var gameState = {
+var GameState = function (game) {
+    this.game = game;
 
-    create: function() {
+    this.create = function() {
         setupInput(null, this.game);
         var game = this.game;
         var backgroundImage = this.game.add.sprite(0,0,'backgroundImage');
@@ -31,12 +32,16 @@ var gameState = {
         game.randomGenerator = new RandomTetrisGenerator(this.game.width-80,80,game);
         game.tetrises = [
             new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game),
-            new Tetris(this.game.world.centerX,gridSize/2,180,game),
+            new Tetris(this.game.world.centerX,gridSize/2,180,game)
         ];
         game.tetrises[game.currentTetris].startTimeOut();
 
-        if (this.game.id != gamesManager.activeGame) {
-            this.game.paused = true;
+        console.log(gamesManager.activeGame != this.game.id);
+
+        if (game.id == gamesManager.activeGame || game.id == (gamesManager.activeGame + 4)) {
+            game.paused = false;
+        } else {
+            game.paused = true;
         }
 
 
@@ -60,26 +65,26 @@ var gameState = {
         //this.game.add.tween(credits).to({alpha:0},3000,Phaser.Easing.Default,true,2500);
 
         //this.game.input.onDown.add(this.unPauseGame,this);
-    },
+    };
 
-    pauseGame: function(){
+    this.pauseGame = function(){
         this.game.paused = true;
         pauseWindow.visible = true;
         pauseWindow.bringToTop();
-    },
+    };
 
-    unPauseGame: function(){
+    this.unPauseGame = function(){
         if (this.game.paused){
             this.game.paused = false;
             pauseWindow.visible = false;
         }
-    },
+    };
 
-    update: function(game) {
+    this.update = function(game) {
         //filter.update();
         var tetris = game.tetrises[game.currentTetris];
 
-        if (gamesManager.activeGame === game.id && !tetris.paused){
+        if (gamesManager.activeGame === game.id){
             _.each(keys, function(direction){
 
                 var actualDirection = direction == "up" ? "rotateRight" : direction;
@@ -127,14 +132,14 @@ var gameState = {
             }
         }
 
-    },
+    };
 
-    changeTetris2: function(game){
+    this.changeTetris2 = function(game){
         game.currentTetris = (game.currentTetris+1)%game.tetrises.length;
         game.tetrises[game.currentTetris].startTimeOut();
-    },
+    };
 
-    changeTetris: function(game){
+    this.changeTetris = function(game){
         //lockAllKeys();
         //if (levelConfig.changeAngle || !(game.tetrises[game.currentTetris].angle%45==0)) {
         //    _.each(game.tetrises, function (tetris) {
@@ -157,18 +162,18 @@ var gameState = {
         }
         game.tetrises[game.currentTetris].startTimeOut();
         counter++;
-    },
+    };
 
-    setScore: function(point){
+    this.setScore = function(point){
         //score.addScore(point);
         //linesLeft.addScore(-point);
         shakeWorld = 10;
         //if (linesLeft.score < 0){
         //    this.changeLevel();
         //}
-    },
+    };
 
-    changeLevel: function(){
+    this.changeLevel = function(){
         currentLevel++;
         if (currentLevel > levelConfig.maxLevels){
             currentLevel = 0;
@@ -179,9 +184,9 @@ var gameState = {
             currentSpeed -= 250;
         }
         linesLeft.setScore(levelConfig.toNextLevel);
-    },
+    };
 
-    render: function(){
+    this.render = function(){
         //this.game.debug.text('Position  : ' + tetris.current.position.i+" "+tetris.current.position.j, 16, 24);
 
         //for (var i=0;i<tetrises[currentTetris].grid.matrix[0].length;i++){

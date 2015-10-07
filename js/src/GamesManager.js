@@ -11,10 +11,10 @@ var GamesManager = function () {
         this.activeGame = viewPortManager.activeFace;
 
         for (var i = 0; i < games.length; i++){
-            if (i != this.activeGame){
-                games[i].paused = true;
-            } else {
+            if (i == this.activeGame || i == this.activeGame+4 ){
                 games[i].paused = false;
+            } else {
+                games[i].paused = true;
             }
         }
 

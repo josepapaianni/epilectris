@@ -417,7 +417,7 @@ function Tetris(x,y,angle,game){
             this.grid.blocks.setAll("alpha",0.2);
             this.current.sprites.setAll("alpha",0.2);
             this.current.shadow.removeAll();
-            gameState.changeTetris(game);
+            game.state.states.gameState.changeTetris(game);
             //console.log(game);
         }, this);
     };
