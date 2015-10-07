@@ -29,7 +29,10 @@ var gameState = {
         game.currentTetris = 0;
 
         game.randomGenerator = new RandomTetrisGenerator(this.game.width-80,80,game);
-        game.tetrises = [new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game)];
+        game.tetrises = [
+            new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game),
+            new Tetris(this.game.world.centerX,gridSize/2,180,game),
+        ];
         game.tetrises[game.currentTetris].startTimeOut();
 
         if (this.game.id != gamesManager.activeGame) {
@@ -126,23 +129,31 @@ var gameState = {
 
     },
 
+    changeTetris2: function(game){
+        game.currentTetris = (game.currentTetris+1)%game.tetrises.length;
+        game.tetrises[game.currentTetris].startTimeOut();
+    },
+
     changeTetris: function(game){
         //lockAllKeys();
-        if (levelConfig.changeAngle || !(game.tetrises[game.currentTetris].angle%45==0)) {
-            _.each(game.tetrises, function (tetris) {
-                tetris.changeAngle();
-            });
-        }
-        if (levelConfig.continuousRotation || levelConfig.changeStageAngle && (tetrises[currentTetris].angle%levelConfig.changeStageAngle)==0){
-            var prev = currentTetris;
-            if (levelConfig.nextTetrisRandom){
-                currentTetris = this.game.rnd.integerInRange(0,tetrises.length-1);
-            } else {
-                currentTetris = (currentTetris+1)%tetrises.length;
-            }
-            if (tetrises[currentTetris].angle != 0 && tetrises.length < levelConfig.maxStages && tetrises[prev].angle==(360-levelConfig.changeStageAngle)){
-                tetrises.splice(currentTetris, 0, new Tetris(this.game.world.centerX,this.game.world.centerY,0));
-            }
+        //if (levelConfig.changeAngle || !(game.tetrises[game.currentTetris].angle%45==0)) {
+        //    _.each(game.tetrises, function (tetris) {
+        //        tetris.changeAngle();
+        //    });
+        //}
+        //if (levelConfig.continuousRotation || levelConfig.changeStageAngle && (tetrises[currentTetris].angle%levelConfig.changeStageAngle)==0){
+        //    var prev = currentTetris;
+        //    if (levelConfig.nextTetrisRandom){
+        //        currentTetris = this.game.rnd.integerInRange(0,tetrises.length-1);
+        //    } else {
+        //        currentTetris = (currentTetris+1)%tetrises.length;
+        //    }
+        //    if (tetrises[currentTetris].angle != 0 && tetrises.length < levelConfig.maxStages && tetrises[prev].angle==(360-levelConfig.changeStageAngle)){
+        //        tetrises.splice(currentTetris, 0, new Tetris(this.game.world.centerX,this.game.world.centerY,0));
+        //    }
+        //}
+        if (counter%5 == 0){
+            game.currentTetris = (game.currentTetris+1)%game.tetrises.length;
         }
         game.tetrises[game.currentTetris].startTimeOut();
         counter++;

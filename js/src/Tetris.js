@@ -214,11 +214,12 @@ function Tetris(x,y,angle,game){
             return item.sprite;
         });
         this.explodeLine(lines, blocksToRemove, remainingBlocks).then(function(){
-                gamesManager.randomGame();
                 _self.moveRemainingBlocks(remainingBlocks).then(function(){
-                    console.log("End moving remaining blocks");
                     _self.grid.alphaTween.resume();
                     _self.paused = false;
+                    gamesManager.randomGame();
+                    //gameState.changeTetris2(game);
+
                 })
             });
 

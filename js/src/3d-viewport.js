@@ -3,7 +3,6 @@ var ViewPortManager = function () {
     this.actualCubeRotation = {x: 0, y: 0, z: 0};
     this.activeFace = 0;
     this.cube = document.getElementsByClassName('cube');
-
     this.createFaces = function () {
         //var container = document.getElementById('container');
         //TweenMax.set(container, {
@@ -48,8 +47,10 @@ var ViewPortManager = function () {
         this.activeFace = activeGame;
         gamesManager.activeGame = this.activeFace;
         this.actualCubeRotation.y -= 90;
+        this.actualCubeRotation.z -= 15;
         TweenMax.to(this.cube[0], 1,{
             rotationY: this.actualCubeRotation.y,
+            rotationZ: this.actualCubeRotation.z,
             ease: Back.easeOut.config(1.3)
         });
 
