@@ -5,7 +5,8 @@ var GameState = function (game) {
     this.game = game;
 
     this.create = function() {
-        setupInput(null, this.game);
+        this.input = new Input(this.game);
+        this.input.setupInput(null, this.game);
         var game = this.game;
         var backgroundImage = this.game.add.sprite(0,0,'backgroundImage');
         game.stage.backgroundColor = '#000000'
@@ -32,14 +33,12 @@ var GameState = function (game) {
         game.randomGenerator = new RandomTetrisGenerator(this.game.width-80,80,game);
         game.tetrises = [
             new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game),
-            new Tetris(this.game.world.centerX,gridSize/2,180,game)
         ];
         game.tetrises[game.currentTetris].startTimeOut();
 
-        console.log(gamesManager.activeGame != this.game.id);
-
-        if (game.id == gamesManager.activeGame || game.id == (gamesManager.activeGame + 4)) {
+        if (gamesManager.activeGame == this.game.id || gamesManager.activeGame + 4 == this.game.id) {
             game.paused = false;
+            console.log(game.parent)
         } else {
             game.paused = true;
         }
@@ -84,17 +83,17 @@ var GameState = function (game) {
         //filter.update();
         var tetris = game.tetrises[game.currentTetris];
 
-        if (gamesManager.activeGame === game.id){
-            _.each(keys, function(direction){
+        if (gamesManager.activeGame === game.id || gamesManager.activeGame + 4 === game.id){
+            _.each(this.input.keys, function(direction){
 
                 var actualDirection = direction == "up" ? "rotateRight" : direction;
-                var isDir = keys.indexOf(actualDirection) < 4;
+                var isDir = this.input.keys.indexOf(actualDirection) < 4;
                 //var actualDirection = getDirectionWithAngle(direction,tetris.angle);
-                if (!pressedKeys[direction].pressed && cursors[direction].isDown) {
+                if (!this.input.pressedKeys[direction].pressed && this.game.cursors[direction].isDown) {
                     if (isDir){
-                        pressKey(direction);
+                        this.input.pressKey(direction);
                     } else {
-                        pressedKeys[direction].pressed = true;
+                        this.input.pressedKeys[direction].pressed = true;
                     }
                     if (direction == "level"){
                         this.changeLevel();
@@ -105,9 +104,9 @@ var GameState = function (game) {
                         tetris.movePiece(actualDirection);
                     }
                 }
-                if (cursors[direction].isUp){
-                    pressedKeys[direction].pressed = false;
-                    pressedKeys[direction].timeout = defaultTimeOut;
+                if (this.game.cursors[direction].isUp){
+                    this.input.pressedKeys[direction].pressed = false;
+                    this.input.pressedKeys[direction].timeout = this.input.defaultTimeOut;
                 }
             },this);
 

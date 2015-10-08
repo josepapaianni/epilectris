@@ -11,12 +11,14 @@ canvas{
 }
 #container{
     position: absolute;
+    perspective: 20000px;
     width: 960px;
     height: 640px;
     margin: auto;
     background-image: url(./assets/welcome-bg.jpg);
     background-size: 100% 100%;
-    z-index: -1000;
+    text-align: center;
+    display: inline-block;
 
 }
 #glow-explosion{
@@ -32,32 +34,22 @@ canvas{
 
 
 .cube {
-     left: 150px;
-     width: 360px;
-     top: 10px;
-     height: 660px;
+     left: 130px;
+     width: 300px;
+     height: 550px;
+    top: 45px;
      position: absolute;
-     perspective: -600px;
      transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
-    backface-visibility: hidden;
+     -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+     backface-visibility: hidden;
 }
-.b-cube {
-     left: 550px;
-     width: 360px;
-     top: 10px;
-     height: 660px;
-     position: absolute;
-     perspective: -600px;
-     transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
-    backface-visibility: hidden;
-}
+
 .cube-face {
     width: inherit;
     height: inherit;
     position: absolute;
-    margin: 0!important
+    margin: 0!important;
+    transform-origin: 50% 50%;
 }
 .cube-face-front {
     background: yellow;
@@ -67,13 +59,14 @@ canvas{
     background: orange;
     transform: rotateY(180deg) translate3d(0, 0,150px);
 }
-.cube-face-left {
-    background: green;
-    transform: rotateY(-90deg) translate3d(0, 0,150px);
-}
 .cube-face-right {
     background: magenta;
     transform: rotateY(90deg) translate3d(0, 0,150px);
+}
+.cube-face-left {
+    background: green;
+    transform: rotateY(-90deg) translate3d(0, 0,150px);
+
 }
 .cube-face-top {
     height: 300px;
@@ -83,13 +76,28 @@ canvas{
 .cube-face-bottom {
     height: 300px;
     background: red;
-    transform: rotateX(-90deg) translate3d(0, 0,350px);
+    transform: rotateX(-90deg) translate3d(0px, 0,400px);
 }
+
+
+.b-cube {
+    left: 530px;
+    width: 300px;
+    height: 550px;
+    top: 45px;
+    position: absolute;
+    perspective:-300px;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+    backface-visibility: hidden;
+}
+
 .b-cube-face {
     width: inherit;
     height: inherit;
     position: absolute;
-    margin: 0!important
+    margin: 0!important;
+    transform-origin: 50% 50%;
 }
 .b-cube-face-front {
     background: yellow;
@@ -99,13 +107,13 @@ canvas{
     background: orange;
     transform: rotateY(180deg) translate3d(0, 0,150px);
 }
-.b-cube-face-left {
-    background: green;
-    transform: rotateY(-90deg) translate3d(0, 0,150px);
-}
 .b-cube-face-right {
     background: magenta;
     transform: rotateY(90deg) translate3d(0, 0,150px);
+}
+.b-cube-face-left {
+    background: green;
+    transform: rotateY(-90deg) translate3d(0, 0,150px);
 }
 .b-cube-face-top {
     height: 300px;
@@ -115,5 +123,5 @@ canvas{
 .b-cube-face-bottom {
     height: 300px;
     background: red;
-    transform: rotateX(-90deg) translate3d(0, 0,350px);
+    transform: rotateX(-90deg) translate3d(0px, 0,400px);
 }

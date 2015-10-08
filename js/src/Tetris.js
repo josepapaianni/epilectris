@@ -3,8 +3,6 @@
  */
 
 function Tetris(x,y,angle,game){
-    console.log(game);
-
     this.movePiece = function(direction){
         //this.stopTimeOut();
         var nextPosition = {
@@ -153,7 +151,7 @@ function Tetris(x,y,angle,game){
 
         if (linesRemoved.length>0){
             this.removeLine(linesRemoved,true);
-            gameState.setScore(linesRemoved*linesRemoved);
+            game.state.states.gameState.setScore(linesRemoved*linesRemoved);
         }
         //this.placeGrid();
     };
@@ -189,7 +187,6 @@ function Tetris(x,y,angle,game){
         var remainingBlocks = [];
         var _self = this;
         var round = false;
-        console.log(this.grid.matrix);
         for (var h=0; h<lines.length; h++){
             for (var j=0;j<=lines[h];j++){
                 for (var i=0;i<this.grid.matrix[j].length;i++){
@@ -333,7 +330,7 @@ function Tetris(x,y,angle,game){
         this.placePiece(this.current.sprites,this.current.position);
         if (!this.allowedPosition(this.current.matrix,this.current.position)){
             this.clearAll(false);
-            gameState.setScore(-10);
+            game.state.states.gameState.setScore(-10);
         }
     };
 
@@ -395,7 +392,7 @@ function Tetris(x,y,angle,game){
     this.grid = {
         limits : {i:10,j:20},
         matrix: getPlainMatrix(10,20,0),
-        sprite: game.grids.create(this.x,this.y-25,"grid"),
+        sprite: game.grids.create(this.x,this.y,"grid"),
         blocks: game.add.group()
     };
     this.startOffset = {i:Math.floor(this.grid.limits.i/2),j:0};

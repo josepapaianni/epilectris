@@ -11,19 +11,17 @@ var ViewPortManager = function () {
         //});
         var face = document.getElementsByClassName('cube-viewport');
         var faceb = document.getElementsByClassName('b-cube-viewport');
-        console.log(face);
-        console.log(faceb);
 
-        for (var i = 0; i < 4; i++){
-            face[i].id = 'cube-viewport-'+i;
-            this.faces.push({face: i, rotation: -i*90, originalRotationAngle: -i*90, zindex: 360-i});
-            //container.appendChild(face);
-        }
-        for (var j = 0; j < 4; j++){
-            faceb[j].id = 'b-cube-viewport-'+(j+4);
-            this.faces.push({face: j, rotation: -j*90, originalRotationAngle: -j*90, zindex: 360-j});
-            //container.appendChild(face);
-        }
+        //for (var i = 0; i < 4; i++){
+        //    face[i].id = 'cube-viewport-'+i;
+        //    this.faces.push({face: i, rotation: -i*90, originalRotationAngle: -i*90, zindex: 360-i});
+        //    //container.appendChild(face);
+        //}
+        //for (var j = 0; j < 4; j++){
+        //    faceb[j].id = 'b-cube-viewport-'+ j;
+        //    this.faces.push({face: j, rotation: -j*90, originalRotationAngle: -j*90, zindex: 360-j});
+        //    //container.appendChild(face);
+        //}
     };
 
     this.spinCube = function (spinX, spinY, spinZ) {
@@ -55,20 +53,13 @@ var ViewPortManager = function () {
     this.cubeToActiveGame = function (activeGame){
         this.activeFace = activeGame;
         gamesManager.activeGame = this.activeFace;
-        this.actualCubeRotation.y -= 90;
-        this.actualCubeRotation.z -= 15;
+        //this.actualCubeRotation.y -= 90;
+        //this.actualCubeRotation.z -= 15;
         TweenMax.to([this.cube[0], this.bCube[0]] , 1,{
-            rotationY: this.actualCubeRotation.y,
-            rotationZ: this.actualCubeRotation.z,
+            rotationY: activeGame * -90,
+            //rotationZ: this.actualCubeRotation.z,
             ease: Back.easeOut.config(1.3)
         });
-
-        var domGlow = document.getElementById('glow-explosion');
-        TweenMax.to (domGlow, 0.5, {
-            autoAlpha: 1,
-            repeat: 1,
-            yoyo: true
-        })
 
     };
 

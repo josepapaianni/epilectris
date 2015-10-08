@@ -7,8 +7,8 @@ var Preloader = function (game) {
     this.preload = function(){
         this.game.load.image('shadow', 'assets/glow-white-30.png');
 
-        this.game.load.image('grid','assets/background-green-glow.png');
-        this.game.load.spritesheet('pieces', 'assets/glow-30.png',30,30);
+        this.game.load.image('grid','assets/light-grid.png');
+        this.game.load.spritesheet('pieces', 'assets/glow-30.png',25,25);
         this.game.load.image('pieceDisplay', 'assets/pieceDisplay-red.png');
         this.game.load.image('controlDisplay', 'assets/control-display.png');
         this.game.load.image('tierDisplay', 'assets/tier-display.png');
@@ -33,7 +33,7 @@ var Preloader = function (game) {
     };
 
     this.showProgress = function(progress, cacheKey, success, totalLoaded, totalFiles){
-        console.log(progress)
+
     };
 
     this.startGame = function(){
