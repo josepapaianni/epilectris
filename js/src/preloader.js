@@ -39,6 +39,9 @@ var Preloader = function (game) {
     this.startGame = function(){
         //if (this.game.id === 0) {
         this.game.state.start("gameState");
+        if (this.game.id === 7) {
+            console.log('all games ready');
+        }
         //}
     }
 

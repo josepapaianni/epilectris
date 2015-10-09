@@ -2,8 +2,8 @@ var ViewPortManager = function () {
     this.faces = [];
     this.actualCubeRotation = {x: 0, y: 0, z: 0};
     this.activeFace = 0;
-    this.cube = document.getElementsByClassName('cube');
-    this.bCube = document.getElementsByClassName('b-cube');
+    this.cube = document.getElementById('cube');
+    this.bCube = document.getElementById('b-cube');
     this.createFaces = function () {
         //var container = document.getElementById('container');
         //TweenMax.set(container, {
@@ -24,12 +24,24 @@ var ViewPortManager = function () {
         //}
     };
 
+    this.twoCubesLayout = function (){
+        TweenMax.to(this.cube, 1,{
+            x: -200,
+        });
+        this.bCube.style.display = "block";
+        TweenMax.from (this.bCube, 1, {
+            x: 560,
+            rotationY: -360
+        })
+
+    };
+
     this.spinCube = function (spinX, spinY, spinZ) {
         this.actualCubeRotation.x = this.actualCubeRotation.x + 360 * spinX;
         this.actualCubeRotation.y = this.actualCubeRotation.y + 360 * spinY;
         this.actualCubeRotation.z = this.actualCubeRotation.z + 360 * spinZ;
 
-        TweenMax.to(this.cube[0], 1.33,{
+        TweenMax.to(this.cube, 1.33,{
             rotationX: this.actualCubeRotation.x,
             rotationY: this.actualCubeRotation.y,
             rotationZ: this.actualCubeRotation.z,
@@ -42,7 +54,7 @@ var ViewPortManager = function () {
         this.actualCubeRotation.y = degreesY;
         this.actualCubeRotation.z = degreesZ;
 
-        TweenMax.to(this.cube[0], 0.66,{
+        TweenMax.to(this.cube, 0.66,{
             rotationX: degreesX,
             rotationY: degreesY,
             rotationZ: degreesZ,
@@ -55,7 +67,7 @@ var ViewPortManager = function () {
         gamesManager.activeGame = this.activeFace;
         //this.actualCubeRotation.y -= 90;
         //this.actualCubeRotation.z -= 15;
-        TweenMax.to([this.cube[0], this.bCube[0]] , 1,{
+        TweenMax.to([this.cube, this.bCube] , 1,{
             rotationY: activeGame * -90,
             //rotationZ: this.actualCubeRotation.z,
             ease: Back.easeOut.config(1.3)

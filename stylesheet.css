@@ -11,14 +11,15 @@ canvas{
 }
 #container{
     position: absolute;
-    perspective: 20000px;
+    perspective: 30000px;
     width: 960px;
     height: 640px;
     margin: auto;
-    background-image: url(./assets/welcome-bg.jpg);
+    background-color: #000;
     background-size: 100% 100%;
     text-align: center;
     display: inline-block;
+    overflow: hidden;
 
 }
 #glow-explosion{
@@ -33,8 +34,8 @@ canvas{
 }
 
 
-.cube {
-     left: 130px;
+#cube {
+     left: 330px;
      width: 300px;
      height: 550px;
     top: 45px;
@@ -80,7 +81,7 @@ canvas{
 }
 
 
-.b-cube {
+#b-cube {
     left: 530px;
     width: 300px;
     height: 550px;
@@ -90,6 +91,7 @@ canvas{
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
     backface-visibility: hidden;
+    display: none;
 }
 
 .b-cube-face {

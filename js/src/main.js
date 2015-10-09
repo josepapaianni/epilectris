@@ -1,6 +1,7 @@
 var games = [];
 var gamesManager = new GamesManager();
 var viewPortManager = new ViewPortManager();
+var matchModel = new MatchModel();
 viewPortManager.createFaces();
 
 for (var i = 0; i <8; i++){

@@ -17,7 +17,21 @@ var GamesManager = function () {
                 games[i].paused = true;
             }
         }
+    };
 
-
+    this.startSingleGame = function (gameId){
+        games[gameId].paused = false;
     }
+
+    //2 players start
+    document.onkeydown = function(e) {
+        var e = e || window.event;
+        if (e.keyCode === 70 && matchModel.playersCount != 2){
+            //start 2 player game
+            matchModel.playersCount = 2;
+            viewPortManager.twoCubesLayout();
+            games[4].paused = false;
+        }
+        e.preventDefault()
+    };
 };

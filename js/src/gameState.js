@@ -36,13 +36,15 @@ var GameState = function (game) {
         ];
         game.tetrises[game.currentTetris].startTimeOut();
 
-        if (gamesManager.activeGame == this.game.id || gamesManager.activeGame + 4 == this.game.id) {
-            game.paused = false;
-            console.log(game.parent)
-        } else {
+        //if (gamesManager.activeGame == this.game.id || gamesManager.activeGame + 4 == this.game.id) {
+        //    game.paused = false;
+        //    console.log(game.parent)
+        //} else {
+        //    game.paused = true;
+        //}
+        if (game.id != 0){
             game.paused = true;
         }
-
 
         //for (var i=0;i<5;i++){
         //    var controlDisplay = this.game.add.sprite(this.game.width-80,this.game.world.centerY - (70*2.5) + i*70 +35,"controlDisplay");
