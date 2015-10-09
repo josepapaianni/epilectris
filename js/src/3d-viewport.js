@@ -26,7 +26,7 @@ var ViewPortManager = function () {
 
     this.twoCubesLayout = function (){
         TweenMax.to(this.cube, 1,{
-            x: -200,
+            x: -180,
         });
         this.bCube.style.display = "block";
         TweenMax.from (this.bCube, 1, {

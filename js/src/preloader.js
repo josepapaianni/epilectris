@@ -17,7 +17,7 @@ var Preloader = function (game) {
         this.game.load.image('menuNova', 'assets/welcome-nova.png');
         this.game.load.image('menuLogo', 'assets/welcome-logo.png');
         this.game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
-        this.game.load.image('backgroundImage', 'assets/background-face.jpg');
+        this.game.load.image('backgroundImage', 'assets/background-face.png');
     };
 
     this.create = function() {
