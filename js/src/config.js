@@ -65,3 +65,16 @@ var levels = [
 var grid = {x:25,y:25};
 
 var gridSize = 25;
+
+var playersMeta = [
+    {
+        playerId: "player1",
+        cubeId: "cube",
+        rotateNext: 1
+    },
+    {
+        playerId: "player2",
+        cubeId: "b-cube",
+        rotateNext: -1
+    }
+];

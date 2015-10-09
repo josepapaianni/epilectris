@@ -214,7 +214,7 @@ function Tetris(x,y,angle,game){
                 _self.moveRemainingBlocks(remainingBlocks).then(function(){
                     _self.grid.alphaTween.resume();
                     _self.paused = false;
-                    gamesManager.randomGame();
+                    gamesManager.nextGame();
                     //gameState.changeTetris2(game);
 
                 })

@@ -5,11 +5,10 @@ var GameState = function (game) {
     this.game = game;
 
     this.create = function() {
-        this.input = new Input(this.game);
-        this.input.setupInput(null, this.game);
         var game = this.game;
+        this.input = new Input(game);
         var backgroundImage = this.game.add.sprite(0,0,'backgroundImage');
-        game.stage.backgroundColor = '#000000'
+        game.stage.backgroundColor = '#000000';
         //filter = new Filter();
         pauseWindow = game.add.sprite(0,0,"stageShadow");
         pauseWindow.alpha = 0.8;
@@ -42,6 +41,7 @@ var GameState = function (game) {
         //} else {
         //    game.paused = true;
         //}
+        console.log("starting "+game.id+" for "+game.playerId);
         if (game.id != 0){
             game.paused = true;
         }
@@ -85,7 +85,7 @@ var GameState = function (game) {
         //filter.update();
         var tetris = game.tetrises[game.currentTetris];
 
-        if (gamesManager.activeGame === game.id || gamesManager.activeGame + 4 === game.id){
+        if (!this.game.paused && !tetris.paused){
             _.each(this.input.keys, function(direction){
 
                 var actualDirection = direction == "up" ? "rotateRight" : direction;

@@ -2,36 +2,39 @@
  * Created by Jose on 4/10/15.
  */
 var GamesManager = function () {
-    this.activeGame = 0;
+    this.players = [];
 
-    this.randomGame = function () {
-        var randomizer = Math.floor(Math.random()*4);
-        viewPortManager.cubeToActiveGame(randomizer);
-        this.activeGame = viewPortManager.activeFace;
-
-        for(var i = 0; i < games.length; i++){
-            console.log(i);
-            if (i == this.activeGame || i == this.activeGame+4 ){
-                games[i].paused = false;
-            } else {
-                games[i].paused = true;
-            }
+    this.nextGame = function(){
+        for(var i = 0; i < this.players.length; i++){
+            this.players[i].nextGame();
         }
     };
 
-    this.startSingleGame = function (gameId){
-        games[gameId].paused = false;
-    }
+    this.startPlayer = function(){
+        this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
+        if (this.players.length == 2){
+            //player two started
+            TweenMax.to(this.players[0].viewPortManager.cube, 1,{
+                x: -200,
+            });
+            this.players[1].viewPortManager.cube.style.display = "block";
+            TweenMax.from (this.players[1].viewPortManager.cube, 1, {
+                x: 560,
+                rotationY: -360
+            })
+        }
+    };
 
     //2 players start
     document.onkeydown = function(e) {
         var e = e || window.event;
-        if (e.keyCode === 70 && matchModel.playersCount != 2){
-            //start 2 player game
-            matchModel.playersCount = 2;
-            viewPortManager.twoCubesLayout();
-            games[4].paused = false;
+        if (e.keyCode === 70 && gamesManager.players.length != 2){
+            gamesManager.startPlayer();
+            //matchModel.playersCount = 2;
         }
         e.preventDefault()
     };
+
+
+
 };

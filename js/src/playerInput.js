@@ -14,7 +14,7 @@ var Input = function (game) {
 
     this.pressKey = function (key) {
         this.pressedKeys[key].pressed = true;
-        _self = this
+        _self = this;
         setTimeout(function (keyPressed) {
             _self.pressedKeys[keyPressed].pressed = false;
         }, this.pressedKeys[key].timeout, key);
@@ -39,27 +39,27 @@ var Input = function (game) {
         }
     };
 
-    this.setupInput = function (wasd, game) {
-        if (game.id >= 4) {
-            game.cursors = game.input.keyboard.createCursorKeys();
-            game.cursors.rotateRight = game.input.keyboard.addKey(Phaser.Keyboard.X);
-            game.cursors.rotateLeft = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-            game.cursors.place = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-            game.cursors.hold = game.input.keyboard.addKey(Phaser.Keyboard.C);
-            game.cursors.level = game.input.keyboard.addKey(Phaser.Keyboard.O);
-            game.cursors.pause = game.input.keyboard.addKey(Phaser.Keyboard.P);
+    this.setupInput = function (wasd) {
+        if (wasd) {
+            this.game.cursors = this.game.input.keyboard.createCursorKeys();
+            this.game.cursors.rotateRight = this.game.input.keyboard.addKey(Phaser.Keyboard.X);
+            this.game.cursors.rotateLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
+            this.game.cursors.place = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            this.game.cursors.hold = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
+            this.game.cursors.level = this.game.input.keyboard.addKey(Phaser.Keyboard.O);
+            this.game.cursors.pause = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
         } else {
-            game.cursors = {
-                up: game.input.keyboard.addKey(Phaser.Keyboard.W),
-                down: game.input.keyboard.addKey(Phaser.Keyboard.S),
-                left: game.input.keyboard.addKey(Phaser.Keyboard.A),
-                right: game.input.keyboard.addKey(Phaser.Keyboard.D),
-                rotateRight: game.input.keyboard.addKey(Phaser.Keyboard.K),
-                rotateLeft: game.input.keyboard.addKey(Phaser.Keyboard.J),
-                place: game.input.keyboard.addKey(Phaser.Keyboard.Q),
-                hold: game.input.keyboard.addKey(Phaser.Keyboard.L),
-                level: game.input.keyboard.addKey(Phaser.Keyboard.O),
-                pause: game.input.keyboard.addKey(Phaser.Keyboard.P)
+            this.game.cursors = {
+                up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+                down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+                left: this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+                right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
+                rotateRight: this.game.input.keyboard.addKey(Phaser.Keyboard.K),
+                rotateLeft: this.game.input.keyboard.addKey(Phaser.Keyboard.J),
+                place: this.game.input.keyboard.addKey(Phaser.Keyboard.Q),
+                hold: this.game.input.keyboard.addKey(Phaser.Keyboard.L),
+                level: this.game.input.keyboard.addKey(Phaser.Keyboard.O),
+                pause: this.game.input.keyboard.addKey(Phaser.Keyboard.P)
             }
         }
         this.releaseAllKeys();
@@ -94,4 +94,6 @@ var Input = function (game) {
             });
         }, timeoutStep);
     };
+
+    this.setupInput(this.game.playerId == "player2");
 }
