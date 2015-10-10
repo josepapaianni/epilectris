@@ -1,5 +1,5 @@
 var gamesManager = new GamesManager();
-
+var spaceEffect = new SpaceEffect();
 gamesManager.startPlayer();
 
 
