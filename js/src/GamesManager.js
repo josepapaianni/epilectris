@@ -15,11 +15,11 @@ var GamesManager = function () {
         if (this.players.length == 2){
             //player two started
             TweenMax.to(this.players[0].viewPortManager.cube, 1,{
-                x: -200,
+                x: -170
             });
             this.players[1].viewPortManager.cube.style.display = "block";
             TweenMax.from (this.players[1].viewPortManager.cube, 1, {
-                x: 560,
+                x: 480,
                 rotationY: -360
             })
         }

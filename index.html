@@ -1,58 +1,107 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<title> Epilectris </title>
-		<link href='stylesheet.css' rel='stylesheet' type='text/css'>
-		<script type="text/javascript" src="js/libs/q/q.js"></script>
-		<script type="text/javascript" src="js/libs/greensock-js/src/minified/TweenMax.min.js"></script>
-		<script type="text/javascript" src="js/libs/phaser/phaser.min.js"></script>
-		<script type="text/javascript" src="js/libs/underscore-min.js"></script>
+<head>
+    <meta charset="utf-8"/>
+    <title> Epilectris </title>
+    <link href='stylesheet.css' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="js/libs/q/q.js"></script>
+    <script type="text/javascript" src="js/libs/greensock-js/src/minified/TweenMax.min.js"></script>
+    <script type="text/javascript" src="js/libs/phaser/phaser.min.js"></script>
+    <script type="text/javascript" src="js/libs/underscore-min.js"></script>
 
-	</head>
+</head>
 
-	<!--<body bgcolor="#000000">-->
-	<body bgcolor="#FFFFFF">
-	<div id="container">
-		<div id="cube">
-			<div class="cube-face  cube-face-front cube-viewport" id="cube-viewport-0"></div>
-			<div class="cube-face  cube-face-right cube-viewport" id="cube-viewport-1"></div>
-			<div class="cube-face  cube-face-back cube-viewport" id="cube-viewport-2"></div>
-			<div class="cube-face  cube-face-left cube-viewport" id="cube-viewport-3"></div>
-			<div class="cube-face  cube-face-top"></div>
-			<div class="cube-face  cube-face-bottom"></div>
-		</div>
-		<div id="b-cube">
-			<div id="b-cube-viewport-0" class="cube-face  cube-face-front cube-viewport" ></div>
-			<div id="b-cube-viewport-1" class="cube-face  cube-face-right cube-viewport" ></div>
-			<div id="b-cube-viewport-2" class="cube-face  cube-face-back cube-viewport"></div>
-			<div id="b-cube-viewport-3" class="cube-face  cube-face-left cube-viewport" ></div>
-			<div class="cube-face  cube-face-top"></div>
-			<div class="cube-face  cube-face-bottom"></div>
+<!--<body bgcolor="#000000">-->
+<body bgcolor="#FFFFFF">
+<div id="container">
+    <div id="ui-player-1">
+        <div class="ui-wrapper">
+            <p class="score-title">score</p>
 
-		</div>
-	</div>
+            <p class="score-counter">000000</p>
+
+            <div class="divider-line"></div>
+            <p class="lines-left-title">lines<br><span class="adjust">left</span></p>
+
+            <p class="lines-left-counter">000</p>
+
+            <div class="divider-line"></div>
+            <div class="next-piece-monitor piece-frame">
+                <p class="title">next</p>
+            </div>
+            <div class="hold-piece-monitor piece-frame">
+                <p class="title">hold</p>
+            </div>
+            <div class="power-up-icon"></div>
+            <div class="power-up-icon"></div>
+            <div class="power-up-icon"></div>
+            <div class="power-up-icon"></div>
+        </div>
+
+    </div>
+    <div id="ui-player-2">
+        <div class="ui-wrapper player-2-wrapper">
+            <p class="score-title">score</p>
+
+            <p class="score-counter">000000</p>
+
+            <div class="divider-line"></div>
+            <p class="lines-left-title">lines<br><span class="adjust">left</span></p>
+
+            <p class="lines-left-counter">000</p>
+
+            <div class="divider-line"></div>
+            <div class="next-piece-monitor piece-frame">
+                <p class="title">next</p>
+            </div>
+            <div class="hold-piece-monitor piece-frame">
+                <p class="title">hold</p>
+            </div>
+        </div>
+        <div class="wait-player-2">
+            press 2<br>player<br>start
+        </div>
+
+    </div>
+    <div id="cube">
+        <div class="cube-face  cube-face-front cube-viewport" id="cube-viewport-0"></div>
+        <div class="cube-face  cube-face-right cube-viewport" id="cube-viewport-1"></div>
+        <div class="cube-face  cube-face-back cube-viewport" id="cube-viewport-2"></div>
+        <div class="cube-face  cube-face-left cube-viewport" id="cube-viewport-3"></div>
+        <div class="cube-face  cube-face-top"></div>
+        <div class="cube-face  cube-face-bottom"></div>
+    </div>
+    <div id="b-cube">
+        <div id="b-cube-viewport-0" class="cube-face  cube-face-front cube-viewport"></div>
+        <div id="b-cube-viewport-1" class="cube-face  cube-face-right cube-viewport"></div>
+        <div id="b-cube-viewport-2" class="cube-face  cube-face-back cube-viewport"></div>
+        <div id="b-cube-viewport-3" class="cube-face  cube-face-left cube-viewport"></div>
+        <div class="cube-face  cube-face-top"></div>
+        <div class="cube-face  cube-face-bottom"></div>
+
+    </div>
+</div>
 
 
-	</body>
-	<script type="text/javascript" src="js/src/config.js"></script>
-	<script type="text/javascript" src="js/src/3d-viewport.js"></script>
-	<script type="text/javascript" src="js/src/space-effect.js"></script>
-	<script type="text/javascript" src="js/src/PlayerGamesManager.js"></script>
-	<script type="text/javascript" src="js/src/GamesManager.js"></script>
-	<script type="text/javascript" src="js/src/match-model.js"></script>
-	<script type="text/javascript" src="js/src/matrixUtils.js"></script>
-	<script type="text/javascript" src="js/src/Filter.js"></script>
-	<script type="text/javascript" src="js/src/playerInput.js"></script>
-	<script type="text/javascript" src="js/src/PieceDisplay.js"></script>
-	<script type="text/javascript" src="js/src/ScoreDisplay.js"></script>
-	<script type="text/javascript" src="js/src/PieceHold.js"></script>
-	<script type="text/javascript" src="js/src/RandomTetrisGenerator.js"></script>
-	<script type="text/javascript" src="js/src/Tetris.js"></script>
+</body>
+<script type="text/javascript" src="js/src/config.js"></script>
+<script type="text/javascript" src="js/src/3d-viewport.js"></script>
+<script type="text/javascript" src="js/src/space-effect.js"></script>
+<script type="text/javascript" src="js/src/PlayerGamesManager.js"></script>
+<script type="text/javascript" src="js/src/GamesManager.js"></script>
+<script type="text/javascript" src="js/src/match-model.js"></script>
+<script type="text/javascript" src="js/src/matrixUtils.js"></script>
+<script type="text/javascript" src="js/src/Filter.js"></script>
+<script type="text/javascript" src="js/src/playerInput.js"></script>
+<script type="text/javascript" src="js/src/PieceDisplay.js"></script>
+<script type="text/javascript" src="js/src/ScoreDisplay.js"></script>
+<script type="text/javascript" src="js/src/PieceHold.js"></script>
+<script type="text/javascript" src="js/src/RandomTetrisGenerator.js"></script>
+<script type="text/javascript" src="js/src/Tetris.js"></script>
 
-	<script type="text/javascript" src="js/src/gameState.js"></script>
-	<script type="text/javascript" src="js/src/menu.js"></script>
-	<script type="text/javascript" src="js/src/preloader.js"></script>
-	<script type="text/javascript" src="js/src/main.js"></script>
+<script type="text/javascript" src="js/src/gameState.js"></script>
+<script type="text/javascript" src="js/src/menu.js"></script>
+<script type="text/javascript" src="js/src/preloader.js"></script>
+<script type="text/javascript" src="js/src/main.js"></script>
 </html>
