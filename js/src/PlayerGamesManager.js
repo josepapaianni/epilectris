@@ -8,6 +8,8 @@ var PlayerGamesManager = function (playerInfo) {
     this.score = 0;
     this.pieceHold = new PieceHold(this.playerInfo.playerId);
     this.pieceGenerator = new RandomTetrisGenerator(this.playerInfo.playerId);
+    this.powerUpManager = new PowerUpManager(this.playerInfo.playerId);
+    this.attacked = false;
 
     this.randomGame = function () {
         this.activeGame = Math.floor(Math.random()*4);
@@ -16,6 +18,9 @@ var PlayerGamesManager = function (playerInfo) {
     };
 
     this.setScore = function(score){
+        if (this.attacked){
+            this.upsideDown();
+        }
         this.score+=score*score;
         var paddedScore = ("000000" + this.score).substr(-6,6);
         $("#ui-"+this.playerInfo.playerId+" .score-counter").html(paddedScore);
@@ -29,9 +34,25 @@ var PlayerGamesManager = function (playerInfo) {
         this.pauseNonActiveGames();
     };
 
+    this.upsideDown = function(){
+        this.attacked = !this.attacked;
+        this.viewPortManager.rotateCube(0,0,180);
+    };
+
     this.pauseNonActiveGames = function(){
         for(var i = 0; i < this.games.length; i++){
             this.games[i].paused = !(i == this.activeGame);
+        }
+    };
+
+    this.usePowerUp = function(){
+        var powerUp = this.powerUpManager.getFirstPowerUp();
+        var otherPlayer = gamesManager.getOtherPlayer(this);
+        if (!powerUp || (!otherPlayer && powerUp.type == "attack")){
+            return;
+        }
+        switch (powerUp.name){
+            case "upside-down" : console.log("attacking"); otherPlayer.upsideDown(); break;
         }
     };
 

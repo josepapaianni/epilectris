@@ -6,7 +6,7 @@ var Input = function (game) {
 
     this.game = game;
 
-    this.keys = ["up", "right", "down", "left", "rotateRight", "rotateLeft", "place", "level", "hold", "pause"];
+    this.keys = ["up", "right", "down", "left", "rotateRight", "rotateLeft", "place", "level", "hold", "pause","powerup"];
     this.pressedKeys = {};
     this.defaultTimeOut = 250;
     this.minTimeOut = 50;
@@ -48,6 +48,7 @@ var Input = function (game) {
             this.game.cursors.hold = this.game.input.keyboard.addKey(Phaser.Keyboard.C);
             this.game.cursors.level = this.game.input.keyboard.addKey(Phaser.Keyboard.O);
             this.game.cursors.pause = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
+            this.game.cursors.powerup = this.game.input.keyboard.addKey(Phaser.Keyboard.M);
         } else {
             this.game.cursors = {
                 up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -59,7 +60,8 @@ var Input = function (game) {
                 place: this.game.input.keyboard.addKey(Phaser.Keyboard.Q),
                 hold: this.game.input.keyboard.addKey(Phaser.Keyboard.L),
                 level: this.game.input.keyboard.addKey(Phaser.Keyboard.O),
-                pause: this.game.input.keyboard.addKey(Phaser.Keyboard.P)
+                pause: this.game.input.keyboard.addKey(Phaser.Keyboard.P),
+                powerup: this.game.input.keyboard.addKey(Phaser.Keyboard.E)
             }
         }
         this.releaseAllKeys();

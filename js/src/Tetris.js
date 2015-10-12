@@ -39,6 +39,9 @@ function Tetris(x,y,angle,game){
                 nextPosition.matrix = this.current.piece.rotations[nextPosition.rotation];
                 recalculateOffset = true;
                 break;
+            case "powerup":
+                game.playerManagerRef.usePowerUp();
+                break;
             case "place":
                 while(this.movePiece()){}
                 return true;
@@ -148,7 +151,11 @@ function Tetris(x,y,angle,game){
 
         if (linesRemoved.length>0){
             game.playerManagerRef.setScore(linesRemoved.length);
+            if (linesRemoved.length == 4){
+                game.playerManagerRef.powerUpManager.addPowerUp();
+            }
             this.removeLine(linesRemoved,true);
+
 
         }
         //this.placeGrid();

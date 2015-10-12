@@ -9,13 +9,9 @@ var GameState = function (game) {
         this.input = new Input(game);
         var backgroundImage = this.game.add.sprite(0,0,'backgroundImage');
         game.stage.backgroundColor = '#000000';
-        //filter = new Filter();
         pauseWindow = game.add.sprite(0,0,"stageShadow");
         pauseWindow.alpha = 0.8;
         pauseWindow.visible = false;
-        //hold = new PieceHold(80,80, this.game);
-        //score = new ScoreDisplay(80,this.game.height-80, this.game);
-        //linesLeft = new ScoreDisplay(this.game.width-80,this.game.height-80,this.game);
         game.grids = game.add.group();
         currentLevel = 0;
         currentTier = 0;
@@ -34,52 +30,13 @@ var GameState = function (game) {
             new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game),
         ];
         game.tetrises[game.currentTetris].startTimeOut();
-
-        //if (gamesManager.activeGame == this.game.id || gamesManager.activeGame + 4 == this.game.id) {
-        //    game.paused = false;
-        //    console.log(game.parent)
-        //} else {
-        //    game.paused = true;
-        //}
-        console.log("starting "+game.id+" for "+game.playerId);
         if (game.id != 0){
             game.paused = true;
         }
 
-        //for (var i=0;i<5;i++){
-        //    var controlDisplay = this.game.add.sprite(this.game.width-80,this.game.world.centerY - (70*2.5) + i*70 +35,"controlDisplay");
-        //    controlDisplay.anchor.set(0.5,0.5);
-        //}
-        //for (var i=0;i<4;i++){
-        //    var controlDisplay = this.game.add.sprite(80,this.game.world.centerY - (70*2.5) + i*70 +35,"controlDisplay");
-        //    controlDisplay.anchor.set(0.5,0.5);
-        //}
-
-
-        //
-        //var style = { font: "Orbitron",fontSize:20, fill: "#991b1e", align: "center" };
-        //var credits = this.game.add.text(this.game.world.centerX,this.game.height-15,"developed by: LunaFromTheMoon",style);
-        //credits.anchor.set(0.5,0.5);
-        //
-        //var credits = this.game.add.text(this.game.world.centerX,this.game.height*2/3,"CONTROLS \n ⇦⇩⇨ move \n Z rotate left - ⇧ X rotate right \n C hold - SPACEBAR drop \n P pause - L cheat",style);
-        //credits.anchor.set(0.5,0.5);
-        //this.game.add.tween(credits).to({alpha:0},3000,Phaser.Easing.Default,true,2500);
-
-        //this.game.input.onDown.add(this.unPauseGame,this);
     };
 
-    this.pauseGame = function(){
-        this.game.paused = true;
-        pauseWindow.visible = true;
-        pauseWindow.bringToTop();
-    };
 
-    this.unPauseGame = function(){
-        if (this.game.paused){
-            this.game.paused = false;
-            pauseWindow.visible = false;
-        }
-    };
 
     this.update = function(game) {
         //filter.update();
@@ -100,8 +57,6 @@ var GameState = function (game) {
                     if (direction == "level"){
                         this.changeLevel();
                         console.log("Level "+currentLevel);
-                    } else if (direction == "pause") {
-                        this.pauseGame();
                     } else {
                         tetris.movePiece(actualDirection);
                     }

@@ -27,6 +27,10 @@ var GamesManager = function () {
         }
     };
 
+    this.getOtherPlayer = function(player){
+        return (this.players.length == 1) ? null : ((player == this.players[0]) ? this.players[1] : this.players[0]);
+    };
+
     //2 players start
     document.onkeydown = function(e) {
         var e = e || window.event;
