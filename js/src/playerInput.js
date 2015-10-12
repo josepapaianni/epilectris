@@ -95,5 +95,5 @@ var Input = function (game) {
         }, timeoutStep);
     };
 
-    this.setupInput(this.game.playerId == "player2");
+    this.setupInput(this.game.playerId == "player-2");
 }

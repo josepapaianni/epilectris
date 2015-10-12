@@ -68,12 +68,12 @@ var gridSize = 25;
 
 var playersMeta = [
     {
-        playerId: "player1",
+        playerId: "player-1",
         cubeId: "cube",
         rotateNext: 1
     },
     {
-        playerId: "player2",
+        playerId: "player-2",
         cubeId: "b-cube",
         rotateNext: -1
     }

@@ -44,10 +44,7 @@ function Tetris(x,y,angle,game){
                 return true;
                 break;
             case "hold":
-                console.log("holding");
-                var newPiece = hold.hold(this.current.piece);
-                console.log(newPiece);
-                console.log(this.current.piece);
+                var newPiece = game.playerManagerRef.pieceHold.hold(this.current.piece);
                 if (newPiece != this.current.piece){
                     this.current.shadow.removeAll();
                     this.current.sprites.removeAll();
@@ -131,7 +128,7 @@ function Tetris(x,y,angle,game){
             }
         }
         this.current.sprites.moveAll(this.grid.blocks);
-        //hold.unlock();
+        game.playerManagerRef.pieceHold.unlock();
         this.placeGrid();
         this.checkTetris();
     };
@@ -150,8 +147,9 @@ function Tetris(x,y,angle,game){
         }
 
         if (linesRemoved.length>0){
+            game.playerManagerRef.setScore(linesRemoved.length);
             this.removeLine(linesRemoved,true);
-            game.state.states.gameState.setScore(linesRemoved*linesRemoved);
+
         }
         //this.placeGrid();
     };
@@ -308,7 +306,7 @@ function Tetris(x,y,angle,game){
     };
 
     this.changePiece = function(piece){
-        var newPiece = piece ? piece : game.randomGenerator.getNextPiece();
+        var newPiece = piece ? piece : game.playerManagerRef.pieceGenerator.getNextPiece();
         this.current = {
             piece: newPiece,
             matrix: copyMatrix(newPiece.rotations[0]),

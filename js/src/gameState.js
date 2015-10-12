@@ -29,7 +29,7 @@ var GameState = function (game) {
 
         game.currentTetris = 0;
 
-        game.randomGenerator = new RandomTetrisGenerator(this.game.width-80,80,game);
+
         game.tetrises = [
             new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game),
         ];

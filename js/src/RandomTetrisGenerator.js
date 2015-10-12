@@ -9,7 +9,8 @@ var pieces = [
             [[1],[2],[1],[1]],
             [[1,2,1,1]]
         ],
-        colour:0
+        colour:0,
+        name: "I"
     },
     {
         pivot:{i:0,j:1},
@@ -19,7 +20,8 @@ var pieces = [
             [[0,1],[0,2],[1,1]],
             [[1,0,0],[1,2,1]]
         ],
-        colour:1
+        colour:1,
+        name: "J"
     },
     {
         pivot:{i:1,j:1},
@@ -29,12 +31,14 @@ var pieces = [
             [[1,0],[2,0],[1,1]],
             [[1,2,1],[1,0,0]]
         ],
-        colour:2
+        colour:2,
+        name: "L"
     },
     {
         pivot:{i:0,j:0},
         rotations: [[[2,1],[1,1]]],
-        colour:3
+        colour:3,
+        name: "O"
     },
     {
         pivot:{i:1,j:1},
@@ -42,7 +46,8 @@ var pieces = [
             [[0,1],[1,2],[1,0]],
             [[1,1,0],[0,2,1]]
         ],
-        colour:4
+        colour:4,
+        name:"Z"
     },
     {
         pivot:{i:0,j:1},
@@ -50,7 +55,8 @@ var pieces = [
             [[1,0],[2,1],[0,1]],
             [[0,2,1],[1,1,0]]
         ],
-        colour:5
+        colour:5,
+        name: "S"
     },
     {
         pivot:{i:0,j:1},
@@ -60,14 +66,14 @@ var pieces = [
             [[0,1],[1,2],[0,1]],
             [[0,1,0],[1,2,1]]
         ],
-        colour:6
+        colour:6,
+        name: "T"
     }
 ];
 
-function RandomTetrisGenerator(x,y,game){
+function RandomTetrisGenerator(player){
     this.bag = _.range(7);
-    //this.pieceDisplay = new PieceDisplay(x,y,game);
-
+    this.player = player;
     this.shuffle = function(){
         this.bag = _.shuffle(this.bag);
         this.bagIndex = -1;
@@ -79,7 +85,7 @@ function RandomTetrisGenerator(x,y,game){
         }
         this.bagIndex++;
         this.nextPiece = pieces[this.bag[this.bagIndex]];
-        //this.pieceDisplay.showPiece(this.nextPiece);
+        $("#ui-"+this.player+" .next-piece-monitor").css("background-image","url(./assets/pieces/"+this.nextPiece.name+".png)");
     };
 
     this.getNextPiece = function(){
