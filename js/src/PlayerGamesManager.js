@@ -36,12 +36,18 @@ var PlayerGamesManager = function (playerInfo) {
 
     this.upsideDown = function(){
         this.attacked = !this.attacked;
-        this.viewPortManager.rotateCube(0,0,180);
+        this.viewPortManager.upSideDown();
     };
 
     this.pauseNonActiveGames = function(){
         for(var i = 0; i < this.games.length; i++){
             this.games[i].paused = !(i == this.activeGame);
+        }
+    };
+
+    this.pauseAllGames = function (){
+        for(var i = 0; i < this.games.length; i++){
+            this.games[i].paused = true;
         }
     };
 
@@ -53,6 +59,14 @@ var PlayerGamesManager = function (playerInfo) {
         }
         switch (powerUp.name){
             case "upside-down" : console.log("attacking"); otherPlayer.upsideDown(); break;
+        }
+    };
+
+    this.cleanGames = function(){
+        for (var i = 0; i <4; i++){
+            this.games[i].tetrises[0].cleanTetris();
+            this.games[i].tetrises[0].grid.alphaTween.stop();
+            this.games[i].tetrises[0].startTimeOut();
         }
     };
 

@@ -11,11 +11,19 @@ var GamesManager = function () {
     };
 
     this.startPlayer = function(){
+        var _self = this;
         this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
         if (this.players.length == 2){
             //player two started
             $(".wait-player-2").hide();
             $(".player-2-wrapper").show();
+
+
+
+            //pause player 1 games
+            this.players[0].pauseAllGames();
+
+
             TweenMax.to(this.players[0].viewPortManager.cube, 1,{
                 x: -170
             });
@@ -23,7 +31,13 @@ var GamesManager = function () {
             TweenMax.from (this.players[1].viewPortManager.cube, 1, {
                 x: 480,
                 rotationY: -360,
-                force3D:true
+                force3D:true,
+                onComplete: function(){
+                    //reset p1 current game & resume both games
+                    _self.players[0].cleanGames();
+                    _self.players[0].pauseNonActiveGames();
+                    _self.players[1].cleanGames();
+                }
             })
         }
     };
@@ -37,9 +51,8 @@ var GamesManager = function () {
         var e = e || window.event;
         if (e.keyCode === 70 && gamesManager.players.length != 2){
             gamesManager.startPlayer();
-            //matchModel.playersCount = 2;
         }
-        e.preventDefault()
+        e.preventDefault();
     };
 
 

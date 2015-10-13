@@ -115,6 +115,31 @@ function Tetris(x,y,angle,game){
         return true;
     };
 
+    this.cleanTetris = function(){
+        var _self = this;
+        for (var j=0;j<this.grid.matrix.length;j++){
+            for (var i=0; i<this.grid.matrix[j].length; i++){
+                if (this.grid.matrix[j][i] != 0){
+
+                    var piece = this.grid.matrix[j][i];
+                    piece.destroy();
+
+                    //TweenMax.to(piece, 0.33,{
+                    //    x: Math.random() * 250,
+                    //    y: Math.random() * 50,
+                    //    angle: Math.random() * 360,
+                    //    onComplete: function(){
+                    //        piece.destroy();
+                    //    },
+                    //});
+
+                    this.grid.matrix[j][i] = 0;
+
+                }
+            }
+        }
+    };
+
     this.placePieceInGrid = function(){
         this.current.shadow.removeAll();
         var piecePivot = getPivot(this.current.matrix);
