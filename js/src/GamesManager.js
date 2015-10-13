@@ -22,7 +22,7 @@ var GamesManager = function () {
 
             //pause player 1 games
             this.players[0].pauseAllGames();
-
+            this.players[0].cleanGames();
 
             TweenMax.to(this.players[0].viewPortManager.cube, 1,{
                 x: -170
@@ -34,7 +34,6 @@ var GamesManager = function () {
                 force3D:true,
                 onComplete: function(){
                     //reset p1 current game & resume both games
-                    _self.players[0].cleanGames();
                     _self.players[0].pauseNonActiveGames();
                     _self.players[1].cleanGames();
                 }

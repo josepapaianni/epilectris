@@ -120,21 +120,18 @@ function Tetris(x,y,angle,game){
         for (var j=0;j<this.grid.matrix.length;j++){
             for (var i=0; i<this.grid.matrix[j].length; i++){
                 if (this.grid.matrix[j][i] != 0){
-
                     var piece = this.grid.matrix[j][i];
-                    piece.destroy();
-
-                    //TweenMax.to(piece, 0.33,{
-                    //    x: Math.random() * 250,
-                    //    y: Math.random() * 50,
-                    //    angle: Math.random() * 360,
-                    //    onComplete: function(){
-                    //        piece.destroy();
-                    //    },
-                    //});
-
-                    this.grid.matrix[j][i] = 0;
-
+                    //piece.destroy();
+                    TweenMax.to(piece, 0.5,{
+                        delay: Math.random()*0.5,
+                        y: Math.random() * 50,
+                        alpha: 0,
+                        onComplete: function(obj){
+                            obj.target.destroy();
+                        },
+                        onCompleteParams: ["{self}"]
+                    });
+                    _self.grid.matrix[j][i] = 0;
                 }
             }
         }
