@@ -23,9 +23,9 @@ function PowerUpManager(player){
     this.showPowerUps = function(){
         for (var i=0; i < 4; i++){
             if (i>=this.powerUps.length){
-                $($("#ui-"+this.player+" .power-up-icon")[i]).css("background-image","");
+                $($("#ui-"+this.player+" .power-up-icon")[i]).attr('class', 'power-up-icon');
             } else {
-                $($("#ui-"+this.player+" .power-up-icon")[i]).css("background-image","url(./assets/powerups/"+this.powerUps[i].name+".png)");
+                $($("#ui-"+this.player+" .power-up-icon")[i]).addClass(this.powerUps[i].name);
             }
         }
     };
