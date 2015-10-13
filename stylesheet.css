@@ -29,6 +29,47 @@ canvas{
     display: inline-block;
     overflow: hidden;
 }
+
+#welcome-screen{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    display: none;
+}
+#welcome-screen > .nova {
+    position: absolute;
+    background-image: url(./assets/welcome-nova.png);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 75%;
+    top: 0;
+}
+#welcome-screen > .game-logo {
+    position: absolute;
+    background-image: url(./assets/welcome-logo.png);
+    width: 75%;
+    height: 35%;
+    left: 12.5%;
+    top: 18%;
+}
+#welcome-screen > .game-logo-glow {
+    position: absolute;
+    background-image: url(./assets/welcome-logo-glow.png);
+    width: 75%;
+    height: 35%;
+    left: 12.5%;
+    top: 18%;
+}
+#welcome-screen > .text {
+    position: absolute;
+    width: 100%;
+    height: 35%;
+    top: 80%;
+    font-family: "Orbitron", sans-serif;
+    font-size: 2em;
+    color: #06ff00;
+    text-transform: uppercase;
+}
 #glow-explosion{
     position: absolute;
     width: 960px;

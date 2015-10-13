@@ -13,16 +13,24 @@ var GamesManager = function () {
     this.startPlayer = function(){
         var _self = this;
         this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
+        if (this.players.length === 1) {
+            TweenMax.from(this.players[0].viewPortManager.cube,1,{
+                delay: 0.5,
+                scale:0,
+                ease: Power3.easeIn,
+                onComplete: function () {
+                    _self.players[0].pauseNonActiveGames();
+                }
+            });
+        }
         if (this.players.length == 2){
             //player two started
             $(".wait-player-2").hide();
             $(".player-2-wrapper").show();
 
-
-
             //pause player 1 games
-            this.players[0].pauseAllGames();
             this.players[0].cleanGames();
+            this.players[0].pauseAllGames();
 
             TweenMax.to(this.players[0].viewPortManager.cube, 1,{
                 x: -170
@@ -34,8 +42,10 @@ var GamesManager = function () {
                 force3D:true,
                 onComplete: function(){
                     //reset p1 current game & resume both games
+                    _self.players[0].resetScore();
                     _self.players[0].pauseNonActiveGames();
                     _self.players[1].cleanGames();
+                    _self.players[1].pauseNonActiveGames();
                 }
             })
         }
@@ -50,6 +60,10 @@ var GamesManager = function () {
         var e = e || window.event;
         if (e.keyCode === 70 && gamesManager.players.length != 2){
             gamesManager.startPlayer();
+            if(gamesManager.players.length === 1){
+                uiUtils.hideWelcomeScreen();
+                uiUtils.showUi();
+            }
         }
         e.preventDefault();
     };

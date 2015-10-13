@@ -26,6 +26,10 @@ var PlayerGamesManager = function (playerInfo) {
         $("#ui-"+this.playerInfo.playerId+" .score-counter").html(paddedScore);
     };
 
+    this.resetScore =function(){
+        $("#ui-"+this.playerInfo.playerId+" .score-counter").html("000000");
+    }
+
     this.nextGame = function(){
         this.pieceHold.unlock();
         this.activeGame = (this.activeGame+this.playerInfo.rotateNext)%4;

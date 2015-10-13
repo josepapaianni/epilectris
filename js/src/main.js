@@ -2,7 +2,8 @@ var gamesManager = new GamesManager();
 var spaceEffect = new SpaceEffect();
 var uiUtils = new UiUtils();
 
-gamesManager.startPlayer();
+uiUtils.showWelcomeScreen();
+//gamesManager.startPlayer();
 
 
 //for (var i = 0; i <8; i++){

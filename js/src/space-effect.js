@@ -78,7 +78,7 @@ var SpaceEffect = function () {
 
         // Draw the particles
         for (var i = 0; i < _self.settings.density; i++) {
-            if (Math.random() > 0.95) {
+            if (Math.random() > 0.97) {
                 new Particle();
             }
         }

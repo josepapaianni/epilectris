@@ -30,9 +30,9 @@ var GameState = function (game) {
             new Tetris(this.game.world.centerX,this.game.height-gridSize/2,0,game),
         ];
         game.tetrises[game.currentTetris].startTimeOut();
-        if (game.id != 0){
+        //if (game.id != 0){
             game.paused = true;
-        }
+
 
     };
 
