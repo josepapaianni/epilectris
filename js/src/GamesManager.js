@@ -22,7 +22,8 @@ var GamesManager = function () {
             this.players[1].viewPortManager.cube.style.display = "block";
             TweenMax.from (this.players[1].viewPortManager.cube, 1, {
                 x: 480,
-                rotationY: -360
+                rotationY: -360,
+                force3D:true
             })
         }
     };

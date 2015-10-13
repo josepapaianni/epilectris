@@ -195,6 +195,7 @@ canvas{
     border-radius: 1em;
     margin-top: 0.5em;
     margin-bottom:0.25em;
+    position: relative;
 }
 
 .piece-frame > .title{
@@ -219,4 +220,43 @@ canvas{
     margin-top: 15em;
     padding: 2.5em 0.75em 0 2.5em;
 
+}
+
+.piece-sprite{
+    background-image: url(./assets/glow-white-30.png);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 45px;
+    left: 15px;
+    background-size: 100% 100%;
+}
+
+.piece-colour-0{
+    background-image: url(./assets/pieces/0.png);
+}
+.piece-colour-1{
+    background-image: url(./assets/pieces/1.png);
+}
+.piece-colour-2{
+    background-image: url(./assets/pieces/2.png);
+}
+.piece-colour-3{
+    background-image: url(./assets/pieces/3.png);
+}
+.piece-colour-4{
+    background-image: url(./assets/pieces/4.png);
+}
+.piece-colour-5{
+    background-image: url(./assets/pieces/5.png);
+}
+.piece-colour-6{
+    background-image: url(./assets/pieces/6.png);
+}
+
+.upsidedown{
+    background-image: url(./assets/powerups/upside-down.png);
+    background-size: 70% 70%;
+    background-repeat: no-repeat;
+    background-position: center;
 }

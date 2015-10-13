@@ -11,7 +11,8 @@ function PieceHold(player){
         if (this.locked){
             return piece;
         }
-        $("#ui-"+this.player+" .hold-piece-monitor").css("background-image","url(./assets/pieces/"+piece.name+".png)");
+
+        uiUtils.showHoldPiece(piece.rotations[0], piece.colour, piece.name, player);
         this.locked = true;
         this.lastPiece = this.pieceHeld;
         this.pieceHeld = piece;

@@ -1,5 +1,7 @@
 var gamesManager = new GamesManager();
 var spaceEffect = new SpaceEffect();
+var uiUtils = new UiUtils();
+
 gamesManager.startPlayer();
 
 

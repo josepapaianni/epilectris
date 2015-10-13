@@ -13,7 +13,8 @@ var ViewPortManager = function (cubeId) {
             rotationX: this.actualCubeRotation.x,
             rotationY: this.actualCubeRotation.y,
             rotationZ: this.actualCubeRotation.z,
-            ease: Back.easeOut.config(1.3)
+            ease: Back.easeOut.config(1.3),
+            force3D:true
         })
     };
 
@@ -25,14 +26,38 @@ var ViewPortManager = function (cubeId) {
             rotationX: this.actualCubeRotation.x,
             rotationY: this.actualCubeRotation.y,
             rotationZ: this.actualCubeRotation.z,
-            ease: Back.easeOut.config(1.3)
+            ease: Back.easeOut.config(1.3),
+            force3D:true
         });
+    };
+
+    this.upSideDown = function () {
+        TweenMax.to(this.cube, 0.33, {
+            scale: 0.8,
+            force3D:true,
+            ease: Power3.easeOut
+        });
+        TweenMax.to(this.cube, 0.33, {
+            delay: 0.33,
+            rotationZ: this.actualCubeRotation.z + 180,
+            force3D:true,
+            ease: Power2.easeOut
+        });
+        TweenMax.to(this.cube, 0.33, {
+            delay: 0.66,
+            scale: 1,
+            force3D:true,
+            ease: Power3.easeIn
+        });
+
+        this.actualCubeRotation.z = this.actualCubeRotation.z + 180;
     };
 
     this.cubeToActiveGame = function (activeGame){
         TweenMax.to(this.cube , 1,{
             rotationY: activeGame * -90,
-            ease: Back.easeOut.config(1.3)
+            ease: Back.easeOut.config(1.3),
+            force3D:true
         });
     };
 };

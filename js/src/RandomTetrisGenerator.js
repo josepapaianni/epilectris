@@ -85,7 +85,7 @@ function RandomTetrisGenerator(player){
         }
         this.bagIndex++;
         this.nextPiece = pieces[this.bag[this.bagIndex]];
-        $("#ui-"+this.player+" .next-piece-monitor").css("background-image","url(./assets/pieces/"+this.nextPiece.name+".png)");
+        uiUtils.showNextPiece(this.nextPiece.rotations[0], this.nextPiece.colour, this.nextPiece.name, player);
     };
 
     this.getNextPiece = function(){

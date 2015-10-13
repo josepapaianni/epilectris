@@ -16,7 +16,6 @@ var SpaceEffect = function () {
     var _self = this;
 
     this.settings = {
-            density: 20,
             particleSize: 1,
             particleMinSize: 0.5,
             particleMaxSize: 3,
@@ -24,7 +23,8 @@ var SpaceEffect = function () {
             startingY: canvas.height / 2,
             gravity: 0,
             speedX: 6,
-            speedY: 6
+            speedY: 6,
+            density: 20,
         };
 
     // Set up a function to create multiple particles
@@ -59,7 +59,8 @@ var SpaceEffect = function () {
             delete particles[this.id];
         }
 
-        this.alpha += 0.005;
+        _self.settings.density = _self.settings.speedX * 3;
+        this.alpha += _self.settings.speedX / 1000;
 
         // Create the shapes
         context.clearRect(_self.settings.leftWall, _self.settings.groundLevel, canvas.width, canvas.height);
