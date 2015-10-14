@@ -6,6 +6,10 @@ var powerUps = [
     {
         name: "upside-down",
         type: "attack"
+    },
+    {
+        name: "block-remove",
+        type: "help"
     }
 ];
 
