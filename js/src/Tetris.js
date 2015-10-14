@@ -534,7 +534,7 @@ function Tetris(x, y, angle, game) {
     this.placeShadow();
     this.grid.blocks.setAll("alpha", 1);
     this.current.sprites.setAll("alpha", 1);
-    this.grid.alphaTween = game.add.tween(this.grid.sprite).to({alpha: 0.5}, currentSpeed / 2, Phaser.Easing.Linear.None, true);
+    this.grid.alphaTween = game.add.tween(this.grid.sprite).to({alpha: 0.5}, game.playerManagerRef.currentLevel.speed / 2, Phaser.Easing.Linear.None, true);
     this.grid.alphaTween.yoyo(true);
     this.grid.alphaTween.onComplete.add(function () {
       this.movePiece();

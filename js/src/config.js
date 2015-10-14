@@ -9,11 +9,30 @@ var levels = [
         toNextLevel: 10,
         maxLevels: 4
     },
+    {
+        speed: 750,
+        toNextLevel: 10,
+        rotateZFixed: true,
+        maxLevels: 4
+    },
+    {
+        speed: 500,
+        toNextLevel: 10,
+        rotateZRandom: true,
+        maxLevels: 4
+    },
+    {
+        speed: 250,
+        toNextLevel: 10,
+        maxLevels: 4
+    },
     //tier 1
     {
         speed: 2500,
         toNextLevel: 10,
         changeAngle: true,
+        rotateZFixed: true,
+        randomFace: true,
         maxLevels: 8
     },
     //tier 2
