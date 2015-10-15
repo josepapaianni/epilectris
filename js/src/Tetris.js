@@ -330,26 +330,23 @@ function Tetris(x, y, angle, game) {
   };
 
   this.powerUpRemove = function () {
+    game.paused = true;
     var _self = this;
     var blocksToRemove = [];
     var remainingBlocks = [];
-    var blocksRemovedByColumns = [];
-    var counter = 0;
 
     for (var j = 0; j < this.grid.matrix.length; j++) {
       for (var i = 0; i < this.grid.matrix[j].length; i++) {
         if (this.grid.matrix[j][i] instanceof Phaser.Sprite) {
           if(Math.random()>0.5){
             blocksToRemove.push(this.grid.matrix[j][i]);
-            blocksRemovedByColumns.push(i);
             this.grid.matrix[j][i] = 0;
           } else {
             remainingBlocks.push({
               sprite: this.grid.matrix[j][i],
               positionX: i,
-              position: this.grid.matrix[j][i].finalPosition.j
+              positionY: j
             });
-            //this.grid.matrix[j][i] = -1;
           }
         }
       }
@@ -371,48 +368,42 @@ function Tetris(x, y, angle, game) {
       },
       onStartParams: ["{self}"]
     },0.05,function(){
-      console.log(_self.grid.matrix);
       for (var l = 0 ; l < remainingBlocks.length; l++){
         var offset = 0;
-        for (var m = remainingBlocks[l].position; m < _self.grid.matrix.length; m++){
-          if (_self.grid.matrix[m][remainingBlocks[l].positionX] instanceof Phaser.Sprite ) {
-          } else {
-            if (_self.grid.matrix[m].j != 19){
-            offset--
-            }
-            //remainingBlocks[l].position = remainingBlocks[l].position + offset
-            console.log(remainingBlocks[l].position - offset)
+        for (var m = remainingBlocks[l].positionY; m < _self.grid.matrix.length; m++){
+          if (!(_self.grid.matrix[m][remainingBlocks[l].positionX] instanceof Phaser.Sprite)) {
+            offset++
           }
         }
-        remainingBlocks[l].position = remainingBlocks[l].position + offset;
-        //remainingBlocks[l].sprite.finalPosition.j = remainingBlocks[l].position;
+        remainingBlocks[l].offset = offset;
       }
-      _self.moveRemainingBlocks(remainingBlocks);
+      _self.getEmptySpaces(remainingBlocks);
     });
 
 
   };
 
   this.getEmptySpaces = function (remainingBlocks) {
-      var deferred = Q.defer();
-      for (var i = 0; i < remainingBlocks.length; i++) {
-        var advance = {
-          y: (remainingBlocks[i].sprite.finalPosition.j - remainingBlocks[i].position) * gridSize,
-          x: 0
-        };
-        TweenMax.to(remainingBlocks[i].sprite, 0.2, {
-          //finalPosition: remainingBlocks[i].position,
-          x: remainingBlocks[i].sprite.x + Math.cos(angle) * advance.x - Math.sin(angle) * advance.y,
-          y: remainingBlocks[i].sprite.y + Math.cos(angle) * advance.y - Math.sin(angle) * advance.x,
-          delay: 0.015 * [i],
-          ease: Power3.easeIn,
-          onComplete: function () {
-            deferred.resolve()
-          }
-        });
-      }
-      return deferred.promise;
-      //this.grid.matrix[j][i].finalPosition.j++;
+    var _self = this;
+    for (var i = 0; i < remainingBlocks.length; i++) {
+      this.grid.matrix[remainingBlocks[i].positionY][remainingBlocks[i].positionX] = 0;
+    }
+    for (var i = 0; i < remainingBlocks.length; i++) {
+      console.log(remainingBlocks[i].positionY, remainingBlocks[i].offset)
+      var advance = remainingBlocks[i].sprite.y + (remainingBlocks[i].offset * gridSize);
+      this.grid.matrix[remainingBlocks[i].positionY+remainingBlocks[i].offset][remainingBlocks[i].positionX] = remainingBlocks[i].sprite;
+      remainingBlocks[i].sprite.finalPosition.j = remainingBlocks[i].sprite.finalPosition.j + remainingBlocks[i].offset;
+
+      TweenMax.to(remainingBlocks[i].sprite, 0.2, {
+        y: advance,
+        delay: 0.015 * [i],
+        ease: Power3.easeIn,
+        onComplete: function (){
+          game.paused = false;
+          _self.checkTetris();
+        }
+      });
+    }
   };
 
   this.clearAll = function (checkOthers) {
