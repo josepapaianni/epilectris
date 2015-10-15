@@ -3,7 +3,7 @@
  */
 
 var pieces = [
-    {
+    {//0
         pivot:{i:0,j:1},
         rotations: [
             [[1],[2],[1],[1]],
@@ -12,7 +12,7 @@ var pieces = [
         colour:0,
         name: "I"
     },
-    {
+    {//1
         pivot:{i:0,j:1},
         rotations: [
             [[1,1],[2,0],[1,0]],
@@ -23,7 +23,7 @@ var pieces = [
         colour:1,
         name: "J"
     },
-    {
+    {//2
         pivot:{i:1,j:1},
         rotations: [
             [[1,1],[0,2],[0,1]],
@@ -34,13 +34,13 @@ var pieces = [
         colour:2,
         name: "L"
     },
-    {
+    {//3
         pivot:{i:0,j:0},
         rotations: [[[2,1],[1,1]]],
         colour:3,
         name: "O"
     },
-    {
+    {//4
         pivot:{i:1,j:1},
         rotations: [
             [[0,1],[1,2],[1,0]],
@@ -49,7 +49,7 @@ var pieces = [
         colour:4,
         name:"Z"
     },
-    {
+    {//5
         pivot:{i:0,j:1},
         rotations: [
             [[1,0],[2,1],[0,1]],
@@ -58,7 +58,7 @@ var pieces = [
         colour:5,
         name: "S"
     },
-    {
+    {//6
         pivot:{i:0,j:1},
         rotations: [
             [[1,0],[2,1],[1,0]],
@@ -75,6 +75,7 @@ function RandomTetrisGenerator(player){
     this.bag = _.range(7);
     this.player = player;
     this.shuffle = function(){
+        this.bag = _.range(7);
         this.bag = _.shuffle(this.bag);
         this.bagIndex = -1;
     };
@@ -92,6 +93,17 @@ function RandomTetrisGenerator(player){
         var nextPiece = this.nextPiece;
         this.generateNextPiece();
         return nextPiece;
+    };
+
+    this.cloneFirst = function(){
+        var first = this.bag[this.bagIndex];
+        this.bag = [first,first,first,first,first,first,first,first];
+        this.bagIndex = -1;
+    };
+
+    this.badShuffle = function(){
+        this.bag = [4,4,4,4,5,5,5,5];
+        this.bagIndex = -1;
     };
 
     this.shuffle();

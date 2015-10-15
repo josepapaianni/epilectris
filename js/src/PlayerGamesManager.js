@@ -11,18 +11,14 @@ var PlayerGamesManager = function (playerInfo) {
     this.powerUpManager = new PowerUpManager(this.playerInfo.playerId);
     this.attacked = false;
     this.levelIndex = -1;
-
-    this.randomGame = function () {
-        this.activeGame = Math.floor(Math.random()*4);
-        this.viewPortManager.cubeToActiveGame(this.activeGame);
-        this.pauseNonActiveGames();
-    };
+    this.currentLevel = levels[0];
+    this.currentSpeed = 0;
 
     this.setScore = function(score){
         if (this.attacked){
             this.upsideDown();
         }
-        this.linesLeft-=score;
+        this.linesLeft-=score*score;
         if (this.linesLeft<=0){
             this.changeLevel();
         }
@@ -39,8 +35,13 @@ var PlayerGamesManager = function (playerInfo) {
     };
 
     this.changeLevel = function(){
-        this.levelIndex++;
-        this.currentLevel = levels[this.levelIndex];
+        this.currentSpeed -= this.currentLevel.speedStep;
+        if (this.currentSpeed < this.currentLevel.minSpeed){
+            this.levelIndex++;
+            this.currentLevel = levels[this.levelIndex];
+            this.currentSpeed = this.currentLevel.startSpeed;
+        }
+
         this.linesLeft = this.currentLevel.toNextLevel;
         var paddedLines = ("000" + this.linesLeft).substr(-3,3);
         $("#ui-"+this.playerInfo.playerId+" .lines-left-counter").html(paddedLines);
@@ -52,6 +53,7 @@ var PlayerGamesManager = function (playerInfo) {
         if (this.currentLevel.randomFace){
             var randomGame = Math.floor(Math.random()*4);
             newAngles.y = (this.activeGame-randomGame)*90;
+            this.activeGame = randomGame;
         } else {
             this.activeGame = (this.activeGame+this.playerInfo.rotateNext)%4;
             this.activeGame = this.activeGame < 0 ? 3 : this.activeGame;
@@ -59,13 +61,13 @@ var PlayerGamesManager = function (playerInfo) {
         }
 
         if (this.currentLevel.rotateZFixed){
-            newAngles.z = 15;
+            newAngles.z = -15;
         }
         if (this.currentLevel.rotateZRandom){
-            newAngles.z = Math.floor(Math.random()*4)*15;
+            newAngles.z = Math.floor(Math.random()*24)*15;
         }
 
-        this.viewPortManager.rotateCube(newAngles.x,newAngles.y,newAngles.z);
+        this.viewPortManager.rotateCube(newAngles.x,newAngles.y,gamesManager.players.length > 1 ? 0 : newAngles.z);
         this.pauseNonActiveGames();
     };
 
@@ -88,13 +90,36 @@ var PlayerGamesManager = function (playerInfo) {
 
     this.usePowerUp = function(){
         var powerUp = this.powerUpManager.getFirstPowerUp();
-        var otherPlayer = gamesManager.getOtherPlayer(this);
-        if (!powerUp || (!otherPlayer && powerUp.type == "attack")){
+        if (!powerUp){
             return;
         }
-        switch (powerUp.name){
-            case "upside-down" : console.log("attacking"); otherPlayer.upsideDown(); break;
+        var actionPlayer;
+        switch (powerUp.type){
+            case "help" : actionPlayer = this; break;
+            case "attack" :
+                actionPlayer = gamesManager.getOtherPlayer(this);
+                if (!actionPlayer) {
+                    return;
+                }
+                break;
+            case "both" :
+                actionPlayer = gamesManager.getOtherPlayer(this);
+                if (!actionPlayer) {
+                    actionPlayer = this;
+                }
+                break;
+
         }
+        switch (powerUp.name){
+            case "upside-down" : actionPlayer.upsideDown(); break;
+            case "block-remove" : actionPlayer.removeBlocksInActiveGame(); break;
+            case "clone-piece" : actionPlayer.pieceGenerator.cloneFirst(); break;
+            case "bad-shuffle" : actionPlayer.pieceGenerator.badShuffle(); break;
+        }
+    };
+
+    this.removeBlocksInActiveGame = function(){
+        this.games[this.activeGame].tetrises[0].powerUpRemove();
     };
 
     this.cleanGames = function(){

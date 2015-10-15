@@ -300,3 +300,17 @@ canvas{
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.clone-piece{
+    background-image: url(./assets/powerups/clone-piece.png);
+    background-size: 70% 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bad-shuffle{
+    background-image: url(./assets/powerups/bad-shuffle.png);
+    background-size: 70% 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

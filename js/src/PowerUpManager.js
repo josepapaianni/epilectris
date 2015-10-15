@@ -10,6 +10,14 @@ var powerUps = [
     {
         name: "block-remove",
         type: "help"
+    },
+    {
+        name: "bad-shuffle",
+        type: "attack"
+    },
+    {
+        name: "clone-piece",
+        type: "both"
     }
 ];
 
