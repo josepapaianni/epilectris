@@ -55,6 +55,10 @@ var GamesManager = function () {
         return (this.players.length == 1) ? null : ((player == this.players[0]) ? this.players[1] : this.players[0]);
     };
 
+    this.isMultiplayer = function(){
+        return this.players.length > 1;
+    };
+
     //2 players start
     document.onkeydown = function(e) {
         var e = e || window.event;
