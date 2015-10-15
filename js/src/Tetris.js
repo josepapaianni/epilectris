@@ -183,6 +183,7 @@ function Tetris(x, y, angle, game) {
 
     if (linesRemoved.length > 0) {
       game.playerManagerRef.setScore(linesRemoved.length);
+      game.playerManagerRef.showLinesMessage(linesRemoved.length);
       if (linesRemoved.length == 4) {
         game.playerManagerRef.powerUpManager.addPowerUp();
       }
@@ -247,6 +248,7 @@ function Tetris(x, y, angle, game) {
         }
       }
     }
+
     remainingBlocks = _.uniq(remainingBlocks, function (item, key, sprite) {
       return item.sprite;
     });

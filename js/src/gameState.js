@@ -9,9 +9,9 @@ var GameState = function (game) {
         this.input = new Input(game);
         var backgroundImage = this.game.add.sprite(0,0,'backgroundImage');
         game.stage.backgroundColor = '#000000';
-        pauseWindow = game.add.sprite(0,0,"stageShadow");
-        pauseWindow.alpha = 0.8;
-        pauseWindow.visible = false;
+        //pauseWindow = game.add.sprite(0,0,"stageShadow");
+        //pauseWindow.alpha = 0.8;
+        //pauseWindow.visible = false;
         game.grids = game.add.group();
         currentLevel = 0;
         currentTier = 0;
@@ -32,7 +32,6 @@ var GameState = function (game) {
         game.tetrises[game.currentTetris].startTimeOut();
         //if (game.id != 0){
             game.paused = true;
-
 
     };
 

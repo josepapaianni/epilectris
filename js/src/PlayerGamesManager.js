@@ -9,6 +9,7 @@ var PlayerGamesManager = function (playerInfo) {
     this.pieceHold = new PieceHold(this.playerInfo.playerId);
     this.pieceGenerator = new RandomTetrisGenerator(this.playerInfo.playerId);
     this.powerUpManager = new PowerUpManager(this.playerInfo.playerId);
+    this.ingameUi = new IngameUi(this.playerInfo.playerId);
     this.attacked = false;
     this.levelIndex = -1;
     this.currentLevel = levels[0];
@@ -113,6 +114,7 @@ var PlayerGamesManager = function (playerInfo) {
         switch (powerUp.name){
             case "upside-down" : actionPlayer.upsideDown(); break;
             case "block-remove" : actionPlayer.removeBlocksInActiveGame(); break;
+            case "block-clean" : actionPlayer.getEmptyInActiveGame(); break;
             case "clone-piece" : actionPlayer.pieceGenerator.cloneFirst(); break;
             case "bad-shuffle" : actionPlayer.pieceGenerator.badShuffle(); break;
         }
@@ -121,6 +123,14 @@ var PlayerGamesManager = function (playerInfo) {
     this.removeBlocksInActiveGame = function(){
         this.games[this.activeGame].tetrises[0].powerUpRemove();
     };
+
+    this.getEmptyInActiveGame = function () {
+        this.games[this.activeGame].tetrises[0].powerUpEmptySpaces();
+    }
+
+    this.showLinesMessage = function (numberOfLines) {
+        this.ingameUi.showMessage(numberOfLines, this.games[this.activeGame]);
+    }
 
     this.cleanGames = function(){
         for (var i = 0; i <4; i++){

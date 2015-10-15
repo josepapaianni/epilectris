@@ -18,6 +18,10 @@ var Preloader = function (game) {
         this.game.load.image('menuLogo', 'assets/welcome-logo.png');
         this.game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
         this.game.load.image('backgroundImage', 'assets/background-face.png');
+        this.game.load.image('linesEffect', 'assets/ui/lines-effect.png');
+        this.game.load.image('doubleTxt', 'assets/ui/double-txt.png');
+        this.game.load.image('tripleTxt', 'assets/ui/triple-txt.png');
+        this.game.load.image('tetrisTxt', 'assets/ui/tetris-txt.png');
     };
 
     this.create = function() {
