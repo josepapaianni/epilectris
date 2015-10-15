@@ -55,7 +55,7 @@ var GameState = function (game) {
                         this.input.pressedKeys[direction].pressed = true;
                     }
                     if (direction == "level"){
-                        this.changeLevel();
+                        //this.changeLevel();
                         console.log("Level "+currentLevel);
                     } else {
                         tetris.movePiece(actualDirection);

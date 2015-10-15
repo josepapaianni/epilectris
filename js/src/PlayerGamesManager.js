@@ -10,6 +10,7 @@ var PlayerGamesManager = function (playerInfo) {
     this.pieceGenerator = new RandomTetrisGenerator(this.playerInfo.playerId);
     this.powerUpManager = new PowerUpManager(this.playerInfo.playerId);
     this.attacked = false;
+    this.levelIndex = -1;
 
     this.randomGame = function () {
         this.activeGame = Math.floor(Math.random()*4);
@@ -21,20 +22,50 @@ var PlayerGamesManager = function (playerInfo) {
         if (this.attacked){
             this.upsideDown();
         }
+        this.linesLeft-=score;
+        if (this.linesLeft<=0){
+            this.changeLevel();
+        }
         this.score+=score*score;
         var paddedScore = ("000000" + this.score).substr(-6,6);
         $("#ui-"+this.playerInfo.playerId+" .score-counter").html(paddedScore);
+        var paddedLines = ("000" + this.linesLeft).substr(-3,3);
+        $("#ui-"+this.playerInfo.playerId+" .lines-left-counter").html(paddedLines);
+
     };
 
     this.resetScore =function(){
         $("#ui-"+this.playerInfo.playerId+" .score-counter").html("000000");
-    }
+    };
+
+    this.changeLevel = function(){
+        this.levelIndex++;
+        this.currentLevel = levels[this.levelIndex];
+        this.linesLeft = this.currentLevel.toNextLevel;
+        var paddedLines = ("000" + this.linesLeft).substr(-3,3);
+        $("#ui-"+this.playerInfo.playerId+" .lines-left-counter").html(paddedLines);
+    };
 
     this.nextGame = function(){
         this.pieceHold.unlock();
-        this.activeGame = (this.activeGame+this.playerInfo.rotateNext)%4;
-        this.activeGame = this.activeGame < 0 ? 3 : this.activeGame;
-        this.viewPortManager.rotateCube(0,this.playerInfo.rotateNext*-90,0);
+        var newAngles = {x:0,y:0,z:0};
+        if (this.currentLevel.randomFace){
+            var randomGame = Math.floor(Math.random()*4);
+            newAngles.y = (this.activeGame-randomGame)*90;
+        } else {
+            this.activeGame = (this.activeGame+this.playerInfo.rotateNext)%4;
+            this.activeGame = this.activeGame < 0 ? 3 : this.activeGame;
+            newAngles.y = this.playerInfo.rotateNext*-90;
+        }
+
+        if (this.currentLevel.rotateZFixed){
+            newAngles.z = 15;
+        }
+        if (this.currentLevel.rotateZRandom){
+            newAngles.z = Math.floor(Math.random()*4)*15;
+        }
+
+        this.viewPortManager.rotateCube(newAngles.x,newAngles.y,newAngles.z);
         this.pauseNonActiveGames();
     };
 
@@ -86,6 +117,6 @@ var PlayerGamesManager = function (playerInfo) {
             this.games[i].state.start("preloader");
         }
     };
-
+    this.changeLevel();
     this.createGames();
 };
