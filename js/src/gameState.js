@@ -35,8 +35,6 @@ var GameState = function (game) {
 
     };
 
-
-
     this.update = function(game) {
         //filter.update();
         var tetris = game.tetrises[game.currentTetris];

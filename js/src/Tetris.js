@@ -53,6 +53,7 @@ function Tetris(x, y, angle, game) {
       case "place":
         while (this.movePiece()) {
         }
+        this.placedPieces++;
         return true;
         break;
       case "hold":
@@ -188,9 +189,12 @@ function Tetris(x, y, angle, game) {
         game.playerManagerRef.powerUpManager.addPowerUp();
       }
       this.removeLine(linesRemoved, true);
-
-
+    } else {
+      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces > game.playerManagerRef.currentLevel.changeEach){
+        gamesManager.nextGame();
+      }
     }
+
     //this.placeGrid();
   };
 
@@ -544,6 +548,7 @@ function Tetris(x, y, angle, game) {
   this.grid.sprite.offset = {x: 0, y: 0};
   //this.grid.sprite.visible = false;
   this.paused = false;
+  this.placedPieces = 0;
   this.grid.sprite.alpha = 0.2;
   this.startTimeOut = function () {
     this.placeShadow();

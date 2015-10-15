@@ -36,14 +36,40 @@ var PlayerGamesManager = function (playerInfo) {
     };
 
     this.changeLevel = function(){
-        this.currentSpeed -= this.currentLevel.speedStep;
-        if (this.currentSpeed < this.currentLevel.minSpeed){
-            this.levelIndex++;
-            this.currentLevel = levels[this.levelIndex];
-            this.currentSpeed = this.currentLevel.startSpeed;
-        }
+        if (this.lastLevel){
+            this.linesLeft = 50;
+        } else {
+            if (gamesManager.isMultiplayer()){
+                this.currentSpeed -= 100;
+                this.currentSpeed = Math.max(this.currentSpeed,250);
+                this.linesLeft = 50;
+                this.currentLevel = {};
+                //give special power up
+            } else {
+                this.currentSpeed -= this.currentLevel.speedStep;
+                if (this.currentSpeed < this.currentLevel.minSpeed){
+                    this.levelIndex++;
+                    console.log(this.levelIndex);
+                    if (this.levelIndex == levels.length){
+                        this.linesLeft = 50;
+                        this.zRotation = 5;
+                        this.lastLevel = true;
+                        _self = this;
+                        this.rotationInterval = setInterval(function(){
+                            if (Math.random()<0.05){
+                                gamesManager.players[0].zRotation = -gamesManager.players[0].zRotation;
+                            }
+                            gamesManager.players[0].viewPortManager.rotateCube(0,0,gamesManager.players[0].zRotation);
+                        },500)
+                    } else {
+                        this.currentLevel = levels[this.levelIndex];
+                        this.currentSpeed = this.currentLevel.startSpeed;
+                        this.linesLeft = this.currentLevel.toNextLevel;
+                    }
+                }
 
-        this.linesLeft = this.currentLevel.toNextLevel;
+            }
+        }
         var paddedLines = ("000" + this.linesLeft).substr(-3,3);
         $("#ui-"+this.playerInfo.playerId+" .lines-left-counter").html(paddedLines);
     };
@@ -51,24 +77,31 @@ var PlayerGamesManager = function (playerInfo) {
     this.nextGame = function(){
         this.pieceHold.unlock();
         var newAngles = {x:0,y:0,z:0};
-        if (this.currentLevel.randomFace){
-            var randomGame = Math.floor(Math.random()*4);
-            newAngles.y = (this.activeGame-randomGame)*90;
-            this.activeGame = randomGame;
-        } else {
+        if (gamesManager.isMultiplayer()){
             this.activeGame = (this.activeGame+this.playerInfo.rotateNext)%4;
             this.activeGame = this.activeGame < 0 ? 3 : this.activeGame;
             newAngles.y = this.playerInfo.rotateNext*-90;
+        } else {
+            if (this.currentLevel.randomFace){
+                var randomGame = Math.floor(Math.random()*3)+1;
+                this.activeGame = (this.activeGame+randomGame)%4;
+                newAngles.y = randomGame*-90;
+            } else {
+                this.activeGame = (this.activeGame+this.playerInfo.rotateNext)%4;
+                this.activeGame = this.activeGame < 0 ? 3 : this.activeGame;
+                newAngles.y = this.playerInfo.rotateNext*-90;
+            }
+
+            if (this.currentLevel.rotateZFixed){
+                newAngles.z = -15;
+            }
+            if (this.currentLevel.rotateZRandom){
+                newAngles.z = Math.floor(Math.random()*24)*15;
+            }
         }
 
-        if (this.currentLevel.rotateZFixed){
-            newAngles.z = -15;
-        }
-        if (this.currentLevel.rotateZRandom){
-            newAngles.z = Math.floor(Math.random()*24)*15;
-        }
-
-        this.viewPortManager.rotateCube(newAngles.x,newAngles.y,gamesManager.players.length > 1 ? 0 : newAngles.z);
+        this.viewPortManager.rotateCube(newAngles.x,newAngles.y,newAngles.z);
+        this.games[this.activeGame].tetrises[0].placedPieces = 0;
         this.pauseNonActiveGames();
     };
 
