@@ -170,6 +170,7 @@ var PlayerGamesManager = function (playerInfo) {
             case "upside-down" : actionPlayer.upsideDown(); break;
             case "block-remove" : actionPlayer.removeBlocksInActiveGame(); break;
             case "block-clean" : actionPlayer.getEmptyInActiveGame(); break;
+            case "arrange-blocks" : actionPlayer.arrangeBlocks(); break;
             case "clone-piece" : actionPlayer.pieceGenerator.cloneFirst(); break;
             case "bad-shuffle" : actionPlayer.pieceGenerator.badShuffle(); break;
         }
@@ -181,6 +182,10 @@ var PlayerGamesManager = function (playerInfo) {
 
     this.getEmptyInActiveGame = function () {
         this.games[this.activeGame].tetrises[0].powerUpEmptySpaces();
+    };
+
+    this.arrangeBlocks = function () {
+        this.games[this.activeGame].tetrises[0].powerUpArrange();
     };
 
     this.showLinesMessage = function (numberOfLines) {

@@ -330,6 +330,12 @@ canvas{
     vertical-align: middle;
     display: table-cell;
 }
+.arrange-blocks:before{
+    font-family: FontAwesome;
+    content: "\f050";
+    vertical-align: middle;
+    display: table-cell;
+}
 
 .fa {
     vertical-align: middle;

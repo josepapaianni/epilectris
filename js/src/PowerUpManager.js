@@ -63,6 +63,7 @@ function PowerUpManager(player) {
       if (i >= this.powerUps.length) {
         $($("#ui-" + this.player + " .power-up-icon")[i]).attr('class', 'power-up-icon');
       } else {
+        console.log(this.powerUps[i]);
         $($("#ui-" + this.player + " .power-up-icon")[i]).attr('class', 'power-up-icon '+this.powerUps[i].name);
         if (!clean) {
           TweenMax.to($("#ui-" + this.player + " .power-up-icon").eq(this.powerUps.length - 1), 0.25, {
