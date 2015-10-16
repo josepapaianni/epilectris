@@ -7,6 +7,9 @@ var IngameUi = function () {
     var asset;
     var tint;
     switch (numberOfLines) {
+      case 1:
+        tint = 0xffffff;
+        break;
       case 2:
         asset = 'doubleTxt';
         tint = 0xff00ae;
@@ -26,10 +29,6 @@ var IngameUi = function () {
     game.linesEffectGlow.alpha = 0;
     game.linesEffectGlow.tint = tint;
 
-    game.linesTxt = game.add.sprite(game.world.centerX, game.world.centerY, asset);
-    game.linesTxt.anchor.set(0.5);
-    game.linesTxt.scale.set(0);
-
     TweenMax.to (game.linesEffectGlow, 0.33,{
       alpha: 0.6,
       yoyo: true,
@@ -38,19 +37,25 @@ var IngameUi = function () {
       onComplete: function (){
         //game.linesEffectGlow.destroy()
       }
-    })
+    });
 
-    TweenMax.to (game.linesTxt.scale, 0.33,{
-      y: 1,
-      x: 1,
-      yoyo: true,
-      repeat: 1,
-      repeatDelay: 0.33,
-      ease: Back.easeOut.config(1.7),
-      onComplete: function (){
-        //game.linesTxt.destroy()
-      }
-    })
+    if (numberOfLines > 1){
+      game.linesTxt = game.add.sprite(game.world.centerX, game.world.centerY, asset);
+      game.linesTxt.anchor.set(0.5);
+      game.linesTxt.scale.set(0);
+
+      TweenMax.to (game.linesTxt.scale, 0.33,{
+        y: 1,
+        x: 1,
+        yoyo: true,
+        repeat: 1,
+        repeatDelay: 0.33,
+        ease: Back.easeOut.config(1.7),
+        onComplete: function (){
+          //game.linesTxt.destroy()
+        }
+      })
+    }
 
   }
 }

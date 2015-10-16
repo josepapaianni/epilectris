@@ -185,8 +185,8 @@ function Tetris(x, y, angle, game) {
     if (linesRemoved.length > 0) {
       game.playerManagerRef.setScore(linesRemoved.length);
       game.playerManagerRef.showLinesMessage(linesRemoved.length);
-      if (linesRemoved.length == 4) {
-        game.playerManagerRef.powerUpManager.addPowerUp();
+      if (linesRemoved.length > 1) {
+        game.playerManagerRef.powerUpManager.addPowerUp(linesRemoved.length);
       }
       this.removeLine(linesRemoved, true);
     } else {
@@ -388,6 +388,7 @@ function Tetris(x, y, angle, game) {
   };
 
   this.powerUpEmptySpaces = function () {
+    game.paused = true;
     var remainingBlocks = [];
     for (var j = 0; j < this.grid.matrix.length; j++) {
       for (var i = 0; i < this.grid.matrix[j].length; i++) {
@@ -412,6 +413,7 @@ function Tetris(x, y, angle, game) {
     this.getEmptySpaces(remainingBlocks);
   };
 
+  //Helper function for vertical powerups
   this.getEmptySpaces = function (remainingBlocks) {
     var _self = this;
     for (var k = 0; k < remainingBlocks.length; k++) {
@@ -433,6 +435,57 @@ function Tetris(x, y, angle, game) {
       });
     }
   };
+
+  this.powerUpArrange = function (){
+    game.paused = true;
+    var remainingBlocks = [];
+    for (var j = 0; j < this.grid.matrix.length; j++) {
+      for (var i = 0; i < this.grid.matrix[j].length; i++) {
+        if (this.grid.matrix[j][i] instanceof Phaser.Sprite) {
+          remainingBlocks.push({
+            sprite: this.grid.matrix[j][i],
+            positionX: i,
+            positionY: j
+          });
+        }
+      }
+    }
+    for (var l = 0; l < remainingBlocks.length; l++) {
+      var offset = 0;
+      for (var m = remainingBlocks[l].positionX; m < this.grid.matrix[remainingBlocks[l].positionY].length; m++) {
+        if (!(this.grid.matrix[remainingBlocks[l].positionY][m] instanceof Phaser.Sprite)) {
+          offset++
+        }
+      }
+      remainingBlocks[l].offset = offset;
+      console.log(offset)
+    }
+    this.getEmptyHorizontalSpaces(remainingBlocks);
+  };
+
+  //Helper function for horizontal powerups
+  this.getEmptyHorizontalSpaces = function (remainingBlocks) {
+    var _self = this;
+    for (var k = 0; k < remainingBlocks.length; k++) {
+      this.grid.matrix[remainingBlocks[k].positionY][remainingBlocks[k].positionX] = 0;
+    }
+    for (var i = 0; i < remainingBlocks.length; i++) {
+      var advance = remainingBlocks[i].sprite.x + (remainingBlocks[i].offset * gridSize);
+      this.grid.matrix[remainingBlocks[i].positionY][remainingBlocks[i].positionX + remainingBlocks[i].offset] = remainingBlocks[i].sprite;
+      remainingBlocks[i].sprite.finalPosition.i = remainingBlocks[i].sprite.finalPosition.i + remainingBlocks[i].offset;
+
+      TweenMax.to(remainingBlocks[i].sprite, 0.2, {
+        x: advance,
+        delay: 0.015 * [i],
+        ease: Power3.easeIn,
+        onComplete: function () {
+          game.paused = false;
+          _self.checkTetris();
+        }
+      });
+    }
+  };
+
 
   this.clearAll = function (checkOthers) {
     for (var j = 0; j < this.grid.matrix.length; j++) {

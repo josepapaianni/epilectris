@@ -12,6 +12,10 @@ var powerUps = [
     type: "help"
   },
   {
+    name: "arrange-blocks",
+    type: "help"
+  },
+  {
     name: "block-clean",
     type: "help"
   },
@@ -35,12 +39,37 @@ function PowerUpManager(player) {
 
   this.player = player;
 
-  this.addPowerUp = function () {
+  this.addPowerUp = function (numberOfLines) {
     if (this.powerUps.length < 3) {
-      var newPowerUp = powerUps[Math.floor(Math.random() * powerUps.length)];
+      var newPowerUp;
+      if (gamesManager.players.length == 1) {
+        switch (numberOfLines) {
+          case 2:
+            newPowerUp = powerUps[2];
+            break;
+          case 3:
+            newPowerUp = powerUps[3];
+            break;
+          case 4:
+            newPowerUp = powerUps[1];
+            break;
+        }
+      } else {
+        switch (numberOfLines) {
+          case 2:
+            newPowerUp = powerUps[0];
+            break;
+          case 3:
+            newPowerUp = powerUps[4];
+            break;
+          case 4:
+            newPowerUp = powerUps[5];
+            break;
+        }
+      }
       this.powerUps.push(newPowerUp);
+      this.showPowerUps();
     }
-    this.showPowerUps();
   };
 
   this.showPowerUps = function (clean) {
