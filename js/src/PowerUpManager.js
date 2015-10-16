@@ -8,8 +8,12 @@ var powerUps = [
     type: "attack"
   },
   {
-    name: "block-remove",
-    type: "help"
+    name: "bad-shuffle",
+    type: "attack"
+  },
+  {
+    name: "clone-piece",
+    type: "both"
   },
   {
     name: "arrange-blocks",
@@ -20,13 +24,10 @@ var powerUps = [
     type: "help"
   },
   {
-    name: "bad-shuffle",
-    type: "attack"
-  },
-  {
-    name: "clone-piece",
-    type: "both"
+    name: "block-remove",
+    type: "help"
   }
+
 ];
 
 function PowerUpManager(player) {
@@ -40,48 +41,29 @@ function PowerUpManager(player) {
   this.player = player;
 
   this.addPowerUp = function (numberOfLines) {
-    if (this.powerUps.length < 3) {
-      var newPowerUp;
-      if (gamesManager.players.length == 1) {
-        switch (numberOfLines) {
-          case 2:
-            newPowerUp = powerUps[2];
-            break;
-          case 3:
-            newPowerUp = powerUps[3];
-            break;
-          case 4:
-            newPowerUp = powerUps[1];
-            break;
-        }
-      } else {
-        switch (numberOfLines) {
-          case 2:
-            newPowerUp = powerUps[0];
-            break;
-          case 3:
-            newPowerUp = powerUps[4];
-            break;
-          case 4:
-            newPowerUp = powerUps[5];
-            break;
-        }
-      }
-      this.powerUps.push(newPowerUp);
-      this.showPowerUps();
+    if (this.powerUps.length == 3) {
+      this.powerUps.shift();
     }
+    var newPowerUp = powerUps[(numberOfLines-2)+(gamesManager.isMultiplayer() ? 0 : 3)];
+    this.powerUps.push(newPowerUp);
+    this.showPowerUps();
+  };
+
+  this.reset = function(){
+    this.powerUps = [];
+    this.showPowerUps();
   };
 
   this.showPowerUps = function (clean) {
     TweenMax.set($('.power-up-icon'), {
       scale: 1
-    })
+    });
 
     for (var i = 0; i < 3; i++) {
       if (i >= this.powerUps.length) {
         $($("#ui-" + this.player + " .power-up-icon")[i]).attr('class', 'power-up-icon');
       } else {
-        $($("#ui-" + this.player + " .power-up-icon")[i]).addClass(this.powerUps[i].name);
+        $($("#ui-" + this.player + " .power-up-icon")[i]).attr('class', 'power-up-icon '+this.powerUps[i].name);
         if (!clean) {
           TweenMax.to($("#ui-" + this.player + " .power-up-icon").eq(this.powerUps.length - 1), 0.25, {
             scale: 1.1,

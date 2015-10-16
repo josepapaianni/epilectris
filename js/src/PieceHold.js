@@ -21,6 +21,13 @@ function PieceHold(player){
 
     this.unlock = function(){
         this.locked = false;
+    };
+
+    this.reset = function(){
+        this.pieceHeld = null;
+        this.lastPiece = null;
+        this.locked = false;
+        uiUtils.showHoldPiece(null,null,null,this.player);
     }
 
 }

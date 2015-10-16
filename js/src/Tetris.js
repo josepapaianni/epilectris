@@ -53,7 +53,6 @@ function Tetris(x, y, angle, game) {
       case "place":
         while (this.movePiece()) {
         }
-        this.placedPieces++;
         return true;
         break;
       case "hold":
@@ -166,6 +165,7 @@ function Tetris(x, y, angle, game) {
     this.current.sprites.moveAll(this.grid.blocks);
     game.playerManagerRef.pieceHold.unlock();
     this.placeGrid();
+    this.placedPieces++;
     this.checkTetris();
   };
 
@@ -190,7 +190,7 @@ function Tetris(x, y, angle, game) {
       }
       this.removeLine(linesRemoved, true);
     } else {
-      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces > game.playerManagerRef.currentLevel.changeEach){
+      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces >= game.playerManagerRef.currentLevel.changeEach){
         gamesManager.nextGame();
       }
     }
@@ -528,9 +528,15 @@ function Tetris(x, y, angle, game) {
     }
     this.placePiece(this.current.sprites, this.current.position);
     if (!this.allowedPosition(this.current.matrix, this.current.position)) {
-      this.clearAll(false);
-      game.state.states.gameState.setScore(-10);
+      //lose
+      this.lose();
     }
+  };
+
+  this.lose = function(){
+    //this.clearAll(false);
+    game.gameOver = true;
+    game.playerManagerRef.nextGame();
   };
 
   this.placePiece = function (spritesGroup, position) {

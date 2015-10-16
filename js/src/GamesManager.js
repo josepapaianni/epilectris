@@ -29,7 +29,7 @@ var GamesManager = function () {
             $(".player-2-wrapper").show();
 
             //pause player 1 games
-            this.players[0].cleanGames();
+            this.players[0].reset();
             this.players[0].pauseAllGames();
 
             TweenMax.to(this.players[0].viewPortManager.cube, 1,{
@@ -42,9 +42,7 @@ var GamesManager = function () {
                 force3D:true,
                 onComplete: function(){
                     //reset p1 current game & resume both games
-                    _self.players[0].resetScore();
                     _self.players[0].pauseNonActiveGames();
-                    _self.players[1].cleanGames();
                     _self.players[1].pauseNonActiveGames();
                 }
             })
@@ -57,6 +55,10 @@ var GamesManager = function () {
 
     this.isMultiplayer = function(){
         return this.players.length > 1;
+    };
+
+    this.playerLose = function(player){
+        console.log(player.playerInfo.playerId+" lost");
     };
 
     //2 players start

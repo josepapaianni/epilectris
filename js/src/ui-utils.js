@@ -104,6 +104,9 @@ var UiUtils = function () {
 
   this.showHoldPiece = function(pieceMatrix, colour, pieceName, player) {
     $('#ui-' + player + ' .hold-piece-monitor' + ' .piece-sprite').remove();
+    if (!pieceMatrix){
+      return;
+    }
     for (var j = 0; j < pieceMatrix.length; j++) {
       for (var i = 0; i < pieceMatrix[j].length; i++) {
         if (pieceMatrix[j][i] > 0) {

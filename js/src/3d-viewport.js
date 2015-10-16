@@ -31,6 +31,10 @@ var ViewPortManager = function (cubeId) {
         });
     };
 
+    this.resetAngle = function(){
+        this.rotateCube(-this.actualCubeRotation.x,-this.actualCubeRotation.y,-this.actualCubeRotation.z);
+    };
+
     this.upSideDown = function () {
         TweenMax.to(this.cube, 0.33, {
             scale: 0.8,

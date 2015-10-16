@@ -31,10 +31,6 @@ var PlayerGamesManager = function (playerInfo) {
 
     };
 
-    this.resetScore =function(){
-        $("#ui-"+this.playerInfo.playerId+" .score-counter").html("000000");
-    };
-
     this.changeLevel = function(){
         if (this.lastLevel){
             this.linesLeft = 50;
@@ -75,6 +71,7 @@ var PlayerGamesManager = function (playerInfo) {
     };
 
     this.nextGame = function(){
+        this.pauseAllGames();
         this.pieceHold.unlock();
         var newAngles = {x:0,y:0,z:0};
         if (gamesManager.isMultiplayer()){
@@ -102,7 +99,25 @@ var PlayerGamesManager = function (playerInfo) {
 
         this.viewPortManager.rotateCube(newAngles.x,newAngles.y,newAngles.z);
         this.games[this.activeGame].tetrises[0].placedPieces = 0;
-        this.pauseNonActiveGames();
+        if (this.games[this.activeGame].gameOver){
+            console.log("checking game over");
+            if (this.gameOver()){
+                gamesManager.playerLose(this);
+            } else {
+                this.nextGame();
+            }
+        } else {
+            this.pauseNonActiveGames();
+        }
+    };
+
+    this.gameOver = function(){
+        for(var i = 0; i < this.games.length; i++){
+            if (!this.games[i].gameOver){
+                return false;
+            }
+        }
+        return true;
     };
 
     this.upsideDown = function(){
@@ -112,7 +127,7 @@ var PlayerGamesManager = function (playerInfo) {
 
     this.pauseNonActiveGames = function(){
         for(var i = 0; i < this.games.length; i++){
-            this.games[i].paused = !(i == this.activeGame);
+            this.games[i].paused = this.games[i].gameOver || !(i == this.activeGame);
         }
     };
 
@@ -159,18 +174,30 @@ var PlayerGamesManager = function (playerInfo) {
 
     this.getEmptyInActiveGame = function () {
         this.games[this.activeGame].tetrises[0].powerUpEmptySpaces();
-    }
+    };
 
     this.showLinesMessage = function (numberOfLines) {
         this.ingameUi.showMessage(numberOfLines, this.games[this.activeGame]);
-    }
+    };
 
-    this.cleanGames = function(){
+    this.reset = function(){
         for (var i = 0; i <4; i++){
             this.games[i].tetrises[0].cleanTetris();
             this.games[i].tetrises[0].grid.alphaTween.stop();
             this.games[i].tetrises[0].startTimeOut();
         }
+        this.score = 0;
+        $("#ui-"+this.playerInfo.playerId+" .score-counter").html("000000");
+
+        this.activeGame = 0;
+        this.viewPortManager.resetAngle();
+
+        this.pieceHold.reset();
+        this.powerUpManager.reset();
+        this.levelIndex = 0;
+        this.currentLevel = levels[0];
+        this.currentSpeed = this.currentLevel.startSpeed;
+        this.changeLevel();
     };
 
     this.createGames = function(){
@@ -185,6 +212,7 @@ var PlayerGamesManager = function (playerInfo) {
             this.games[i].state.start("preloader");
         }
     };
+
     this.changeLevel();
     this.createGames();
 };
