@@ -180,6 +180,10 @@ var PlayerGamesManager = function (playerInfo) {
         this.ingameUi.showMessage(numberOfLines, this.games[this.activeGame]);
     };
 
+    this.showLevelStartText = function (numberOfLines) {
+        this.ingameUi.showLevelInfo(numberOfLines, this.games[this.activeGame]);
+    };
+
     this.reset = function(){
         for (var i = 0; i <4; i++){
             this.games[i].tetrises[0].cleanTetris();

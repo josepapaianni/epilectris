@@ -37,7 +37,8 @@ var ViewPortManager = function (cubeId) {
 
     this.upSideDown = function () {
         TweenMax.to(this.cube, 0.33, {
-            scale: 0.8,
+            scaleX: 0.8,
+            scaleY: 0.8,
             force3D:true,
             ease: Power3.easeOut
         });
