@@ -1,8 +1,11 @@
 var gamesManager = new GamesManager();
+var audioManager = new AudioManager();
 var spaceEffect = new SpaceEffect();
 var uiUtils = new UiUtils();
 
+
 uiUtils.showWelcomeScreen();
+
 //gamesManager.startPlayer();
 
 

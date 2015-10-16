@@ -4,7 +4,7 @@
 var IngameUi = function () {
 
   this.showLevelInfo = function (level, game){
-
+    if (!game) return;
     game.linesEffectGlow = game.add.sprite(game.world.centerX, game.world.centerY, 'linesEffect');
     game.linesEffectGlow.anchor.set(0.5);
     game.linesEffectGlow.alpha = 0;

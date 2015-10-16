@@ -11,6 +11,7 @@ var GamesManager = function () {
     };
 
     this.startPlayer = function(){
+        audioManager.playMusic("game");
         var _self = this;
         this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
         if (this.players.length === 1) {
@@ -44,6 +45,7 @@ var GamesManager = function () {
                     //reset p1 current game & resume both games
                     _self.players[0].pauseNonActiveGames();
                     _self.players[1].pauseNonActiveGames();
+                    _self.players[1].changeLevel();
                 }
             })
         }

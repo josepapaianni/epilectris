@@ -20,15 +20,18 @@ function Tetris(x, y, angle, game) {
         nextPosition.j--;
         break;
       case "left":
+        audioManager.playSoundEffect("rotate");
         nextPosition.i--;
         break;
       case "right":
+        audioManager.playSoundEffect("rotate");
         nextPosition.i++;
         break;
       case "rotateRight":
         if (this.current.piece.rotations.length == 1) {
           return false;
         }
+        audioManager.playSoundEffect("rotate");
         nextPosition.rotation++;
         if (nextPosition.rotation == this.current.piece.rotations.length) {
           nextPosition.rotation = 0;
@@ -40,6 +43,7 @@ function Tetris(x, y, angle, game) {
         if (this.current.piece.rotations.length == 1) {
           return false;
         }
+        audioManager.playSoundEffect("rotate");
         nextPosition.rotation--;
         if (nextPosition.rotation < 0) {
           nextPosition.rotation = this.current.piece.rotations.length - 1;
@@ -53,9 +57,11 @@ function Tetris(x, y, angle, game) {
       case "place":
         while (this.movePiece()) {
         }
+        audioManager.playSoundEffect("place");
         return true;
         break;
       case "hold":
+        audioManager.playSoundEffect("other");
         var newPiece = game.playerManagerRef.pieceHold.hold(this.current.piece);
         if (newPiece != this.current.piece) {
           this.current.shadow.removeAll();
@@ -183,6 +189,7 @@ function Tetris(x, y, angle, game) {
     }
 
     if (linesRemoved.length > 0) {
+      audioManager.playSoundEffect("lines");
       game.playerManagerRef.setScore(linesRemoved.length);
       game.playerManagerRef.showLinesMessage(linesRemoved.length);
       if (linesRemoved.length > 1) {
@@ -357,6 +364,10 @@ function Tetris(x, y, angle, game) {
         }
       }
     }
+    if (blocksToRemove.length == 0){
+      game.paused = false;
+      return;
+    }
 
     TweenMax.staggerTo(blocksToRemove, 0.66, {
       onComplete: function (tween) {
@@ -400,6 +411,10 @@ function Tetris(x, y, angle, game) {
           });
         }
       }
+    }
+    if (remainingBlocks.length == 0){
+      game.paused = false;
+      return;
     }
     for (var l = 0; l < remainingBlocks.length; l++) {
       var offset = 0;

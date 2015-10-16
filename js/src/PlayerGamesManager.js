@@ -34,18 +34,19 @@ var PlayerGamesManager = function (playerInfo) {
     this.changeLevel = function(){
         if (this.lastLevel){
             this.linesLeft = 50;
+            this.levelIndex++;
         } else {
             if (gamesManager.isMultiplayer()){
                 this.currentSpeed -= 100;
                 this.currentSpeed = Math.max(this.currentSpeed,250);
                 this.linesLeft = 50;
+                this.levelIndex++;
                 this.currentLevel = {};
                 //give special power up
             } else {
                 this.currentSpeed -= this.currentLevel.speedStep;
                 if (this.currentSpeed < this.currentLevel.minSpeed){
                     this.levelIndex++;
-                    console.log(this.levelIndex);
                     if (this.levelIndex == levels.length){
                         this.linesLeft = 50;
                         this.zRotation = 5;
@@ -66,6 +67,8 @@ var PlayerGamesManager = function (playerInfo) {
 
             }
         }
+        this.showLevelStartText(this.levelIndex);
+        audioManager.playSoundEffect("levelUp");
         var paddedLines = ("000" + this.linesLeft).substr(-3,3);
         $("#ui-"+this.playerInfo.playerId+" .lines-left-counter").html(paddedLines);
     };
@@ -144,14 +147,18 @@ var PlayerGamesManager = function (playerInfo) {
         }
         var actionPlayer;
         switch (powerUp.type){
-            case "help" : actionPlayer = this; break;
+            case "help" :
+                audioManager.playSoundEffect("help");
+                actionPlayer = this; break;
             case "attack" :
+                audioManager.playSoundEffect("attack");
                 actionPlayer = gamesManager.getOtherPlayer(this);
                 if (!actionPlayer) {
                     return;
                 }
                 break;
             case "both" :
+                audioManager.playSoundEffect("attack");
                 actionPlayer = gamesManager.getOtherPlayer(this);
                 if (!actionPlayer) {
                     actionPlayer = this;
@@ -192,9 +199,14 @@ var PlayerGamesManager = function (playerInfo) {
         }
         this.score = 0;
         $("#ui-"+this.playerInfo.playerId+" .score-counter").html("000000");
-
+        if (this.rotationInterval){
+            clearInterval(this.rotationInterval);
+            this.rotationInterval = null;
+        }
         this.activeGame = 0;
         this.viewPortManager.resetAngle();
+
+
 
         this.pieceHold.reset();
         this.powerUpManager.reset();
