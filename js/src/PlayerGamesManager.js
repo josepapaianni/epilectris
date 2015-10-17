@@ -19,7 +19,7 @@ var PlayerGamesManager = function (playerInfo) {
         if (this.attacked){
             this.upsideDown();
         }
-        this.linesLeft-=score*score;
+        this.linesLeft-=score;
         if (this.linesLeft<=0){
             this.changeLevel();
         }

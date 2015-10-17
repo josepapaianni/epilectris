@@ -15,6 +15,11 @@ var SpaceEffect = function () {
 
     var _self = this;
 
+    this.resize = function (width, height) {
+        canvas.width = width;
+        canvas.height = height;
+    };
+
     this.settings = {
             particleSize: 1,
             particleMinSize: 0.5,

@@ -1,6 +1,7 @@
 
 var ViewPortManager = function (cubeId) {
 
+    this.actualCubeScale = 1;
     this.actualCubeRotation = {x: 0, y: 0, z: 0};
     this.cube = document.getElementById(cubeId);
 

@@ -17,6 +17,11 @@ canvas{
     display: block;!important;
     margin: 0!important;
 }
+#app-holder{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
 #container{
     position: absolute;
     perspective: 30000px;
@@ -46,6 +51,9 @@ canvas{
 #welcome-screen > .game-logo {
     position: absolute;
     background-image: url(../assets/welcome-logo.png);
+    background-position:50% 50%;
+    background-size:contain;
+    background-repeat: no-repeat;
     width: 75%;
     height: 35%;
     left: 12.5%;
@@ -54,6 +62,9 @@ canvas{
 #welcome-screen > .game-logo-glow {
     position: absolute;
     background-image: url(../assets/welcome-logo-glow.png);
+    background-position:50% 50%;
+    background-size:contain;
+    background-repeat: no-repeat;
     width: 75%;
     height: 35%;
     left: 12.5%;
@@ -69,22 +80,12 @@ canvas{
     color: #06ff00;
     text-transform: uppercase;
 }
-#glow-explosion{
-    position: absolute;
-    width: 960px;
-    height: 640px;
-    margin: auto;
-    background-image: url(../assets/glow-explosion.jpg);
-    background-size: 100% 100%;
-    z-index: -100;
-    opacity: 0;
-}
 
 #cube {
-     left: 330px;
+     left: calc(50% - 150px);
      width: 300px;
      height: 550px;
-    top: 45px;
+    top: calc(50% - 275px);
      position: absolute;
      transform-style: preserve-3d;
      -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
@@ -121,10 +122,10 @@ canvas{
 
 
 #b-cube {
-    left: 500px;
+    left: calc(67.25% - 150px);
     width: 300px;
     height: 550px;
-    top: 45px;
+    top: calc(50% - 275px);
     position: absolute;
     perspective:-300px;
     transform-style: preserve-3d;
@@ -165,9 +166,9 @@ canvas{
 
 #ui-player-1{
     position: absolute;
-    width: 12.5%;
-    height: 86%;
-    top: 7%;
+    width: 125px;
+    height: 550px;
+    top: calc(50% - 275px);
     left: 0;
     background-image: url(../assets/background-ui.jpg);
     background-size: 100% 100%;
@@ -180,9 +181,9 @@ canvas{
 
 #ui-player-2{
     position: absolute;
-    width: 12.5%;
-    height: 86%;
-    top: 7%;
+    width: 125px;
+    height: 550px;
+    top: calc(50% - 275px);
     right: 0;
     background-image: url(../assets/background-ui-mirror.jpg);
     background-size: 100% 100%;
@@ -190,6 +191,8 @@ canvas{
     font-family: "Orbitron", sans-serif;
     color: #a4a4a4;
     text-transform: uppercase;
+    display: table-cell;
+    vertical-align: middle;
 
 }
 

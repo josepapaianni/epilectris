@@ -25,6 +25,8 @@ var GamesManager = function () {
             });
         }
         if (this.players.length == 2){
+            var appHolder = $('#app-holder');
+            var appWidth = appHolder.innerWidth();
             //player two started
             $(".wait-player-2").hide();
             $(".player-2-wrapper").show();
@@ -34,7 +36,7 @@ var GamesManager = function () {
             this.players[0].pauseAllGames();
 
             TweenMax.to(this.players[0].viewPortManager.cube, 1,{
-                x: -170
+                left: appWidth * 0.325 - ($(this.players[1].viewPortManager.cube).width() / 2),
             });
             this.players[1].viewPortManager.cube.style.display = "block";
             TweenMax.from (this.players[1].viewPortManager.cube, 1, {
