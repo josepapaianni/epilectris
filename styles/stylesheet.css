@@ -345,6 +345,11 @@ canvas{
     display: table-cell;
 }
 
+.force-font-load{
+    font-family: "FontAwesome";
+    visibility: hidden;
+
+}
 
 #credits{
     position: absolute;

@@ -3,89 +3,157 @@
  */
 var IngameUi = function () {
 
-  this.showLevelInfo = function (level, game){
+  this.showLevelInfo = function (level, game) {
     if (!game) return;
     game.linesEffectGlow = game.add.sprite(game.world.centerX, game.world.centerY, 'linesEffect');
     game.linesEffectGlow.anchor.set(0.5);
     game.linesEffectGlow.alpha = 0;
 
-    game.textStyle = { font: "Orbitron",fontSize:22, fill: "#FFFFFF", align: "center" };
-    game.textStyleSmall = { font: "Orbitron",fontSize:18, fill: "#FFFFFF", align: "center" };
+    game.textStyle = {font: "Orbitron", fontSize: 22, fill: "#FFFFFF", align: "center"};
+    game.textStyleSmall = {font: "Orbitron", fontSize: 18, fill: "#FFFFFF", align: "center"};
 
-    game.levelText = game.add.text(game.world.centerX, game.world.centerY,"",game.textStyle);
-    game.levelText.anchor.set(0.5,0.5);
-    game.levelText.scale.set(0,0);
+    game.levelText = game.add.text(game.world.centerX, game.world.centerY, "", game.textStyle);
+    game.levelText.anchor.set(0.5, 0.5);
+    game.levelText.scale.set(0, 0);
 
-    game.levelReady = game.add.text(game.world.centerX, game.world.centerY,"",game.textStyleSmall);
-    game.levelReady.anchor.set(0.5,0.5);
-    game.levelReady.scale.set(0,0);
+    game.levelReady = game.add.text(game.world.centerX, game.world.centerY, "", game.textStyleSmall);
+    game.levelReady.anchor.set(0.5, 0.5);
+    game.levelReady.scale.set(0, 0);
 
-    game.levelGo = game.add.text(game.world.centerX, game.world.centerY,"",game.textStyleSmall);
-    game.levelGo.anchor.set(0.5,0.5);
-    game.levelGo.scale.set(0,0);
+    game.levelGo = game.add.text(game.world.centerX, game.world.centerY, "", game.textStyleSmall);
+    game.levelGo.anchor.set(0.5, 0.5);
+    game.levelGo.scale.set(0, 0);
 
 
     game.levelText.text = "LEVEL " + level + " START";
     game.levelReady.text = "READY";
     game.levelGo.text = "GO!";
 
-    TweenMax.to (game.linesEffectGlow, 0.33,{
+    TweenMax.to(game.linesEffectGlow, 0.33, {
       alpha: 0.3,
       yoyo: true,
       repeat: 1,
       repeatDelay: 3.5,
-      onComplete: function (){
+      onComplete: function () {
         //game.linesEffectGlow.destroy()
       }
     });
 
-    TweenMax.to (game.levelText.scale, 0.5,{
+    TweenMax.to(game.levelText.scale, 0.5, {
       x: 1,
       y: 1
     });
 
-    TweenMax.to (game.levelText, 0.5,{
+    TweenMax.to(game.levelText, 0.5, {
       delay: 1,
       y: game.levelText.y - 25,
     });
 
-    TweenMax.to (game.levelReady.scale, 0.5, {
+    TweenMax.to(game.levelReady.scale, 0.5, {
       delay: 1.5,
       x: 1,
       y: 1
     });
 
 
-    TweenMax.to (game.levelReady, 0.5, {
+    TweenMax.to(game.levelReady, 0.5, {
       delay: 2.5,
       alpha: 0,
-      onComplete: function(){
+      onComplete: function () {
         game.levelReady.destroy();
       }
     });
 
-    TweenMax.to (game.levelGo.scale, 0.5, {
+    TweenMax.to(game.levelGo.scale, 0.5, {
       delay: 3,
       x: 1,
       y: 1
     });
 
-    TweenMax.to (game.levelGo, 0.5, {
+    TweenMax.to(game.levelGo, 0.5, {
       delay: 4,
       alpha: 0,
-      onComplete: function(){
+      onComplete: function () {
         game.levelGo.destroy();
       }
     });
 
-    TweenMax.to (game.levelText, 0.5,{
+    TweenMax.to(game.levelText, 0.5, {
       delay: 4,
       alpha: 0,
-      onComplete: function(){
+      onComplete: function () {
         game.levelText.destroy();
       }
     });
 
+  };
+
+  this.powerUpWon = function (numberOfLines, game) {
+    game.powerUpIconStyle = {font: "FontAwesome", fontSize: 150, fill: "#FFFFFF", align: "center"};
+    game.powerUpIcon = game.add.text(game.world.centerX, game.world.centerY - 100, "", game.powerUpIconStyle);
+    game.powerUpIcon.anchor.set(0.5);
+    game.powerUpIcon.scale.set(0);
+    game.powerUpIcon.alpha = 1;
+
+    var powerUpUnicode;
+
+    switch ((numberOfLines-2)+(gamesManager.isMultiplayer() ? 0 : 3)) {
+      case 0:
+        powerUpUnicode = '0xf021';
+        break;
+      case 1:
+        powerUpUnicode = '0xf074';
+        break;
+      case 2:
+        powerUpUnicode = '0xf24d';
+        break;
+      case 3:
+        powerUpUnicode = '0xf050';
+        break;
+      case 4:
+        powerUpUnicode = '0xf096';
+        break;
+      case 5:
+        powerUpUnicode = '0xf135';
+        break;
+    }
+
+    game.powerUpIcon.text = String.fromCharCode(powerUpUnicode);
+
+    //game.PowerUpNameStyle = { font: "Orbitron",fontSize:24, fill: "#FFFFFF", align: "center" };
+    //game.PowerUpName = game.add.text(game.world.centerX, game.world.centerY-75,"",game.PowerUpNameStyle);
+    //game.PowerUpName.anchor.set(0.5);
+    //game.PowerUpName.text = "UPSIDE DOWN"
+    //game.PowerUpName.scale.set(1);
+    //game.PowerUpName.alpha = 1;
+
+
+    TweenMax.to(game.powerUpIcon.scale, 0.5, {
+      x: 0.6,
+      y: 0.6,
+      ease: Power3.easeInOut
+    });
+
+    TweenMax.to(game.powerUpIcon.scale, 0.5, {
+      delay: 0.5,
+      x: 1.2,
+      y: 1.2,
+      ease: Power3.easeInOut
+    });
+
+    TweenMax.to(game.powerUpIcon, 0.5, {
+      delay: 0.5,
+      alpha: 0,
+      ease: Power3.easeInOut
+    });
+    if (powerUpUnicode == '0xf021') {
+      TweenMax.to(game.powerUpIcon, 0.5, {
+        delay: 0.5,
+        angle: 180,
+        ease: Power3.easeInOut
+      });
+
+    }
   };
 
   this.showMessage = function (numberOfLines, game) {
@@ -114,29 +182,29 @@ var IngameUi = function () {
     game.linesEffectGlow.alpha = 0;
     game.linesEffectGlow.tint = tint;
 
-    TweenMax.to (game.linesEffectGlow, 0.33,{
+    TweenMax.to(game.linesEffectGlow, 0.33, {
       alpha: 0.6,
       yoyo: true,
       repeat: 1,
       repeatDelay: 0.33,
-      onComplete: function (){
+      onComplete: function () {
         //game.linesEffectGlow.destroy()
       }
     });
 
-    if (numberOfLines > 1){
+    if (numberOfLines > 1) {
       game.linesTxt = game.add.sprite(game.world.centerX, game.world.centerY, asset);
       game.linesTxt.anchor.set(0.5);
       game.linesTxt.scale.set(0);
 
-      TweenMax.to (game.linesTxt.scale, 0.33,{
+      TweenMax.to(game.linesTxt.scale, 0.33, {
         y: 1,
         x: 1,
         yoyo: true,
         repeat: 1,
         repeatDelay: 0.33,
         ease: Back.easeOut.config(1.7),
-        onComplete: function (){
+        onComplete: function () {
           //game.linesTxt.destroy()
         }
       })

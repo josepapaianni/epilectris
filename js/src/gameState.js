@@ -12,6 +12,11 @@ var GameState = function (game) {
         //pauseWindow = game.add.sprite(0,0,"stageShadow");
         //pauseWindow.alpha = 0.8;
         //pauseWindow.visible = false;
+        //game.preloaderIcon = { font: "FontAwesome",fontSize:150, fill: "#FFFFFF", align: "center" };
+        //game.preloaderIcon = game.add.text(game.world.centerX, game.world.centerY-150,"",game.powerUpIconStyle);
+        //game.preloaderIcon.anchor.set(0.5);
+        //game.preloaderIcon.text = String.fromCharCode('0xf021');
+        //game.preloaderIcon.scale.set(0);
         game.grids = game.add.group();
         currentLevel = 0;
         currentTier = 0;

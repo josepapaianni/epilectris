@@ -25,7 +25,7 @@ function AudioManager(){
 
     this.preload = function(){
         game.load.audio('menu-music', 'assets/audio/Blue Space v0_8.mp3');
-        game.load.audio('game-music', 'assets/audio/Twister Tetris.mp3');
+        game.load.audio('game-music', 'assets/audio/Twister-Tetris.ogg');
 
         game.load.audio('lines', 'assets/audio/lines.ogg');
         game.load.audio('rotate', 'assets/audio/rotate.ogg');

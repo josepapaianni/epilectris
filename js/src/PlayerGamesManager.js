@@ -123,11 +123,6 @@ var PlayerGamesManager = function (playerInfo) {
         return true;
     };
 
-    this.upsideDown = function(){
-        this.attacked = !this.attacked;
-        this.viewPortManager.upSideDown();
-    };
-
     this.pauseNonActiveGames = function(){
         for(var i = 0; i < this.games.length; i++){
             this.games[i].paused = this.games[i].gameOver || !(i == this.activeGame);
@@ -138,6 +133,10 @@ var PlayerGamesManager = function (playerInfo) {
         for(var i = 0; i < this.games.length; i++){
             this.games[i].paused = true;
         }
+    };
+
+    this.powerUpWon = function(numberOfLines){
+        this.ingameUi.powerUpWon(numberOfLines, this.games[this.activeGame])
     };
 
     this.usePowerUp = function(){
@@ -174,6 +173,11 @@ var PlayerGamesManager = function (playerInfo) {
             case "clone-piece" : actionPlayer.pieceGenerator.cloneFirst(); break;
             case "bad-shuffle" : actionPlayer.pieceGenerator.badShuffle(); break;
         }
+    };
+
+    this.upsideDown = function(){
+        this.attacked = !this.attacked;
+        this.viewPortManager.upSideDown();
     };
 
     this.removeBlocksInActiveGame = function(){
