@@ -194,7 +194,7 @@ function Tetris(x, y, angle, game) {
       game.playerManagerRef.showLinesMessage(linesRemoved.length);
       if (linesRemoved.length > 1) {
         game.playerManagerRef.powerUpManager.addPowerUp(linesRemoved.length);
-        game.playerManagerRef.powerUpWon(linesRemoved.length);
+        game.playerManagerRef.powerUpWon(powerUps[(linesRemoved.length-2)+(gamesManager.isMultiplayer() ? 0 : 3)].name);
       }
       this.removeLine(linesRemoved, true);
     } else {

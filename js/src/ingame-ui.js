@@ -25,7 +25,7 @@ var IngameUi = function () {
     game.levelGo.scale.set(0, 0);
 
 
-    game.levelText.text = "LEVEL " + level + " START";
+    game.levelText.text = "LEVEL " + (level+1) + " START";
     game.levelReady.text = "READY";
     game.levelGo.text = "GO!";
 
@@ -88,7 +88,9 @@ var IngameUi = function () {
 
   };
 
-  this.powerUpWon = function (numberOfLines, game) {
+
+  this.powerUpFlash = function (powerUpName, game, isUsed) {
+    console.log(powerUpName, isUsed)
     game.powerUpIconStyle = {font: "FontAwesome", fontSize: 150, fill: "#FFFFFF", align: "center"};
     game.powerUpIcon = game.add.text(game.world.centerX, game.world.centerY - 100, "", game.powerUpIconStyle);
     game.powerUpIcon.anchor.set(0.5);
@@ -97,23 +99,23 @@ var IngameUi = function () {
 
     var powerUpUnicode;
 
-    switch ((numberOfLines-2)+(gamesManager.isMultiplayer() ? 0 : 3)) {
-      case 0:
+    switch (powerUpName) {
+      case "upside-down":
         powerUpUnicode = '0xf021';
         break;
-      case 1:
+      case "bad-shuffle":
         powerUpUnicode = '0xf074';
         break;
-      case 2:
+      case "clone-piece":
         powerUpUnicode = '0xf24d';
         break;
-      case 3:
+      case "arrange-blocks":
         powerUpUnicode = '0xf050';
         break;
-      case 4:
+      case "block-clean":
         powerUpUnicode = '0xf096';
         break;
-      case 5:
+      case "block-remove":
         powerUpUnicode = '0xf135';
         break;
     }

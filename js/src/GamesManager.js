@@ -47,7 +47,7 @@ var GamesManager = function () {
                     //reset p1 current game & resume both games
                     _self.players[0].pauseNonActiveGames();
                     _self.players[1].pauseNonActiveGames();
-                    _self.players[1].changeLevel();
+                    //_self.players[1].changeLevel();
                 }
             })
         }

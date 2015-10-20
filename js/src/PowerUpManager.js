@@ -30,6 +30,7 @@ var powerUps = [
 
 ];
 
+
 function PowerUpManager(player) {
   //
   ////reset dom objects scale
