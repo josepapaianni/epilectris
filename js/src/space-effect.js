@@ -18,6 +18,9 @@ var SpaceEffect = function () {
     this.resize = function (width, height) {
         canvas.width = width;
         canvas.height = height;
+        this.settings.startingX = canvas.width/2;
+        this.settings.startingY = canvas.height/2;
+
     };
 
     this.settings = {

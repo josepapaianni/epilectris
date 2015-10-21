@@ -90,6 +90,7 @@ canvas{
      transform-style: preserve-3d;
      -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
      backface-visibility: hidden;
+    display: none;
 }
 .cube-face {
     width: inherit;
@@ -114,10 +115,12 @@ canvas{
 .cube-face-top {
     height: 300px;
     transform: rotateX(90deg) translate3d(0, 0,150px);
+    background-image: url(../assets/top-face.png);
 }
 .cube-face-bottom {
     height: 300px;
     transform: rotateX(-90deg) translate3d(0px, 0,400px);
+    background-image: url(../assets/top-face.png);
 }
 
 

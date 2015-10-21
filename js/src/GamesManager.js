@@ -15,6 +15,7 @@ var GamesManager = function () {
         var _self = this;
         this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
         if (this.players.length === 1) {
+            this.players[0].viewPortManager.cube.style.display = 'block';
             TweenMax.from(this.players[0].viewPortManager.cube,1,{
                 delay: 0.5,
                 scale:0,

@@ -23,8 +23,8 @@ var PlayerGamesManager = function (playerInfo) {
     this.linesLeft -= score;
     if (this.linesLeft <= 0) {
       this.viewPortManager.resetXZ();
-      setTimeout(function(){_self.changeLevel();},1000)
-
+      this.changeLevel();
+      //setTimeout(function(){_self.changeLevel();},2000)
     }
     this.score += score * score;
     var paddedScore = ("000000" + this.score).substr(-6, 6);
@@ -54,7 +54,6 @@ var PlayerGamesManager = function (playerInfo) {
             this.linesLeft = 50;
             this.zRotation = 5;
             this.lastLevel = true;
-            _self = this;
             this.rotationInterval = setInterval(function () {
               if (Math.random() < 0.05) {
                 gamesManager.players[0].zRotation = -gamesManager.players[0].zRotation;
@@ -185,7 +184,6 @@ var PlayerGamesManager = function (playerInfo) {
         actionPlayer.pieceGenerator.badShuffle();
         break;
     }
-
     this.showPowerUpUsed(powerUp.name);
   };
 
@@ -196,7 +194,6 @@ var PlayerGamesManager = function (playerInfo) {
   this.showPowerUpUsed = function (powerUpName) {
     this.ingameUi.powerUpFlash(powerUpName, this.games[this.activeGame], true);
   };
-
 
   this.upsideDown = function () {
     this.attacked = !this.attacked;
@@ -220,9 +217,7 @@ var PlayerGamesManager = function (playerInfo) {
   };
 
   this.showLevelStartText = function (numberOfLines) {
-
     this.ingameUi.showLevelInfo(numberOfLines, this.games[this.activeGame]);
-
   };
 
   this.reset = function () {

@@ -99,6 +99,10 @@ var UiUtils = function () {
       onComplete: function () {
         _self.welcomeScreen.css('display','none')
       }
+
+    });
+    TweenMax.to(this.welcomeText, 1,{
+      autoAlpha: 0
     });
   };
 

@@ -175,7 +175,7 @@ function Tetris(x, y, angle, game) {
     this.checkTetris();
   };
 
-  this.checkTetris = function () {
+  this.checkTetris = function (isComingFromPowerUp) {
     var linesRemoved = [];
     for (var j = 0; j < this.grid.limits.j; j++) {
       if (this.checkTetrisLine(j, true)) {
@@ -194,11 +194,11 @@ function Tetris(x, y, angle, game) {
       game.playerManagerRef.showLinesMessage(linesRemoved.length);
       if (linesRemoved.length > 1) {
         game.playerManagerRef.powerUpManager.addPowerUp(linesRemoved.length);
-        game.playerManagerRef.powerUpWon(powerUps[(linesRemoved.length-2)+(gamesManager.isMultiplayer() ? 0 : 3)].name);
+        game.playerManagerRef.powerUpWon(powerUps[(linesRemoved.length - 2) + (gamesManager.isMultiplayer() ? 0 : 3)].name);
       }
-      this.removeLine(linesRemoved, true);
+      this.removeLine(linesRemoved, true, isComingFromPowerUp);
     } else {
-      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces >= game.playerManagerRef.currentLevel.changeEach){
+      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces >= game.playerManagerRef.currentLevel.changeEach) {
         gamesManager.nextGame();
       }
     }
@@ -231,7 +231,7 @@ function Tetris(x, y, angle, game) {
     //return false;
   };
 
-  this.removeLine = function (lines, checkOthers) {
+  this.removeLine = function (lines, checkOthers, isComingFromPowerUp) {
     var deferred = Q.defer();
     var blocksToRemove = [];
     var remainingBlocks = [];
@@ -268,9 +268,11 @@ function Tetris(x, y, angle, game) {
       _self.moveRemainingBlocks(remainingBlocks).then(function () {
         _self.grid.alphaTween.resume();
         _self.paused = false;
-        gamesManager.nextGame();
-        //gameState.changeTetris2(game);
-
+          gamesManager.nextGame();
+        //This if is to cancel the cube spin to next game if the line is made by a powerup
+        //if (!isComingFromPowerUp) {
+        //  gamesManager.nextGame();
+        //}
       })
     });
 
@@ -365,7 +367,7 @@ function Tetris(x, y, angle, game) {
         }
       }
     }
-    if (blocksToRemove.length == 0){
+    if (blocksToRemove.length == 0) {
       game.paused = false;
       return;
     }
@@ -413,7 +415,7 @@ function Tetris(x, y, angle, game) {
         }
       }
     }
-    if (remainingBlocks.length == 0){
+    if (remainingBlocks.length == 0) {
       game.paused = false;
       return;
     }
@@ -444,15 +446,18 @@ function Tetris(x, y, angle, game) {
         y: advance,
         delay: 0.015 * [i],
         ease: Power3.easeIn,
-        onComplete: function () {
-          game.paused = false;
-          _self.checkTetris();
-        }
+        onComplete: function (index) {
+          if (index == remainingBlocks.length - 1) {
+            game.paused = false;
+            _self.checkTetris(true);
+          }
+        },
+        onCompleteParams: [i]
       });
     }
   };
 
-  this.powerUpArrange = function (){
+  this.powerUpArrange = function () {
     game.paused = true;
     var remainingBlocks = [];
     for (var j = 0; j < this.grid.matrix.length; j++) {
@@ -494,10 +499,13 @@ function Tetris(x, y, angle, game) {
         x: advance,
         delay: 0.015 * [i],
         ease: Power3.easeIn,
-        onComplete: function () {
-          game.paused = false;
-          _self.checkTetris();
-        }
+        onComplete: function (index) {
+          if (index == remainingBlocks.length - 1) {
+            game.paused = false;
+            _self.checkTetris(true);
+          }
+        },
+        onCompleteParams: [i]
       });
     }
   };
@@ -549,7 +557,7 @@ function Tetris(x, y, angle, game) {
     }
   };
 
-  this.lose = function(){
+  this.lose = function () {
     //this.clearAll(false);
     game.gameOver = true;
     game.playerManagerRef.nextGame();
