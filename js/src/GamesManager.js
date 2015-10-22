@@ -3,6 +3,7 @@
  */
 var GamesManager = function () {
   this.players = [];
+  this.canStartNewGame = true;
 
   this.nextGame = function () {
     for (var i = 0; i < this.players.length; i++) {
@@ -15,6 +16,12 @@ var GamesManager = function () {
     var _self = this;
     this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
     if (this.players.length === 1) {
+      TweenMax.set(this.players[0].viewPortManager.cube,{
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: 0,
+        scale: 1
+      });
       this.players[0].viewPortManager.cube.style.display = 'block';
       TweenMax.from(this.players[0].viewPortManager.cube, 1, {
         delay: 0.5,
@@ -26,6 +33,7 @@ var GamesManager = function () {
       });
     }
     if (this.players.length == 2) {
+
       var appHolder = $('#app-holder');
       var appWidth = appHolder.innerWidth();
       //player two started
@@ -48,6 +56,7 @@ var GamesManager = function () {
           //reset p1 current game & resume both games
           _self.players[0].pauseNonActiveGames();
           _self.players[1].pauseNonActiveGames();
+          adjustAppSize();
           //_self.players[1].changeLevel();
         }
       })
@@ -62,14 +71,18 @@ var GamesManager = function () {
     return this.players.length > 1;
   };
 
-  this.playerLose = function (player) {
-    console.log(player.playerInfo.playerId + " lost");
+  this.playerLose = function () {
+    for (var i = 0; i < this.players.length; i++){
+      this.players[0].viewPortManager.removeCube()
+    }
+    uiUtils.hideUi();
+    uiUtils.showGameOver();
   };
 
   //2 players start
   document.onkeydown = function (e) {
     var e = e || window.event;
-    if (e.keyCode === 70 && gamesManager.players.length != 2) {
+    if (e.keyCode === 70 && gamesManager.players.length != 2 && gamesManager.canStartNewGame) {
       gamesManager.startPlayer();
       if (gamesManager.players.length === 1) {
         uiUtils.hideWelcomeScreen();

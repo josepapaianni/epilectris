@@ -69,11 +69,26 @@ var UiUtils = function () {
     }
   };
 
+  this.hideUi = function(){
+    if (!this.uiHidden){
+      TweenMax.to(this.player1Ui, 0.66,{
+        x: -this.player1Ui.width()
+      });
+
+      TweenMax.to(this.player2Ui, 0.66,{
+        x: this.player2Ui.width()
+      });
+
+      this.uiHidden = true;
+    }
+  }
+
   this.showWelcomeScreen = function(){
     this.welcomeScreen.css('display','block')
     var _self = this;
     TweenMax.to(this.welcomeScreen, 1,{
       scale: 1,
+      autoAlpha: 1
     });
 
     TweenMax.to(this.welcomeText, 1,{
@@ -137,5 +152,26 @@ var UiUtils = function () {
       }
     }
   };
+
+  this.showGameOver = function () {
+    var _self = this;
+    gamesManager.canStartNewGame = false;
+    var gameOverText = $('#game-over');
+    TweenMax.set(gameOverText,{autoAlpha: 1});
+    TweenMax.fromTo(gameOverText, 1,{
+      scale: 0,
+    },{
+      scale: 1,
+      delay: 0.66,
+      ease: Power3.easeOut,
+      yoyo: true,
+      repeat: 1,
+      repeatDelay: 3,
+      onComplete: function(){
+        _self.showWelcomeScreen();
+        gamesManager.canStartNewGame = true;
+      }
+    });
+  }
 
 };

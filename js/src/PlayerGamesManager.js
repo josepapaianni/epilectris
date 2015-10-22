@@ -38,7 +38,9 @@ var PlayerGamesManager = function (playerInfo) {
 
   this.changeLevel = function () {
     var _self = this;
-    setTimeout(function(){_self.isChangingLevel = false;},2500)
+    setTimeout(function () {
+      _self.isChangingLevel = false;
+    }, 2500)
     if (this.lastLevel) {
       this.linesLeft = 50;
       this.levelIndex++;
@@ -113,8 +115,13 @@ var PlayerGamesManager = function (playerInfo) {
     this.games[this.activeGame].tetrises[0].placedPieces = 0;
     if (this.games[this.activeGame].gameOver) {
       console.log("checking game over");
-      if (this.gameOver()) {
-        gamesManager.playerLose(this);
+      if (this.gameOver() && !gamesManager.isMultiplayer()) {
+        gamesManager.playerLose();
+        gamesManager.players = [];
+
+      } else if (this.gameOver()) {
+        gamesManager.playerLose();
+        gamesManager.players = [];
       } else {
         this.nextGame();
       }
@@ -256,6 +263,7 @@ var PlayerGamesManager = function (playerInfo) {
   this.createGames = function () {
     this.viewPortManager = new ViewPortManager(this.playerInfo.cubeId);
     for (var i = 0; i < 4; i++) {
+      $("#" + this.playerInfo.cubeId + "-viewport-" + i).html('');
       this.games.push(new Phaser.Game(300, 550, Phaser.CANVAS, this.playerInfo.cubeId + "-viewport-" + i));
       this.games[i].state.add("preloader", new Preloader(this.games[i]));
       this.games[i].state.add("gameState", new GameState(this.games[i]));

@@ -75,4 +75,13 @@ var ViewPortManager = function (cubeId) {
             force3D:true
         });
     };
+
+    this.removeCube = function(){
+        TweenMax.to(this.cube, 1,{
+            scaleX: 0,
+            scaleY: 0,
+            ease: Power3.easeIn,
+            //force3D:true
+        });
+    }
 };
