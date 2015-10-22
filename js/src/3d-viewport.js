@@ -37,10 +37,10 @@ var ViewPortManager = function (cubeId) {
     };
 
     this.resetXZ = function(){
-        TweenMax.to(this.cube, 0.66,{
+        TweenMax.to(this.cube, 1,{
             rotationX: 0,
             rotationZ: 0,
-            ease: Back.easeOut.config(1.3),
+            ease: Power2.easeOut,
             force3D:true
         });
     };

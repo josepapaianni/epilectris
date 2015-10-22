@@ -24,6 +24,25 @@ function AudioManager(){
     };
 
     this.preload = function(){
+        game.load.image('shadow', 'assets/glow-white-30.png');
+
+        game.load.image('grid','assets/light-grid.png');
+        game.load.spritesheet('pieces', 'assets/glow-30.png',25,25);
+        game.load.image('pieceDisplay', 'assets/pieceDisplay-red.png');
+        game.load.image('controlDisplay', 'assets/control-display.png');
+        game.load.image('tierDisplay', 'assets/tier-display.png');
+        game.load.image('stageShadow', 'assets/wholegrid.png');
+        game.load.image('menuBackground', 'assets/welcome-bg.jpg');
+        game.load.image('menuNova', 'assets/welcome-nova.png');
+        game.load.image('menuLogo', 'assets/welcome-logo.png');
+        game.load.image('menuLogoGlow', 'assets/welcome-logo-glow.png');
+        game.load.image('backgroundImage', 'assets/background-face.png');
+        game.load.image('linesEffect', 'assets/ui/lines-effect.png');
+        game.load.image('doubleTxt', 'assets/ui/double-txt.png');
+        game.load.image('tripleTxt', 'assets/ui/triple-txt.png');
+        game.load.image('tetrisTxt', 'assets/ui/tetris-txt.png');
+
+
         game.load.audio('menu-music', 'assets/audio/Blue Space v0_8.mp3');
         game.load.audio('game-music', 'assets/audio/Twister-Tetris.ogg');
 

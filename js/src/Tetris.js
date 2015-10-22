@@ -198,7 +198,7 @@ function Tetris(x, y, angle, game) {
       }
       this.removeLine(linesRemoved, true, isComingFromPowerUp);
     } else {
-      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces >= game.playerManagerRef.currentLevel.changeEach) {
+      if (game.playerManagerRef.currentLevel.changeEach && this.placedPieces >= game.playerManagerRef.currentLevel.changeEach ) {
         gamesManager.nextGame();
       }
     }
@@ -268,7 +268,12 @@ function Tetris(x, y, angle, game) {
       _self.moveRemainingBlocks(remainingBlocks).then(function () {
         _self.grid.alphaTween.resume();
         _self.paused = false;
+        console.log(game.playerManagerRef.linesLeft);
+        if (!game.playerManagerRef.isChangingLevel){
           gamesManager.nextGame();
+        } else {
+          _self.powerUpArrange();
+        }
         //This if is to cancel the cube spin to next game if the line is made by a powerup
         //if (!isComingFromPowerUp) {
         //  gamesManager.nextGame();

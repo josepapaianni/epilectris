@@ -6,6 +6,7 @@ var PlayerGamesManager = function (playerInfo) {
   this.games = [];
   this.activeGame = 0;
   this.score = 0;
+  this.isChangingLevel = false;
   this.pieceHold = new PieceHold(this.playerInfo.playerId);
   this.pieceGenerator = new RandomTetrisGenerator(this.playerInfo.playerId);
   this.powerUpManager = new PowerUpManager(this.playerInfo.playerId);
@@ -23,8 +24,9 @@ var PlayerGamesManager = function (playerInfo) {
     this.linesLeft -= score;
     if (this.linesLeft <= 0) {
       this.viewPortManager.resetXZ();
+      this.isChangingLevel = true;
       this.changeLevel();
-      //setTimeout(function(){_self.changeLevel();},2000)
+      //setTimeout(function(){_self.changeLevel();},1000)
     }
     this.score += score * score;
     var paddedScore = ("000000" + this.score).substr(-6, 6);
@@ -35,6 +37,8 @@ var PlayerGamesManager = function (playerInfo) {
   };
 
   this.changeLevel = function () {
+    var _self = this;
+    setTimeout(function(){_self.isChangingLevel = false;},2500)
     if (this.lastLevel) {
       this.linesLeft = 50;
       this.levelIndex++;
@@ -47,25 +51,27 @@ var PlayerGamesManager = function (playerInfo) {
         this.currentLevel = {};
         //give special power up
       } else {
-        this.currentSpeed -= this.currentLevel.speedStep;
-        if (this.currentSpeed < this.currentLevel.minSpeed) {
-          this.levelIndex++;
-          if (this.levelIndex == levels.length) {
-            this.linesLeft = 50;
-            this.zRotation = 5;
-            this.lastLevel = true;
-            this.rotationInterval = setInterval(function () {
+        _self.currentSpeed -= _self.currentLevel.speedStep;
+        if (_self.currentSpeed < _self.currentLevel.minSpeed) {
+          _self.levelIndex++;
+          if (_self.levelIndex == levels.length) {
+            _self.linesLeft = 50;
+            _self.zRotation = 5;
+            _self.lastLevel = true;
+            _self.rotationInterval = setInterval(function () {
               if (Math.random() < 0.05) {
                 gamesManager.players[0].zRotation = -gamesManager.players[0].zRotation;
               }
               gamesManager.players[0].viewPortManager.rotateCube(0, 0, gamesManager.players[0].zRotation);
             }, 500)
+
           } else {
             this.currentLevel = levels[this.levelIndex];
             this.currentSpeed = this.currentLevel.startSpeed;
             this.linesLeft = this.currentLevel.toNextLevel;
           }
         }
+
 
       }
     }
@@ -76,6 +82,7 @@ var PlayerGamesManager = function (playerInfo) {
   };
 
   this.nextGame = function () {
+    console.log('next game')
     this.pauseAllGames();
     this.pieceHold.unlock();
     var newAngles = {x: 0, y: 0, z: 0};
@@ -261,7 +268,9 @@ var PlayerGamesManager = function (playerInfo) {
 
   this.createGames();
   var _self = this;
-  setTimeout(function(){_self.changeLevel();},125)
+  setTimeout(function () {
+    _self.changeLevel();
+  }, 125)
 
 
 };
