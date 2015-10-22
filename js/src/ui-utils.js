@@ -9,20 +9,20 @@ var UiUtils = function () {
   this.player2Ui = $('#ui-player-2');
 
   //reset objects
-  TweenMax.set(this.player1Ui,{
+  TweenMax.set(this.player1Ui, {
     x: -this.player1Ui.width()
   });
 
-  TweenMax.set(this.player2Ui,{
+  TweenMax.set(this.player2Ui, {
     x: this.player2Ui.width()
   });
 
-  TweenMax.set(this.welcomeScreen,{
+  TweenMax.set(this.welcomeScreen, {
     scale: 0,
     autoAlpha: 1
   });
 
-  TweenMax.set(this.welcomeText,{
+  TweenMax.set(this.welcomeText, {
     autoAlpha: 0
   });
 
@@ -55,13 +55,13 @@ var UiUtils = function () {
     }
   };
 
-  this.showUi = function (){
-    if (this.uiHidden){
-      TweenMax.to(this.player1Ui, 0.66,{
+  this.showUi = function () {
+    if (this.uiHidden) {
+      TweenMax.to(this.player1Ui, 0.66, {
         x: 0
       });
 
-      TweenMax.to(this.player2Ui, 0.66,{
+      TweenMax.to(this.player2Ui, 0.66, {
         x: 0
       });
 
@@ -69,13 +69,13 @@ var UiUtils = function () {
     }
   };
 
-  this.hideUi = function(){
-    if (!this.uiHidden){
-      TweenMax.to(this.player1Ui, 0.66,{
+  this.hideUi = function () {
+    if (!this.uiHidden) {
+      TweenMax.to(this.player1Ui, 0.66, {
         x: -this.player1Ui.width()
       });
 
-      TweenMax.to(this.player2Ui, 0.66,{
+      TweenMax.to(this.player2Ui, 0.66, {
         x: this.player2Ui.width()
       });
 
@@ -83,22 +83,22 @@ var UiUtils = function () {
     }
   }
 
-  this.showWelcomeScreen = function(){
-    this.welcomeScreen.css('display','block')
+  this.showWelcomeScreen = function () {
+    this.welcomeScreen.css('display', 'block')
     var _self = this;
-    TweenMax.to(this.welcomeScreen, 1,{
+    TweenMax.to(this.welcomeScreen, 1, {
       scale: 1,
       autoAlpha: 1
     });
 
-    TweenMax.to(this.welcomeText, 1,{
+    TweenMax.to(this.welcomeText, 1, {
       delay: 0.5,
       autoAlpha: 1,
       onComplete: startTextLoop
     });
 
-    function startTextLoop(){
-      TweenMax.to(_self.welcomeText, 0.5,{
+    function startTextLoop() {
+      TweenMax.to(_self.welcomeText, 0.5, {
         autoAlpha: 0.3,
         yoyo: true,
         repeat: -1
@@ -106,24 +106,24 @@ var UiUtils = function () {
     }
   };
 
-  this.hideWelcomeScreen = function(){
+  this.hideWelcomeScreen = function () {
     var _self = this;
-    TweenMax.to(this.welcomeScreen, 1,{
+    TweenMax.to(this.welcomeScreen, 1, {
       scale: 0,
       autoAlpha: 0,
       onComplete: function () {
-        _self.welcomeScreen.css('display','none')
+        _self.welcomeScreen.css('display', 'none')
       }
 
     });
-    TweenMax.to(this.welcomeText, 1,{
+    TweenMax.to(this.welcomeText, 1, {
       autoAlpha: 0
     });
   };
 
-  this.showHoldPiece = function(pieceMatrix, colour, pieceName, player) {
+  this.showHoldPiece = function (pieceMatrix, colour, pieceName, player) {
     $('#ui-' + player + ' .hold-piece-monitor' + ' .piece-sprite').remove();
-    if (!pieceMatrix){
+    if (!pieceMatrix) {
       return;
     }
     for (var j = 0; j < pieceMatrix.length; j++) {
@@ -158,9 +158,9 @@ var UiUtils = function () {
     gamesManager.canStartNewGame = false;
     var gameOverText = $('#game-over');
     var winner;
-    if (multiplayerMatchResults){
-      if (multiplayerMatchResults[1]){
-        switch (multiplayerMatchResults[0]){
+    if (multiplayerMatchResults) {
+      if (multiplayerMatchResults[1]) {
+        switch (multiplayerMatchResults[0]) {
           case 0:
             winner = 1;
             break;
@@ -171,33 +171,33 @@ var UiUtils = function () {
       } else {
         winner = multiplayerMatchResults[0];
       }
-      var text = "Player " + (winner+1) + "<br>wins!";
-      gameOverText.html('<div class="align-vertical">'+text+'</div>');
+      var text = "Player " + (winner + 1) + "<br>wins!";
+      gameOverText.html('<div class="align-vertical">' + text + '</div>');
     } else {
       gameOverText.html('<div class="align-vertical">game<br>over</div>');
     }
-    TweenMax.set(gameOverText,{autoAlpha: 1});
-    TweenMax.fromTo(gameOverText, 1,{
+    TweenMax.set(gameOverText, {autoAlpha: 1});
+    TweenMax.fromTo(gameOverText, 1, {
       scale: 0,
-    },{
+    }, {
       scale: 1,
       delay: 0.66,
       ease: Power3.easeOut,
       yoyo: true,
       repeat: 1,
       repeatDelay: 3,
-      onComplete: function(){
+      onComplete: function () {
         _self.showWelcomeScreen();
         gamesManager.canStartNewGame = true;
       }
     });
-  }
-  
+  };
+
   this.showGameOverMultiplayer = function (multiplayerMatchResults) {
     var gameOverText = $('#game-over');
     var winner;
-    if (multiplayerMatchResults[1]){
-      switch (multiplayerMatchResults[0]){
+    if (multiplayerMatchResults[1]) {
+      switch (multiplayerMatchResults[0]) {
         case 0:
           winner = 1;
           break;
@@ -208,8 +208,8 @@ var UiUtils = function () {
     } else {
       winner = multiplayerMatchResults[0];
     }
-    var text = "Player " + (winner+1) + " wins!"
-    gameOverText.html('<div class="align-vertical">'+text+'</div>');
+    var text = "Player " + (winner + 1) + " wins!"
+    gameOverText.html('<div class="align-vertical">' + text + '</div>');
   }
 
 };

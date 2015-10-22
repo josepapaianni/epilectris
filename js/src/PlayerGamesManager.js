@@ -118,7 +118,6 @@ var PlayerGamesManager = function (playerInfo) {
       if (this.gameOver() && !gamesManager.isMultiplayer()) {
         gamesManager.playerLose();
         gamesManager.players = [];
-
       } else if (gamesManager.checkMultiplayerWinner()) {
         this.multiPlayerWon(gamesManager.checkMultiplayerWinner());
         gamesManager.players = [];

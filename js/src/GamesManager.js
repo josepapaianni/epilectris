@@ -81,6 +81,7 @@ var GamesManager = function () {
     return this.players.length > 1;
   };
 
+
   this.playerLose = function (multiplayerMatchResults) {
     for (var i = 0; i < this.players.length; i++){
       this.players[i].viewPortManager.removeCube()
@@ -94,11 +95,12 @@ var GamesManager = function () {
   };
 
   this.multiPlayerEnd = function () {
-    for (var i = 0; i < this.players.length; i++){
+    for (var i = 0; i < this.players.length; i++) {
       this.players[0].viewPortManager.removeCube()
       uiUtils.hideUi();
     }
-  };
+  }
+
 
   //players start
   document.onkeydown = function (e) {
