@@ -1,6 +1,14 @@
 {
   "name": "example-project",
   "version": "0.1.0",
+  "main": "index.html",
+  "window":{
+    "title": "Epilectris",
+    "toolbar": false,
+    "resizable": true,
+    "width": 960,
+    "height": 640
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",

@@ -69,11 +69,26 @@ var UiUtils = function () {
     }
   };
 
+  this.hideUi = function(){
+    if (!this.uiHidden){
+      TweenMax.to(this.player1Ui, 0.66,{
+        x: -this.player1Ui.width()
+      });
+
+      TweenMax.to(this.player2Ui, 0.66,{
+        x: this.player2Ui.width()
+      });
+
+      this.uiHidden = true;
+    }
+  }
+
   this.showWelcomeScreen = function(){
     this.welcomeScreen.css('display','block')
     var _self = this;
     TweenMax.to(this.welcomeScreen, 1,{
       scale: 1,
+      autoAlpha: 1
     });
 
     TweenMax.to(this.welcomeText, 1,{
@@ -137,5 +152,64 @@ var UiUtils = function () {
       }
     }
   };
+
+  this.showGameOver = function (multiplayerMatchResults) {
+    var _self = this;
+    gamesManager.canStartNewGame = false;
+    var gameOverText = $('#game-over');
+    var winner;
+    if (multiplayerMatchResults){
+      if (multiplayerMatchResults[1]){
+        switch (multiplayerMatchResults[0]){
+          case 0:
+            winner = 1;
+            break;
+          case 1:
+            winner = 0;
+            break;
+        }
+      } else {
+        winner = multiplayerMatchResults[0];
+      }
+      var text = "Player " + (winner+1) + "<br>wins!";
+      gameOverText.html('<div class="align-vertical">'+text+'</div>');
+    } else {
+      gameOverText.html('<div class="align-vertical">game<br>over</div>');
+    }
+    TweenMax.set(gameOverText,{autoAlpha: 1});
+    TweenMax.fromTo(gameOverText, 1,{
+      scale: 0,
+    },{
+      scale: 1,
+      delay: 0.66,
+      ease: Power3.easeOut,
+      yoyo: true,
+      repeat: 1,
+      repeatDelay: 3,
+      onComplete: function(){
+        _self.showWelcomeScreen();
+        gamesManager.canStartNewGame = true;
+      }
+    });
+  }
+  
+  this.showGameOverMultiplayer = function (multiplayerMatchResults) {
+    var gameOverText = $('#game-over');
+    var winner;
+    if (multiplayerMatchResults[1]){
+      switch (multiplayerMatchResults[0]){
+        case 0:
+          winner = 1;
+          break;
+        case 1:
+          winner = 0;
+          break;
+      }
+    } else {
+      winner = multiplayerMatchResults[0];
+    }
+    var text = "Player " + (winner+1) + " wins!"
+    gameOverText.html('<div class="align-vertical">'+text+'</div>');
+  }
 
 };
