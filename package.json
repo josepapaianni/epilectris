@@ -3,16 +3,12 @@
   "version": "0.1.0",
   "main": "index.html",
   "window":{
-<<<<<<< HEAD
     "title": "Epilectris",
     "toolbar": false,
     "resizable": true,
     "width": 960,
-    "height": 640
-=======
-    "toolbar": false,
+    "height": 640,
     "fullscreen": true
->>>>>>> e98afced47b26e57537571b0261a62bab6af73bb
   },
   "devDependencies": {
     "grunt": "^0.4.5",
