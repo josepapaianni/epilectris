@@ -565,7 +565,9 @@ function Tetris(x, y, angle, game) {
   this.lose = function () {
     //this.clearAll(false);
     game.gameOver = true;
-    game.playerManagerRef.nextGame();
+    console.log(gamesManager.checkMultiplayerWinner());
+
+      game.playerManagerRef.nextGame();
   };
 
   this.placePiece = function (spritesGroup, position) {

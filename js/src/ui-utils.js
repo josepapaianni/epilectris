@@ -153,24 +153,20 @@ var UiUtils = function () {
     }
   };
 
-  this.showGameOver = function (multiplayerMatchResults) {
+  this.showGameOver = function (player, winnerThis) {
     var _self = this;
     gamesManager.canStartNewGame = false;
     var gameOverText = $('#game-over');
     var winner;
-    if (multiplayerMatchResults) {
-      if (multiplayerMatchResults[1]) {
-        switch (multiplayerMatchResults[0]) {
+    if (player) {
+        switch (_.findIndex(gamesManager.players, player)) {
           case 0:
-            winner = 1;
+            winnerThis ? winner = 0 : winner = 1;
             break;
           case 1:
-            winner = 0;
+            winnerThis ? winner = 1: winner = 0;
             break;
         }
-      } else {
-        winner = multiplayerMatchResults[0];
-      }
       var text = "Player " + (winner + 1) + "<br>wins!";
       gameOverText.html('<div class="align-vertical">' + text + '</div>');
     } else {
@@ -189,27 +185,10 @@ var UiUtils = function () {
       onComplete: function () {
         _self.showWelcomeScreen();
         gamesManager.canStartNewGame = true;
+        createMainClasses();
       }
     });
   };
 
-  this.showGameOverMultiplayer = function (multiplayerMatchResults) {
-    var gameOverText = $('#game-over');
-    var winner;
-    if (multiplayerMatchResults[1]) {
-      switch (multiplayerMatchResults[0]) {
-        case 0:
-          winner = 1;
-          break;
-        case 1:
-          winner = 0;
-          break;
-      }
-    } else {
-      winner = multiplayerMatchResults[0];
-    }
-    var text = "Player " + (winner + 1) + " wins!"
-    gameOverText.html('<div class="align-vertical">' + text + '</div>');
-  }
 
 };

@@ -22,11 +22,13 @@ var PlayerGamesManager = function (playerInfo) {
       this.upsideDown();
     }
     this.linesLeft -= score;
-    if (this.linesLeft <= 0) {
+    if (this.linesLeft <= 0 && !gamesManager.isMultiplayer()) {
       this.viewPortManager.resetXZ();
       this.isChangingLevel = true;
       this.changeLevel();
       //setTimeout(function(){_self.changeLevel();},1000)
+    } else if (this.linesLeft <= 0 && gamesManager.isMultiplayer()) {
+      gamesManager.playerLose(this, true);
     }
     this.score += score * score;
     var paddedScore = ("000000" + this.score).substr(-6, 6);
@@ -115,11 +117,8 @@ var PlayerGamesManager = function (playerInfo) {
     this.games[this.activeGame].tetrises[0].placedPieces = 0;
     if (this.games[this.activeGame].gameOver) {
       console.log("checking game over");
-      if (this.gameOver() && !gamesManager.isMultiplayer()) {
-        gamesManager.playerLose();
-        gamesManager.players = [];
-      } else if (gamesManager.checkMultiplayerWinner()) {
-        this.multiPlayerWon(gamesManager.checkMultiplayerWinner());
+      if (this.gameOver()) {
+        gamesManager.playerLose(this);
         gamesManager.players = [];
       } else {
         this.nextGame();
@@ -129,17 +128,23 @@ var PlayerGamesManager = function (playerInfo) {
     }
   };
 
-  this.multiPlayerWon = function(multiplayerMatchResults){
-    gamesManager.playerLose(multiplayerMatchResults);
-  };
+  this.removePlacedPieces = function () {
+    this.games[this.activeGame].tetrises[0].placedPieces = 0;
+  }
 
   this.gameOver = function () {
+    var gamesOver = 0;
     for (var i = 0; i < this.games.length; i++) {
-      if (!this.games[i].gameOver) {
-        return false;
+      if (this.games[i].gameOver) {
+        gamesOver++
       }
     }
-    return true;
+    if (gamesOver === 4) {
+      return true;
+    } else {
+      return false
+    }
+    ;
   };
 
   this.pauseNonActiveGames = function () {

@@ -5,10 +5,10 @@ var uiUtils;
 
 $(document).ready(function () {
 
-  gamesManager = new GamesManager();
+
+  createMainClasses();
   audioManager = new AudioManager();
   spaceEffect = new SpaceEffect();
-  uiUtils = new UiUtils();
 
   uiUtils.showWelcomeScreen();
 
@@ -18,6 +18,11 @@ $(document).ready(function () {
 
   adjustAppSize();
 });
+
+function createMainClasses(){
+  gamesManager = new GamesManager();
+  uiUtils = new UiUtils();
+}
 
 
 function adjustAppSize() {
@@ -61,6 +66,12 @@ function adjustAppSize() {
       left: appWidth * 0.6725 - (cubeB.width() / 2),
       force3D: true
     })
+
+  } else {
+    TweenMax.to(cubeA, 0.25, {
+      left: appWidth * 0.5 - (cubeA.width() / 2),
+      force3D: true
+    });
 
   }
 

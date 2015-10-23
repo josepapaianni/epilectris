@@ -5,6 +5,7 @@ var GamesManager = function () {
   this.players = [];
   this.canStartNewGame = true;
 
+
   this.nextGame = function () {
     for (var i = 0; i < this.players.length; i++) {
       this.players[i].nextGame();
@@ -13,7 +14,7 @@ var GamesManager = function () {
 
   this.checkMultiplayerWinner = function (){
     for (var i = 0; i < this.players.length; i++) {
-      if (this.players[i].linesLeft <= 0 || this.players[i].gameOver()){
+      if (this.players[i].linesLeft <= 0 || this.players[i].gameOver() && this.players.length == 2){
         return [i, this.players[i].gameOver()]
       } else {
       return false
@@ -22,15 +23,23 @@ var GamesManager = function () {
   };
 
   this.startPlayer = function () {
+
+    var appHolder = $('#app-holder');
+    var appWidth = appHolder.innerWidth() >= 840 ? appHolder.innerWidth() : 840;
     audioManager.playMusic("game");
     var _self = this;
     this.players.push(new PlayerGamesManager(playersMeta[this.players.length]));
     if (this.players.length === 1) {
+      $(".wait-player-2").show();
+      $(".player-2-wrapper").hide();
+
+      //$(this.players[0].viewPortManager.cube).css('left','calc(50% - 150px)');
       TweenMax.set(this.players[0].viewPortManager.cube,{
         rotationX: 0,
         rotationY: 0,
         rotationZ: 0,
-        scale: 1
+        scale: 1,
+        left: appWidth/2 - 150
       });
       this.players[0].viewPortManager.cube.style.display = 'block';
       TweenMax.from(this.players[0].viewPortManager.cube, 1, {
@@ -43,9 +52,15 @@ var GamesManager = function () {
       });
     }
     if (this.players.length == 2) {
+      TweenMax.set(this.players[1].viewPortManager.cube,{
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: 0,
+        scale: 1
+      });
 
       var appHolder = $('#app-holder');
-      var appWidth = appHolder.innerWidth();
+      var appWidth = appHolder.innerWidth() >= 840 ? appHolder.innerWidth() : 840;
       //player two started
       $(".wait-player-2").hide();
       $(".player-2-wrapper").show();
@@ -53,9 +68,12 @@ var GamesManager = function () {
       //pause player 1 games
       this.players[0].reset();
       this.players[0].pauseAllGames();
-
+      TweenMax.set(this.players[1].viewPortManager.cube,{
+        scale: 1
+      });
       TweenMax.to(this.players[0].viewPortManager.cube, 1, {
-        left: appWidth * 0.325 - ($(this.players[1].viewPortManager.cube).width() / 2),
+        left: appWidth * 0.325 - ($(this.players[0].viewPortManager.cube).width() / 2)
+        //left: appWidth * 0.325 - ($(this.players[0].viewPortManager.cube).width() / 2),
       });
       this.players[1].viewPortManager.cube.style.display = "block";
       TweenMax.from(this.players[1].viewPortManager.cube, 1, {
@@ -66,7 +84,7 @@ var GamesManager = function () {
           //reset p1 current game & resume both games
           _self.players[0].pauseNonActiveGames();
           _self.players[1].pauseNonActiveGames();
-          adjustAppSize();
+          //adjustAppSize();
           //_self.players[1].changeLevel();
         }
       })
@@ -82,16 +100,18 @@ var GamesManager = function () {
   };
 
 
-  this.playerLose = function (multiplayerMatchResults) {
+  this.playerLose = function (player, winner) {
     for (var i = 0; i < this.players.length; i++){
       this.players[i].viewPortManager.removeCube()
     }
+    console.log(this.players.length)
     uiUtils.hideUi();
-    if (!multiplayerMatchResults){
+    if (this.players.length == 1 ){
       uiUtils.showGameOver();
     } else {
-      uiUtils.showGameOver(multiplayerMatchResults)
+      uiUtils.showGameOver(player, winner)
     }
+    this.players = [];
   };
 
   this.multiPlayerEnd = function () {
@@ -99,7 +119,7 @@ var GamesManager = function () {
       this.players[0].viewPortManager.removeCube()
       uiUtils.hideUi();
     }
-  }
+  };
 
 
   //players start
