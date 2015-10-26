@@ -41,16 +41,18 @@ var GameState = function (game) {
     };
 
     this.update = function(game) {
+
         //filter.update();
         var tetris = game.tetrises[game.currentTetris];
 
         if (!this.game.paused && !tetris.paused){
             _.each(this.input.keys, function(direction){
-
                 var actualDirection = direction == "up" ? "rotateRight" : direction;
                 var isDir = this.input.keys.indexOf(actualDirection) < 4;
                 //var actualDirection = getDirectionWithAngle(direction,tetris.angle);
-                if (!this.input.pressedKeys[direction].pressed && this.game.cursors[direction].isDown) {
+                if (!this.input.pressedKeys[direction].pressed &&
+                    (this.game.cursors[direction].isDown || this.game.pad.isDown(this.game.padKeys[direction]) || this.game.pad.axis(this.game.padKeys[direction]))) {
+                    console.log(this.game.pad.axis(this.game.padKeys[direction]))
                     if (isDir){
                         this.input.pressKey(direction);
                     } else {
@@ -63,11 +65,12 @@ var GameState = function (game) {
                         tetris.movePiece(actualDirection);
                     }
                 }
-                if (this.game.cursors[direction].isUp){
+                if (this.game.cursors[direction].isUp && this.game.pad.isUp(this.game.padKeys[direction]) && this.game.pad.axis(this.game.padKeys[direction]) == 0){
                     this.input.pressedKeys[direction].pressed = false;
                     this.input.pressedKeys[direction].timeout = this.input.defaultTimeOut;
                 }
             },this);
+
 
             if (levelConfig.continuousRotation){
                 angleStep = 1;

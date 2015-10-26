@@ -40,7 +40,25 @@ var Input = function (game) {
     };
 
     this.setupInput = function (wasd) {
+        game.input.gamepad.start();
+
+        // To listen to buttons from a specific pad listen directly on that pad game.input.gamepad.padX, where X = pad 1-4;
+
         if (wasd) {
+            game.pad = game.input.gamepad.pad2;
+            game.padKeys = {
+                up: Phaser.Gamepad.XBOX360_STICK_LEFT_Y < -0.1,
+                right: Phaser.Gamepad.XBOX360_STICK_LEFT_X > 0.1,
+                left: Phaser.Gamepad.XBOX360_STICK_LEFT_X < -0.1,
+                down: Phaser.Gamepad.XBOX360_STICK_LEFT_Y > 0.1,
+                rotateRight: Phaser.Gamepad.XBOX360_RIGHT_TRIGGER,
+                rotateLeft: Phaser.Gamepad.XBOX360_LEFT_TRIGGER,
+                place: Phaser.Gamepad.XBOX360_A,
+                hold: Phaser.Gamepad.XBOX360_B,
+                level: Phaser.Gamepad.XBOX360_RIGHT_BUMPER,
+                pause: Phaser.Gamepad.XBOX360_START,
+                powerup: Phaser.Gamepad.XBOX360_X
+            }
             this.game.cursors = this.game.input.keyboard.createCursorKeys();
             this.game.cursors.rotateRight = this.game.input.keyboard.addKey(Phaser.Keyboard.X);
             this.game.cursors.rotateLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
@@ -50,6 +68,20 @@ var Input = function (game) {
             this.game.cursors.pause = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
             this.game.cursors.powerup = this.game.input.keyboard.addKey(Phaser.Keyboard.M);
         } else {
+            game.pad = game.input.gamepad.pad1;
+            game.padKeys = {
+                up: Phaser.Gamepad.XBOX360_STICK_LEFT_Y < -0.1,
+                right: Phaser.Gamepad.XBOX360_STICK_LEFT_X > 0.1,
+                down: Phaser.Gamepad.XBOX360_STICK_LEFT_Y > 0.1,
+                left: Phaser.Gamepad.XBOX360_STICK_LEFT_X < -0.1,
+                rotateRight: Phaser.Gamepad.XBOX360_RIGHT_TRIGGER,
+                rotateLeft: Phaser.Gamepad.XBOX360_LEFT_TRIGGER,
+                place: Phaser.Gamepad.XBOX360_A,
+                hold: Phaser.Gamepad.XBOX360_B,
+                level: Phaser.Gamepad.XBOX360_RIGHT_BUMPER,
+                pause: Phaser.Gamepad.XBOX360_START,
+                powerup: Phaser.Gamepad.XBOX360_X
+            }
             this.game.cursors = {
                 up: this.game.input.keyboard.addKey(Phaser.Keyboard.W),
                 down: this.game.input.keyboard.addKey(Phaser.Keyboard.S),
@@ -67,6 +99,7 @@ var Input = function (game) {
         this.releaseAllKeys();
 
     };
+
 
     this.releaseAllKeys = function () {
         _self = this;

@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c569371-9a73-4a82-acd1-eaa9f812db8d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/high-scores.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/3d-viewport.js" afterPath="$PROJECT_DIR$/js/src/3d-viewport.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/AudioManager.js" afterPath="$PROJECT_DIR$/js/src/AudioManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/GamesManager.js" afterPath="$PROJECT_DIR$/js/src/GamesManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/PlayerGamesManager.js" afterPath="$PROJECT_DIR$/js/src/PlayerGamesManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/Tetris.js" afterPath="$PROJECT_DIR$/js/src/Tetris.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/gameState.js" afterPath="$PROJECT_DIR$/js/src/gameState.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/playerInput.js" afterPath="$PROJECT_DIR$/js/src/playerInput.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BlackTetris.iws" />
@@ -32,21 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Tetris.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tetris.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/Tetris.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62857145">
-              <caret line="274" column="33" selection-start-line="274" selection-start-column="33" selection-end-line="274" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerGamesManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/PlayerGamesManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.740741">
-              <caret line="40" column="55" selection-start-line="40" selection-start-column="55" selection-end-line="40" selection-end-column="55" />
+            <state vertical-scroll-proportion="22.777779">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -62,14 +47,44 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="PlayerGamesManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/PlayerGamesManager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="43" column="21" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="playerInput.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/src/playerInput.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.14018692">
+              <caret line="47" column="20" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="gameState.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/gameState.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5925927">
-              <caret line="87" column="95" selection-start-line="87" selection-start-column="93" selection-end-line="87" selection-end-column="95" />
+            <state vertical-scroll-proportion="-3.5185184">
+              <caret line="54" column="81" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="81" />
               <folding>
                 <element signature="e#0#38#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AudioManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/AudioManager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-21.296297">
+              <caret line="57" column="29" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,20 +105,10 @@
         <entry file="file://$PROJECT_DIR$/js/src/GamesManager.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="17" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="17" />
+              <caret line="126" column="20" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="20" />
               <folding>
                 <element signature="e#0#38#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stylesheet.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/styles/stylesheet.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="17" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -121,18 +126,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.625">
-              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -173,8 +168,6 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/js/src/RandomTetrisGenerator.js" />
         <option value="$PROJECT_DIR$/stylesheet.css" />
-        <option value="$PROJECT_DIR$/js/src/gameState.js" />
-        <option value="$PROJECT_DIR$/js/src/playerInput.js" />
         <option value="$PROJECT_DIR$/js/src/PowerUpManager.js" />
         <option value="$PROJECT_DIR$/js/src/PieceHold.js" />
         <option value="$PROJECT_DIR$/js/src/config.js" />
@@ -184,12 +177,14 @@
         <option value="$PROJECT_DIR$/js/src/ui-utils.js" />
         <option value="$PROJECT_DIR$/styles/stylesheet.css" />
         <option value="$PROJECT_DIR$/js/src/GamesManager.js" />
-        <option value="$PROJECT_DIR$/js/src/AudioManager.js" />
         <option value="$PROJECT_DIR$/js/src/3d-viewport.js" />
         <option value="$PROJECT_DIR$/styles/high-scores.css" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/src/PlayerGamesManager.js" />
         <option value="$PROJECT_DIR$/js/src/Tetris.js" />
+        <option value="$PROJECT_DIR$/js/src/gameState.js" />
+        <option value="$PROJECT_DIR$/js/src/playerInput.js" />
+        <option value="$PROJECT_DIR$/js/src/AudioManager.js" />
       </list>
     </option>
   </component>
@@ -235,9 +230,9 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -639,6 +634,9 @@
       <workItem from="1445012615729" duration="6320000" />
       <workItem from="1445111732198" duration="5648000" />
       <workItem from="1445382982829" duration="13388000" />
+      <workItem from="1445569804977" duration="228000" />
+      <workItem from="1445729116284" duration="270000" />
+      <workItem from="1445826318534" duration="13508000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1444401409239</created>
@@ -686,7 +684,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256715000" />
+    <option name="totallyTimeSpent" value="270721000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -735,13 +733,13 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24678111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -958,13 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/playerInput.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="80" selection-start-line="57" selection-start-column="80" selection-end-line="57" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/powerups/bad-shuffle.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -991,7 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -999,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.98571426">
           <caret line="46" column="79" selection-start-line="46" selection-start-column="76" selection-end-line="46" selection-end-column="79" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1015,9 +1004,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding>
-            <marker date="1445393709000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1025,17 +1011,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="70" selection-start-line="7" selection-start-column="8" selection-end-line="23" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/AudioManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.222221">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-          <folding>
-            <element signature="n#!!doc;n#AudioManager#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1043,7 +1018,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="105" column="7" selection-start-line="105" selection-start-column="7" selection-end-line="105" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1051,7 +1025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33195022">
           <caret line="1195" column="54" selection-start-line="1195" selection-start-column="54" selection-end-line="1195" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1081,19 +1054,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.625">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/gameState.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5925927">
-          <caret line="87" column="95" selection-start-line="87" selection-start-column="93" selection-end-line="87" selection-end-column="95" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1110,7 +1073,7 @@
     <entry file="file://$PROJECT_DIR$/js/src/GamesManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="17" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="17" />
+          <caret line="126" column="20" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="20" />
           <folding>
             <element signature="e#0#38#0" expanded="false" />
           </folding>
@@ -1125,18 +1088,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/PlayerGamesManager.js">
+    <entry file="file://$PROJECT_DIR$/js/src/Tetris.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.740741">
-          <caret line="40" column="55" selection-start-line="40" selection-start-column="55" selection-end-line="40" selection-end-column="55" />
+        <state vertical-scroll-proportion="22.777779">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/Tetris.js">
+    <entry file="file://$PROJECT_DIR$/js/src/PlayerGamesManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62857145">
-          <caret line="274" column="33" selection-start-line="274" selection-start-column="33" selection-end-line="274" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="21" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/AudioManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.296297">
+          <caret line="57" column="29" selection-start-line="57" selection-start-column="29" selection-end-line="57" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/gameState.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.5185184">
+          <caret line="54" column="81" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/playerInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14018692">
+          <caret line="47" column="20" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="20" />
           <folding />
         </state>
       </provider>
