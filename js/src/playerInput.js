@@ -6,7 +6,7 @@ var Input = function (game) {
 
     this.game = game;
 
-    this.keys = ["up", "right", "down", "left", "rotateRight", "rotateLeft", "place", "level", "hold", "pause","powerup"];
+    this.keys = ["up", "right", "down", "left", "rotateRight", "rotateLeft","hold", "place", "level", "pause","powerup"];
     this.pressedKeys = {};
     this.defaultTimeOut = 250;
     this.minTimeOut = 50;
@@ -47,10 +47,10 @@ var Input = function (game) {
         if (wasd) {
             game.pad = game.input.gamepad.pad2;
             game.padKeys = {
-                up: Phaser.Gamepad.XBOX360_STICK_LEFT_Y < -0.1,
-                right: Phaser.Gamepad.XBOX360_STICK_LEFT_X > 0.1,
-                left: Phaser.Gamepad.XBOX360_STICK_LEFT_X < -0.1,
-                down: Phaser.Gamepad.XBOX360_STICK_LEFT_Y > 0.1,
+                up: Phaser.Gamepad.XBOX360_STICK_LEFT_Y,
+                right: Phaser.Gamepad.XBOX360_STICK_LEFT_X,
+                left: Phaser.Gamepad.XBOX360_STICK_LEFT_X,
+                down: Phaser.Gamepad.XBOX360_STICK_LEFT_Y,
                 rotateRight: Phaser.Gamepad.XBOX360_RIGHT_TRIGGER,
                 rotateLeft: Phaser.Gamepad.XBOX360_LEFT_TRIGGER,
                 place: Phaser.Gamepad.XBOX360_A,
@@ -70,14 +70,14 @@ var Input = function (game) {
         } else {
             game.pad = game.input.gamepad.pad1;
             game.padKeys = {
-                up: Phaser.Gamepad.XBOX360_STICK_LEFT_Y < -0.1,
-                right: Phaser.Gamepad.XBOX360_STICK_LEFT_X > 0.1,
-                down: Phaser.Gamepad.XBOX360_STICK_LEFT_Y > 0.1,
-                left: Phaser.Gamepad.XBOX360_STICK_LEFT_X < -0.1,
+                up: Phaser.Gamepad.XBOX360_STICK_LEFT_Y,
+                right: Phaser.Gamepad.XBOX360_STICK_LEFT_X,
+                down: Phaser.Gamepad.XBOX360_STICK_LEFT_Y,
+                left: Phaser.Gamepad.XBOX360_STICK_LEFT_X,
                 rotateRight: Phaser.Gamepad.XBOX360_RIGHT_TRIGGER,
                 rotateLeft: Phaser.Gamepad.XBOX360_LEFT_TRIGGER,
+                hold: Phaser.Gamepad.XBOX360_Y,
                 place: Phaser.Gamepad.XBOX360_A,
-                hold: Phaser.Gamepad.XBOX360_B,
                 level: Phaser.Gamepad.XBOX360_RIGHT_BUMPER,
                 pause: Phaser.Gamepad.XBOX360_START,
                 powerup: Phaser.Gamepad.XBOX360_X
@@ -89,8 +89,8 @@ var Input = function (game) {
                 right: this.game.input.keyboard.addKey(Phaser.Keyboard.D),
                 rotateRight: this.game.input.keyboard.addKey(Phaser.Keyboard.K),
                 rotateLeft: this.game.input.keyboard.addKey(Phaser.Keyboard.J),
-                place: this.game.input.keyboard.addKey(Phaser.Keyboard.Q),
                 hold: this.game.input.keyboard.addKey(Phaser.Keyboard.L),
+                place: this.game.input.keyboard.addKey(Phaser.Keyboard.Q),
                 level: this.game.input.keyboard.addKey(Phaser.Keyboard.O),
                 pause: this.game.input.keyboard.addKey(Phaser.Keyboard.P),
                 powerup: this.game.input.keyboard.addKey(Phaser.Keyboard.E)
