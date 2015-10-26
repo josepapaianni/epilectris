@@ -88,15 +88,24 @@ var GameState = function (game) {
           } else {
             this.input.pressedKeys[direction].pressed = true;
             tetris.movePiece(direction);
+            console.log(this.game.pad)
           }
 
 
         }
-        if (this.game.cursors[direction].isUp && this.game.pad.isUp(this.game.padKeys[direction]) && this.game.pad.axis(this.game.padKeys[direction]) == 0) {
-          this.input.pressedKeys[direction].pressed = false;
-          this.input.pressedKeys[direction].timeout = this.input.defaultTimeOut;
+        if (this.game.input.gamepad.supported && this.game.input.gamepad.active && this.game.pad.connected){
+          if (this.game.cursors[direction].isUp && this.game.pad.isUp(this.game.padKeys[direction]) && this.game.pad.axis(this.game.padKeys[direction]) == 0) {
+            this.input.pressedKeys[direction].pressed = false;
+            this.input.pressedKeys[direction].timeout = this.input.defaultTimeOut;
+          }
+        } else {
+          if (this.game.cursors[direction].isUp) {
+            this.input.pressedKeys[direction].pressed = false;
+            this.input.pressedKeys[direction].timeout = this.input.defaultTimeOut;
+          }
+
         }
-      }, this);
+       }, this);
 
 
       if (levelConfig.continuousRotation) {
