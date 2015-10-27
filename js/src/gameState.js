@@ -62,12 +62,11 @@ var GameState = function (game) {
     if (!this.game.paused && !tetris.paused) {
       _.each(this.input.keys, function (direction) {
         var actualDirection = direction == "up" ? "rotateRight" : direction;
-        var isDir = this.input.keys.indexOf(direction) < 4;
+        var isDir = this.input.keys.indexOf(actualDirection) < 4;
         //var actualDirection = getDirectionWithAngle(direction,tetris.angle);
         if (!this.input.pressedKeys[direction].pressed &&
           (this.game.cursors[direction].isDown || (this.game.pad.justPressed(this.game.padKeys[direction]) && !isDir ) || (this.game.pad.axis(this.game.padKeys[direction]) && isDir))) {
-
-          if (this.game.pad.axis(this.game.padKeys[direction])){
+          if (this.game.input.gamepad.supported && this.game.input.gamepad.active && this.game.pad.connected && this.game.pad.axis(this.game.padKeys[direction])){
             if (this.game.pad.axis(this.game.padKeys[direction]) < -0.1 && direction == "up"){
               this.input.pressKey('rotateRight');
               tetris.movePiece('rotateRight');
@@ -87,11 +86,8 @@ var GameState = function (game) {
             tetris.movePiece(actualDirection);
           } else {
             this.input.pressedKeys[direction].pressed = true;
-            tetris.movePiece(direction);
-            console.log(this.game.pad)
+            tetris.movePiece(actualDirection);
           }
-
-
         }
         if (this.game.input.gamepad.supported && this.game.input.gamepad.active && this.game.pad.connected){
           if (this.game.cursors[direction].isUp && this.game.pad.isUp(this.game.padKeys[direction]) && this.game.pad.axis(this.game.padKeys[direction]) == 0) {
@@ -103,7 +99,6 @@ var GameState = function (game) {
             this.input.pressedKeys[direction].pressed = false;
             this.input.pressedKeys[direction].timeout = this.input.defaultTimeOut;
           }
-
         }
        }, this);
 
