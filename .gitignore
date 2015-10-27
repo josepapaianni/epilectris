@@ -2,3 +2,7 @@ Epilectris.iml
 .idea
 /.idea/workspace.xml
 bower_components
+node_modules
+build
+cache
+icons
