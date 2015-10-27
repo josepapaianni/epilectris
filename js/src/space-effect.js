@@ -32,7 +32,7 @@ var SpaceEffect = function () {
             gravity: 0,
             speedX: 6,
             speedY: 6,
-            density: 20,
+            density: 20
         };
 
     // Set up a function to create multiple particles
