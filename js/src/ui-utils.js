@@ -183,12 +183,53 @@ var UiUtils = function () {
       repeat: 1,
       repeatDelay: 3,
       onComplete: function () {
-        _self.showWelcomeScreen();
-        gamesManager.canStartNewGame = true;
-        createMainClasses();
+        if (gamesManager.isMultiplayer()){
+          _self.restartGame();
+        } else {
+          _self.showPlayerInputHighScore();
+        }
       }
     });
   };
+
+  this.showPlayerInputHighScore = function () {
+    var _self = this;
+    document.onkeydown = null;
+    var highScoresInputScreen = $('#high-scores');
+    highScoresInputScreen.css('display','block');
+    $('#submit-btn').click(function(event){
+      event.preventDefault();
+      _self.saveScore($('#player-name').val(), score);
+    });
+    TweenMax.from(highScoresInputScreen,1,{
+      scale: 0,
+      ease: Power3.easeOut
+    })
+
+  };
+
+  this.getHighScores = function () {
+
+  };
+
+  this.saveScore = function (name,score) {
+    //var name = 'jose';
+    //var score = 213;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        console.log(xmlhttp.responseText) ;
+      }
+    }
+    xmlhttp.open("GET", "./services/save-score.php?name=" + name + "&score=" + score, true);
+    xmlhttp.send();
+  };
+
+  this.restartGame = function () {
+    this.showWelcomeScreen();
+    gamesManager.canStartNewGame = true;
+    createMainClasses();
+  }
 
 
 };

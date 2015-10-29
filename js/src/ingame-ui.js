@@ -194,5 +194,11 @@ var IngameUi = function () {
       })
     }
 
+  };
+
+  this.showPlayerControls = function (game){
+    game.controlsTextStyle = {font: "Orbitron", fontSize: 22, fill: "#FFFFFF", align: "center"};
+    game.controlsText = game.add.text(game.world.centerX, game.world.centerY, "", game.controlsTextStyle)
   }
-}
+
+};

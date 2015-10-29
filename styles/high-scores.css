@@ -1,3 +1,49 @@
-#high-scores{
+#high-scores {
     display: none;
+    font-family: "Orbitron", sans-serif;
+    font-size: 2em;
+    color: #06ff00;
+    text-transform: uppercase;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 20%;
+    position: absolute;
+}
+
+#high-scores > .detail {
+    font-size: 0.75em;
+}
+
+#high-scores input[type="text"] {
+    display: block;
+    margin-top: 0.5em;
+    width: 80%;
+    margin-left: 10%;
+    font-family: "Orbitron", sans-serif;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #06ff00;
+    padding: 10px;
+    border: solid 5px #06ff00;
+    transition: border 0.3s;
+}
+
+#high-scores input[type="text"]:focus {
+    outline: none;
+}
+
+#high-scores input[type=submit] {
+    font-family: "Orbitron", sans-serif;
+    padding: 0.5em 0.5em 0.3em 0.5em;
+    background: #06ff00;
+    color: black;
+    font-size: 1em;
+    margin-top: 0.5em;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
