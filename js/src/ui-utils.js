@@ -153,7 +153,7 @@ var UiUtils = function () {
     }
   };
 
-  this.showGameOver = function (player, winnerThis) {
+  this.showGameOver = function (player, winnerThis, score) {
     var _self = this;
     gamesManager.canStartNewGame = false;
     var gameOverText = $('#game-over');
@@ -186,20 +186,23 @@ var UiUtils = function () {
         if (gamesManager.isMultiplayer()){
           _self.restartGame();
         } else {
-          _self.showPlayerInputHighScore();
+          _self.showPlayerInputHighScore(score);
         }
       }
     });
   };
 
-  this.showPlayerInputHighScore = function () {
+  this.showPlayerInputHighScore = function (score) {
     var _self = this;
     document.onkeydown = null;
     var highScoresInputScreen = $('#high-scores');
+    var playerName = $('#player-name');
     highScoresInputScreen.css('display','block');
+
     $('#submit-btn').click(function(event){
       event.preventDefault();
-      _self.saveScore($('#player-name').val(), score);
+      playerName.addClass('loader-ajax');
+      _self.saveScore(playerName.val(), score);
     });
     TweenMax.from(highScoresInputScreen,1,{
       scale: 0,
@@ -208,19 +211,63 @@ var UiUtils = function () {
 
   };
 
-  this.getHighScores = function () {
+  this.hidePlayerInputHighScore = function () {
+    var highScoresInputScreen = $('#high-scores');
+    TweenMax.to(highScoresInputScreen,1,{
+      scale: 0,
+      ease: Power3.easeIn,
+      onComplete: function () {
+        TweenMax.set(highScoresInputScreen,{
+          display: 'none',
+          scale: 1
+        })
+      }
+    });
+  }
+
+  this.showHighScores = function (response) {
+    var scores = $.parseJSON(response);
+    var highScoresTable = $('#high-scores-table');
+    console.log(scores);
+    highScoresTable.append('<div class="score-row-header">'+
+        '<div class="name-score"> NAME </div>' +
+        '<div class="score-score">SCORE</div>' +
+        '</div>');
+
+    for (var i = 0; i < scores.length; i++){
+      highScoresTable.append('<div class="score-row">'+
+          '<div class="name-score">' +scores[i].name + '</div>' +
+          '<div class="score-score">' +scores[i].score + '</div>' +
+          '</div>')
+    }
 
   };
 
-  this.saveScore = function (name,score) {
-    //var name = 'jose';
-    //var score = 213;
+  this.getHighScores = function () {
+    var _self = this;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        console.log(xmlhttp.responseText) ;
+        _self.showHighScores(xmlhttp.responseText);
       }
-    }
+    };
+    xmlhttp.open("GET", "./services/get-scores.php", true);
+    xmlhttp.send();
+  };
+
+
+
+  this.saveScore = function (name,score) {
+    var _self = this;
+    $('#submit-btn').off();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        $('#player-name').removeClass('loader-ajax');
+        _self.hidePlayerInputHighScore();
+        _self.getHighScores()
+      }
+    };
     xmlhttp.open("GET", "./services/save-score.php?name=" + name + "&score=" + score, true);
     xmlhttp.send();
   };

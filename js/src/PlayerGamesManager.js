@@ -22,15 +22,17 @@ var PlayerGamesManager = function (playerInfo) {
       this.upsideDown();
     }
     this.linesLeft -= score;
+    this.score += score * score;
+
     if (this.linesLeft <= 0 && !gamesManager.isMultiplayer()) {
       this.viewPortManager.resetXZ();
       this.isChangingLevel = true;
       this.changeLevel();
       //setTimeout(function(){_self.changeLevel();},1000)
     } else if (this.linesLeft <= 0 && gamesManager.isMultiplayer()) {
-      gamesManager.playerLose(this, true);
+      gamesManager.playerLose(this, this.score, true);
     }
-    this.score += score * score;
+
     var paddedScore = ("000000" + this.score).substr(-6, 6);
     $("#ui-" + this.playerInfo.playerId + " .score-counter").html(paddedScore);
     var paddedLines = ("000" + this.linesLeft).substr(-3, 3);
@@ -118,7 +120,7 @@ var PlayerGamesManager = function (playerInfo) {
     if (this.games[this.activeGame].gameOver) {
       console.log("checking game over");
       if (this.gameOver()) {
-        gamesManager.playerLose(this);
+        gamesManager.playerLose(this, this.score);
         gamesManager.players = [];
       } else {
         this.nextGame();

@@ -100,16 +100,19 @@ var GamesManager = function () {
   };
 
 
-  this.playerLose = function (player, winner) {
+  this.playerLose = function (player, score, winner) {
     for (var i = 0; i < this.players.length; i++){
       this.players[i].viewPortManager.removeCube()
+      for (var j = 0; j <this.players[i].games.length; j++){
+        this.players[i].games[j].input.keyboard.destroy();
+      }
     }
     console.log(this.players.length)
     uiUtils.hideUi();
     if (this.players.length == 1 ){
-      uiUtils.showGameOver();
+      uiUtils.showGameOver(null, null, score);
     } else {
-      uiUtils.showGameOver(player, winner)
+      uiUtils.showGameOver(player, winner, score);
     }
     this.players = [];
   };

@@ -29,8 +29,14 @@
     padding: 10px;
     border: solid 5px #06ff00;
     transition: border 0.3s;
+    text-align: center;
+    box-sizing: border-box;
 }
-
+.loader-ajax{
+    background-image: url(../assets/ajax-loader.gif);
+    background-position: 95% 50%;
+    background-repeat: no-repeat;
+}
 #high-scores input[type="text"]:focus {
     outline: none;
 }
@@ -46,4 +52,38 @@
     cursor: pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+
+#high-scores-table{
+    font-family: "Orbitron", sans-serif;
+    position: absolute;
+    width: 80%;
+    margin-left: 10%;
+    transform: translateY(-50%);
+    color: #06ff00;
+    top: 50%;
+}
+
+.score-row{
+    position: relative;
+    clear: both;
+    height: 1em;
+    border-bottom: solid 1px #06ff00;
+    padding: 1em 10em 1em 10em;
+}
+.score-row-header{
+    position: relative;
+    clear: both;
+    height: 1em;
+    border-bottom: solid 2px #06ff00;
+    padding: 1em 7em 1em 8em;
+    font-size: 1.2em;
+}
+
+.name-score{
+    float: left;
+}
+
+.score-score{
+    float: right
 }
