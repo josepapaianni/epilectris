@@ -1,5 +1,5 @@
 <?php
-$local = true;
+$local = false;
 
 if ($local) {
     return array(

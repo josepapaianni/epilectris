@@ -84,7 +84,8 @@ var UiUtils = function () {
   }
 
   this.showWelcomeScreen = function () {
-    this.welcomeScreen.css('display', 'block')
+    this.welcomeScreen.css('display', 'block');
+    this.welcomeScreenActive = true;
     var _self = this;
     TweenMax.to(this.welcomeScreen, 1, {
       scale: 1,
@@ -102,7 +103,7 @@ var UiUtils = function () {
         autoAlpha: 0.3,
         yoyo: true,
         repeat: -1
-      })
+      });
     }
   };
 
@@ -119,6 +120,11 @@ var UiUtils = function () {
     TweenMax.to(this.welcomeText, 1, {
       autoAlpha: 0
     });
+    if (this.highScoresActive){
+      TweenMax.to($('#high-scores-table'),1,{
+        autoAlpha: 0
+      })
+    }
   };
 
   this.showHoldPiece = function (pieceMatrix, colour, pieceName, player) {
@@ -174,7 +180,7 @@ var UiUtils = function () {
     }
     TweenMax.set(gameOverText, {autoAlpha: 1});
     TweenMax.fromTo(gameOverText, 1, {
-      scale: 0,
+      scale: 0
     }, {
       scale: 1,
       delay: 0.66,
@@ -183,7 +189,8 @@ var UiUtils = function () {
       repeat: 1,
       repeatDelay: 3,
       onComplete: function () {
-        if (gamesManager.isMultiplayer()){
+        console.log(player);
+        if (player){
           _self.restartGame();
         } else {
           _self.showPlayerInputHighScore(score);
@@ -198,6 +205,7 @@ var UiUtils = function () {
     var highScoresInputScreen = $('#high-scores');
     var playerName = $('#player-name');
     highScoresInputScreen.css('display','block');
+    playerName.val('');
 
     $('#submit-btn').click(function(event){
       event.preventDefault();
@@ -223,24 +231,44 @@ var UiUtils = function () {
         })
       }
     });
-  }
+  };
 
   this.showHighScores = function (response) {
+    this.highScoresActive = true;
+    var _self = this;
     var scores = $.parseJSON(response);
+    if (this.welcomeScreenActive){
+      TweenMax.to(this.welcomeScreen, 1, {
+        scale: 0,
+        autoAlpha: 0
+      });
+    }
     var highScoresTable = $('#high-scores-table');
-    console.log(scores);
+    highScoresTable.css('display','block');
+    highScoresTable.html('');
     highScoresTable.append('<div class="score-row-header">'+
         '<div class="name-score"> NAME </div>' +
         '<div class="score-score">SCORE</div>' +
         '</div>');
-
-    for (var i = 0; i < scores.length; i++){
-      highScoresTable.append('<div class="score-row">'+
-          '<div class="name-score">' +scores[i].name + '</div>' +
-          '<div class="score-score">' +scores[i].score + '</div>' +
-          '</div>')
+    if (scores){
+      for (var i = 0; i < scores.length; i++){
+        highScoresTable.append('<div class="score-row">'+
+            '<div class="name-score">' +scores[i].name + '</div>' +
+            '<div class="score-score">' +scores[i].score + '</div>' +
+            '</div>')
+      };
     }
-
+    TweenMax.fromTo(highScoresTable,0.66,{
+      scale:0,
+      autoAlpha:1
+    },{
+      scale: 1,
+      autoAlpha:1
+    })
+    setTimeout(function(){
+      console.log('restarting')
+      _self.restartGame();
+    }, 7500);
   };
 
   this.getHighScores = function () {
@@ -273,7 +301,18 @@ var UiUtils = function () {
   };
 
   this.restartGame = function () {
-    this.showWelcomeScreen();
+    if (this.highScoresActive){
+      this.highScoresActive = false;
+      var tableDiv = $('#high-scores-table');
+      TweenMax.to(tableDiv,0.66,{
+        autoAlpha: 0,
+        onComplete: function(){
+          tableDiv.css('display','none');
+        }
+      })
+    }
+    var _self = this;
+    _self.showWelcomeScreen();
     gamesManager.canStartNewGame = true;
     createMainClasses();
   }
